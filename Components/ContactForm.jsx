@@ -2,102 +2,28 @@ import styles from "../styles/Home.module.scss"
 import { FaPhoneAlt } from "react-icons/fa"
 import { BsLinkedin } from "react-icons/bs"
 import { MdEmail } from "react-icons/md"
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth"
-import { doc, setDoc, serverTimestamp } from "firebase/firestore"
-import { db } from "../firebase.config"
-import { useState } from "react"
+import { SignInWithEmail, FormSubmission } from "../Utilities/Form"
+import { serverTimestamp } from "firebase/firestore"
+import { auth } from '../firebase.config'
 
 export default function ContactForm() {
-  const auth = getAuth()
-  const [Error, setError] = useState({ Code: null, Message: "" })
   // SUBMIT THE FORM AND SIGN-IN USER
   const onSubmit = async (e) => {
     e.preventDefault()
-    if (!formIsValid()) {
-      return
-    }
-    try {
-      const fullName = FirstName.value.trim() + " " + LastName.value.trim()
-      const password = fullName.trim()
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        Email.value,
-        password
-      )
-      const user = userCredential.user
-      console.log("Phone:", getPhoneNumber(Phone.value))
-
-      updateProfile(auth.currentUser, {
-        displayName: fullName,
-        phoneNumber: getPhoneNumber(Phone.value),
-      })
-      onSuccess(user)
-    } catch (error) {
-      setError({ Code: error.code, Message: error.message })
-      console.log("Sign-In Failed")
+    SignInWithEmail(FirstName, LastName, Phone, Email, Password)
+    if (auth.currentUser){
+      const communicationForm = {
+        Form: "Contact",
+        FirstName: FirstName.value,
+        LastName: LastName.value,
+        Subject: Subject.value,
+        Body: Body.value,
+        Submitted: serverTimestamp(),
+      }
+      FormSubmission('Contact', communicationForm)
+      clearForm()
     }
   }
-
-  // ON SUCCESS - SAVE TO DATABASE
-  const onSuccess = async (user) => {
-    const formUser = {
-      FirstName: FirstName.value,
-      LastName: LastName.value,
-      Phone: getPhoneNumber(Phone.value),
-      Email: Email.value,
-      Created: serverTimestamp(),
-    }
-    const formSubmission = {
-      Form: "Contact",
-      FirstName: FirstName.value,
-      LastName: LastName.value,
-      Subject: Subject.value,
-      Body: Body.value,
-      Submitted: serverTimestamp(),
-    }
-    await setDoc(doc(db, "Users", user.uid), formUser)
-    await setDoc(doc(db, "Communications", user.uid), formSubmission)
-    clearForm()
-  }
-
-  // FORM VALIDATION
-  const formIsValid = () => {
-    let errors = 0
-    if (Subject.value == "" || Body.value == "") {
-      setError({
-        Code: "Incomplete",
-        Message: "Please provide email subject and body.",
-      })
-      errors++
-    }
-    if (Email.value == "") {
-      setError({
-        Code: "Incomplete",
-        Message: "Please provide an email address.",
-      })
-      errors++
-    }
-    if (FirstName.value == "" || LastName.value == "") {
-      setError({
-        Code: "Incomplete",
-        Message: "First and Last Name are required.",
-      })
-      errors++
-    }
-    if (errors === 0) {
-      setError({ Code: null, Message: "" })
-      return true
-    } else {
-      return false
-    }
-  }
-
-  // CLEAR FORM
   const clearForm = () => {
     FirstName.value = ""
     LastName.value = ""
@@ -106,16 +32,6 @@ export default function ContactForm() {
     Subject.value = ""
     Body.value = ""
     console.log("Form has been reset!")
-  }
-
-  // FORMAT PHONE NUMBER
-  const getPhoneNumber = (PhoneNumber) => {
-    let cleaned = ("" + PhoneNumber).replace(/\D/g, "")
-    let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/)
-    if (match) {
-      return "(" + match[1] + ") " + match[2] + "-" + match[3]
-    }
-    return null
   }
 
   // RETURN THE FORM HTML
