@@ -1,7 +1,13 @@
+ @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,200;0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
+
 :root {
   --primary-color: #367cff;
+  --primary-faded: #9ABDFF;
+  --primary-dark: #2556B2;
   --light-primary-color: #bad7fd;
   --light-color: #333;
+  --light-faded: #888;
+  color-scheme: dark;
 }
 html,
 body {
@@ -42,8 +48,27 @@ header nav a {
 header nav .active {
   border-bottom: 2px solid var(--primary-color);
 }
+header nav div.Login {
+  border-left: 2px solid white;
+  margin-left: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+header nav svg.Login{
+  margin-left: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+header nav .Login a {
+  padding-left: 0.4rem;
+  font-size: 0.8rem;
+}
 header nav a:hover {
   border-bottom: 2px solid white;
+}
+header nav .Login a:hover{
+  border-bottom: none;
 }
 
 * {

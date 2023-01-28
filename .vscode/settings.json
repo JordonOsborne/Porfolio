@@ -1,0 +1,11 @@
+{
+	"reactSnippets.settings.prettierEnabled": true,
+	"reactSnippets.settings.importReactOnTop": false,
+	"prettier.jsxSingleQuote": true,
+	"prettier.semi": false,
+	"prettier.singleAttributePerLine": true,
+	"prettier.singleQuote": true,
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"html.completion.attributeDefaultValue": "singlequotes"
+}
