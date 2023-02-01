@@ -13,7 +13,7 @@ export default function SignIn() {
 	console.log('User: ', user)
 
 	return (
-		<div className={styles.container}>
+		<div id='Page'>
 			<ToastContainer />
 			<Header />
 			<div className={styles.center}>
@@ -51,7 +51,7 @@ export default function SignIn() {
 				)}
 
 				{/* SIGN IN FORM */}
-				{!user && (
+				{!user && newUser && (
 					<>
 						<Registration />
 						<div>
