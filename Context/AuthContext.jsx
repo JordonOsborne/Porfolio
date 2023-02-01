@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from 'react'
 import { auth, db } from '../firebase.config'
-import { onAuthStateChanged } from 'firebase/auth'
+import { onIdTokenChanged } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
 
 const AuthContext = createContext()
@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
 	const [user, setUser] = useState(auth.currentUser)
 	const [authFlag, setAuthFlag] = useState(true)
 
-	onAuthStateChanged(auth, async (user) => {
+	onIdTokenChanged(auth, async (user) => {
 		if (authFlag) {
 			setAuthFlag(false)
 			if (user) {

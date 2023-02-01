@@ -1,18 +1,13 @@
 import Link from 'next/link'
-import { auth } from '../firebase.config'
+import UserMenu from '../Components/UserMenu'
 import { useRouter } from 'next/router'
-import { RiLoginCircleFill, RiLogoutCircleFill } from 'react-icons/ri'
+import { RiLoginCircleFill } from 'react-icons/ri'
 import { useContext } from 'react'
 import AuthContext from '../Context/AuthContext'
 
 export default function Navigation() {
 	const router = useRouter()
 	const user = useContext(AuthContext)
-
-	const LogOut = async (e) => {
-		e.preventDefault()
-		await auth.signOut()
-	}
 
 	return (
 		<nav>
@@ -29,21 +24,14 @@ export default function Navigation() {
 				<Link href='/ComingSoon'>Contact</Link>
 			</div>
 			{router.asPath != '/SignIn' &&
+				router.asPath != '/Admin' &&
 				(!user ? (
 					<div className='Login'>
 						<RiLoginCircleFill className='Login' />
 						<Link href='/SignIn'>Sign In</Link>
 					</div>
 				) : (
-					<div
-						className='Login'
-						onClick={(e) => {
-							LogOut(e)
-						}}
-					>
-						<RiLogoutCircleFill className='Login' />
-						<Link href='#'>Log Out</Link>
-					</div>
+					<UserMenu user={user} />
 				))}
 		</nav>
 	)

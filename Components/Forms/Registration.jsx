@@ -2,8 +2,7 @@ import styles from '../../styles/SignIn.module.scss'
 import { useState } from 'react'
 import { MdEmail, MdAccountCircle } from 'react-icons/md'
 import { FaKey, FaPhoneAlt } from 'react-icons/fa'
-import { AiOutlineEye } from 'react-icons/ai'
-import { AiOutlineEyeInvisible } from 'react-icons/ai'
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 import { NewUserIsValid, RegisterWithEmail } from '../../Utilities/Form'
 
 export default function Registration() {

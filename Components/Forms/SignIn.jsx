@@ -1,5 +1,5 @@
 import styles from '../../styles/SignIn.module.scss'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { MdEmail } from 'react-icons/md'
 import { FaKey } from 'react-icons/fa'
 import { AiOutlineEye } from 'react-icons/ai'
