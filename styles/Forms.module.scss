@@ -1,3 +1,51 @@
+// DROPDOWN MENUS
+.dropdown {
+	position: relative;
+	div {
+		font-size: inherit;
+		border: 1px solid var(--light-color);
+		display: flex;
+		align-items: center;
+		cursor: pointer;
+		input {
+			padding: 0.5rem;
+			outline: none;
+			border: none;
+			background: inherit;
+			color: inherit;
+			font-size: inherit;
+			width: 100px;
+			cursor: pointer;
+		}
+		svg {
+			margin-right: 0.25rem;
+		}
+	}
+	.options {
+		position: absolute;
+		top: 100%;
+		right: 0%;
+		background: black;
+		display: block;
+		width: 100%;
+		border: 1px solid var(--light-color);
+		div {
+			display: block;
+			width: 100%;
+			border: none;
+			font-size: inherit;
+			padding: 0.5rem;
+			cursor: pointer;
+			&.selected {
+				background: var(--light-color);
+			}
+			&:hover {
+				background: var(--light-faded);
+			}
+		}
+	}
+}
+
 // EDIT MODE FOR  INPUTS
 .labelDiv {
 	display: flex;
