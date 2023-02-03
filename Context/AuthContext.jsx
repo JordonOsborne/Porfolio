@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useState } from 'react'
 import { auth, db } from '../firebase.config'
 import { onIdTokenChanged } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
