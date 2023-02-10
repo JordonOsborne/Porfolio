@@ -1,3 +1,105 @@
+// SIDE PANEL FORMS
+.SidePanel {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 350px;
+	height: 100vh;
+	background: black;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border-left: 2px solid var(--primary-color);
+	background: rgb(37, 86, 178);
+	background: linear-gradient(
+		90deg,
+		var(--primary-dark) 0%,
+		rgba(2, 0, 36, 1) 8%
+	);
+	.ActionMenu {
+		padding: 0.5rem 1rem;
+		padding-left: 2rem;
+		margin-top: 0.5rem;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		border-bottom: 1px solid white;
+		width: 100%;
+		svg {
+			font-size: 1.5rem;
+			cursor: pointer;
+		}
+	}
+	h2 {
+		margin: 0;
+		margin-top: 1rem;
+		padding: 1rem;
+		text-align: center;
+	}
+	form {
+		margin-left: 2rem;
+		.dropdown {
+			display: block;
+			position: relative;
+			div {
+				border: none;
+				input {
+					padding: 0.5rem 1rem;
+					padding-left: 2.25rem;
+					font-weight: 200;
+					font-size: 1rem;
+					border-radius: 5px;
+					width: 250px;
+					outline: none;
+					border: none;
+					background: white;
+					color: var(--light-color);
+				}
+				svg {
+					position: absolute;
+					right: 1.5rem;
+					font-size: 1rem;
+					fill: var(--primary-dark);
+					stroke: var(--primary-dark);
+				}
+				.Icon {
+					font-size: 1.5rem;
+					position: absolute;
+					left: 6px;
+					fill: var(--light-faded);
+					&.Date {
+						cursor: pointer;
+					}
+					path {
+						stroke: var(--light-color);
+					}
+				}
+			}
+			.options {
+				width: 250px;
+				right: 1rem;
+				display: block;
+				border: 1px solid var(--light-faded);
+				border-top: none;
+				z-index: 1;
+				div {
+					padding-left: 1.5rem;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+				}
+			}
+		}
+		.Container {
+			padding: 0 1rem;
+			padding-left: 2rem;
+			label {
+				font-size: 1rem;
+			}
+		}
+	}
+}
+
 // DROPDOWN MENUS
 .dropdown {
 	position: relative;
@@ -18,7 +120,9 @@
 			cursor: pointer;
 		}
 		svg {
-			margin-right: 0.25rem;
+			position: absolute;
+			right: 1.5rem;
+			font-size: 1rem;
 		}
 	}
 	.options {
@@ -65,6 +169,12 @@
 			left: 6px;
 			top: 5px;
 			fill: var(--light-faded);
+			&.Date {
+				cursor: pointer;
+			}
+			path {
+				stroke: var(--light-color);
+			}
 		}
 		.ShowPassword {
 			font-size: 1.5rem;

@@ -1,0 +1,132 @@
+#Admin {
+	display: grid;
+	grid-template-columns: 1fr 4fr;
+	aside {
+		grid-column: 1;
+		form {
+			margin: 0.25rem;
+			h1 {
+				margin: 0;
+				padding: 0.5rem;
+			}
+			button {
+				margin-top: 1rem;
+				padding: 0.75rem;
+				text-align: center;
+				font-size: 1.25rem;
+				background: transparent;
+				border: 1px solid white;
+				border-radius: 5px;
+				width: 250px;
+				cursor: pointer;
+			}
+		}
+		hr {
+			margin-top: 2rem;
+			margin-bottom: 1rem;
+		}
+		menu {
+			margin-block-start: 0.5rem;
+			padding-inline-start: 0;
+			h3 {
+				margin: 0;
+				padding: 0.5rem;
+			}
+			li {
+				list-style: none;
+				padding: 0.25rem 1rem;
+				cursor: pointer;
+			}
+		}
+	}
+	main {
+		padding: 0 1rem;
+		h1 {
+			margin-top: 0;
+		}
+		.Forms {
+			display: flex;
+			width: 100%;
+			button {
+				display: flex;
+				flex: 1;
+				justify-content: center;
+				align-items: center;
+				font-size: 1rem;
+				padding: 0.5rem;
+				text-align: center;
+				min-width: 200px;
+				background: transparent;
+				border: 1px solid white;
+				cursor: pointer;
+				&:hover:not(.selected) {
+					background: var(--primary-faded);
+				}
+				&.selected {
+					background: var(--primary-color);
+				}
+				svg {
+					margin: 0 0.5rem;
+					font-size: 1.25rem;
+					fill: white;
+					color: white;
+					path {
+						stroke: white;
+					}
+				}
+			}
+		}
+		.Menu {
+			margin-top: 1rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			button {
+				display: flex;
+				align-items: center;
+				padding: 0.5rem 1rem;
+				background: transparent;
+				color: white;
+				border: 1px solid white;
+				border-radius: 5px;
+				cursor: pointer;
+				font-size: 1rem;
+				svg {
+					margin-right: 0.5rem;
+					font-size: 1.25rem;
+				}
+			}
+		}
+		.Collection {
+			width: 100%;
+			table-layout: fixed;
+			margin-top: 1rem;
+			border-collapse: collapse;
+			thead {
+				border-bottom: 2px solid white;
+			}
+			th {
+				padding: 0.5rem 1rem;
+				background: var(--light-color);
+			}
+			td {
+				padding: 0.5rem 1rem;
+				text-align: center;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				a:has(svg) {
+					margin-right: 0.5rem;
+				}
+			}
+			th:first-child,
+			td:first-child {
+				text-align: left;
+			}
+			td.last {
+				width: 1px;
+				white-space: nowrap;
+			}
+		}
+	}
+}

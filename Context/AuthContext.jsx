@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
 						Phone: dbUser.Phone,
 						FirstName: dbUser.FirstName,
 						LastName: dbUser.LastName,
-						created: auth.currentUser.metadata.creationTime,
+						Created: auth.currentUser.metadata.creationTime,
 						isAdmin: dbUser?.isAdmin,
 					}
 					setUser(data)
@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
 const getUserData = async (uid) => {
 	const docRef = doc(db, 'Users', uid)
 	const dbUser = await getDoc(docRef)
-	const data = await dbUser.data()
+	const data = dbUser.data()
 	return data
 }
 

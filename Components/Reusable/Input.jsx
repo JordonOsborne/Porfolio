@@ -1,9 +1,24 @@
 import styles from '../../styles/Forms.module.scss'
 import { MdEmail, MdAccountCircle } from 'react-icons/md'
 import { FaKey, FaPhoneAlt } from 'react-icons/fa'
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
+import {
+	AiOutlineEye,
+	AiOutlineEyeInvisible,
+	AiFillDollarCircle,
+} from 'react-icons/ai'
+import { BsShieldLockFill } from 'react-icons/bs'
+import { GrOrganization } from 'react-icons/gr'
+import { MdDateRange } from 'react-icons/md'
+import { BiText } from 'react-icons/bi'
 
 function Input({ Id, Label, Placeholder, Default, Icon, ReadOnly }) {
+	const DatePicker = (e) => {
+		try {
+			e.target.nextSibling.showPicker()
+		} catch (error) {
+			e.target.parentElement.nextSibling.showPicker()
+		}
+	}
 	const setIcon = (Icon) => {
 		switch (Icon) {
 			case 'Person':
@@ -12,8 +27,21 @@ function Input({ Id, Label, Placeholder, Default, Icon, ReadOnly }) {
 				return <MdEmail className={styles.Icon} />
 			case 'Phone':
 				return <FaPhoneAlt className={styles.Icon} />
+			case 'Id':
+				return <BsShieldLockFill className={styles.Icon} />
+			case 'Client':
+				return <GrOrganization className={styles.Icon} />
+			case 'Date':
+				return (
+					<MdDateRange
+						className={`${styles.Icon} ${styles.Date}`}
+						onClick={(e) => DatePicker(e)}
+					/>
+				)
+			case 'Dollar':
+				return <AiFillDollarCircle className={styles.Icon} />
 			default:
-				break
+				return <BiText className={styles.Icon} />
 		}
 	}
 	const setType = (Id) => {
@@ -23,7 +51,11 @@ function Input({ Id, Label, Placeholder, Default, Icon, ReadOnly }) {
 			case 'Phone':
 				return 'phone'
 			default:
-				return 'text'
+				if (Icon === 'Date') {
+					return 'date'
+				} else {
+					return 'text'
+				}
 		}
 	}
 	return (
