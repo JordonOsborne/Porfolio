@@ -2,40 +2,38 @@ import Actions from './Actions'
 import styles from '../../styles/Forms.module.scss'
 import Client from './Client'
 import User from './User'
-import { GetDoc } from '../../Context/FirebaseAPI'
+import FirebaseAPI from '../../Context/FirebaseAPI'
+import { useContext } from 'react'
 import { useEffect, useState } from 'react'
 
-function FormSelector({ Collection, Id, CloseForm }) {
-	const [data, setData] = useState(null)
+function FormSelector({ Id, CloseForm }) {
+	const { table, formData, GetDoc } = useContext(FirebaseAPI)
 	const [form, setForm] = useState(null)
-
-	const GetData = async () => {
-		const dataRaw = await GetDoc(Collection, Id)
-		setData(dataRaw.data())
-	}
 
 	useEffect(() => {
 		if (Id) {
-			GetData()
+			GetDoc(table, Id)
 		}
-		GetForm(Collection)
-	}, [Collection, Id])
+		GetForm(table)
+	}, [table, Id])
 
-	const GetForm = (Collection) => {
-		switch (Collection) {
+	const GetForm = (table) => {
+		switch (table) {
 			case 'Clients':
 				return setForm(document.Clients)
+			case 'Users':
+				return setForm(document.Users)
 			default:
 				break
 		}
 	}
 
-	const ChooseForm = (data) => {
-		switch (Collection) {
+	const ChooseForm = (formData) => {
+		switch (table) {
 			case 'Clients':
-				return <Client data={data} />
+				return <Client data={formData} />
 			case 'Users':
-				return <User data={data} />
+				return <User data={formData} />
 			default:
 				break
 		}
@@ -47,7 +45,7 @@ function FormSelector({ Collection, Id, CloseForm }) {
 				CloseForm={CloseForm}
 				Form={form}
 			/>
-			{ChooseForm(data)}
+			{ChooseForm(formData)}
 		</div>
 	)
 }

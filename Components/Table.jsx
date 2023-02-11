@@ -1,28 +1,14 @@
 import styles from '../styles/Admin.module.scss'
 import Loading from '../Components/Reusable/Loading'
-import { GetData } from '../Context/FirebaseAPI'
-import { useEffect, useState } from 'react'
+import FirebaseAPI from '../Context/FirebaseAPI'
+import { useContext } from 'react'
 import { FaFileInvoiceDollar } from 'react-icons/fa'
 
-function Table({ Collection }) {
-	const [data, setData] = useState([])
-	const [isLoading, setIsLoading] = useState(true)
+function Table() {
+	const { table, data, isLoading } = useContext(FirebaseAPI)
 
-	useEffect(() => {
-		const FetchData = async (Collection) => {
-			if (Collection) {
-				const dataRaw = await GetData(Collection)
-				if (data.length === 0 || data[0].id != dataRaw[0].id) {
-					setData(dataRaw)
-					setIsLoading(false)
-				}
-			}
-		}
-		FetchData(Collection)
-	}, [Collection])
-
-	const TableHeader = (Collection) => {
-		switch (Collection) {
+	const TableHeader = (table) => {
+		switch (table) {
 			case 'Clients':
 				return (
 					<tr>
@@ -73,15 +59,15 @@ function Table({ Collection }) {
 		}
 	}
 	const TableRow = (data) => {
-		switch (Collection) {
+		switch (table) {
 			case 'Clients':
-				return data.map((Client) => {
+				return data.map((client) => {
 					return (
-						<tr key={Client.id}>
-							<td>{Client.Client}</td>
-							<td>{Client.Since?.toDate().toDateString()}</td>
-							<td>{Client.Contact?.displayName}</td>
-							<td>{`$` + Client.AnnualCharge}</td>
+						<tr key={client.id}>
+							<td>{client?.Client}</td>
+							<td>{client?.Since?.toDate().toDateString()}</td>
+							<td>{client?.Contact?.displayName}</td>
+							<td>{`$` + client?.AnnualCharge}</td>
 						</tr>
 					)
 				})
@@ -89,11 +75,11 @@ function Table({ Collection }) {
 				return data.map((user) => {
 					return (
 						<tr key={user.id}>
-							<td>{user.FirstName + ' ' + user.LastName}</td>
-							<td>{user.Company}</td>
-							<td>{user.Phone}</td>
-							<td>{user.Email}</td>
-							<td>{user.Created?.toDate().toDateString()}</td>
+							<td>{user?.FirstName + ' ' + user?.LastName}</td>
+							<td>{user?.Company}</td>
+							<td>{user?.Phone}</td>
+							<td>{user?.Email}</td>
+							<td>{user?.Created?.toDate().toDateString()}</td>
 						</tr>
 					)
 				})
@@ -101,9 +87,9 @@ function Table({ Collection }) {
 				return data.map((project) => {
 					return (
 						<tr key={project.id}>
-							<td>{project.Project}</td>
-							<td>{project.Date?.toDate().toDateString()}</td>
-							<td>{project.Description}</td>
+							<td>{project?.Project}</td>
+							<td>{project?.Date?.toDate().toDateString()}</td>
+							<td>{project?.Description}</td>
 						</tr>
 					)
 				})
@@ -111,9 +97,9 @@ function Table({ Collection }) {
 				return data.map((communication) => {
 					return (
 						<tr key={communication.id}>
-							<td>{communication.Form}</td>
-							<td>{communication.Subject}</td>
-							<td>{communication.Submitted?.toDate().toDateString()}</td>
+							<td>{communication?.Form}</td>
+							<td>{communication?.Subject}</td>
+							<td>{communication?.Submitted?.toDate().toDateString()}</td>
 						</tr>
 					)
 				})
@@ -121,16 +107,16 @@ function Table({ Collection }) {
 				return data.map((invoice) => {
 					return (
 						<tr key={invoice.id}>
-							<td title={invoice.Client}>
+							<td title={invoice?.Client}>
 								<a
-									href={invoice.File}
-									title={invoice.Date?.toDate().toDateString() + ` Invoice`}
+									href={invoice?.File}
+									title={invoice?.Date?.toDate().toDateString() + ` Invoice`}
 								>
 									<FaFileInvoiceDollar />
 								</a>
 								{invoice.Client}
 							</td>
-							<td>{`$` + invoice.Charge}</td>
+							<td>{`$` + invoice?.Charge}</td>
 							<td>{invoice.Date?.toDate().toDateString()}</td>
 							<td>{invoice.ReminderSent?.toDate().toDateString()}</td>
 							<td>{invoice.PaidOn?.toDate().toDateString()}</td>
@@ -147,7 +133,7 @@ function Table({ Collection }) {
 			{isLoading && <Loading />}
 			{!isLoading && (
 				<table className={styles.Collection}>
-					<thead>{TableHeader(Collection)}</thead>
+					<thead>{TableHeader(table)}</thead>
 					<tbody>{TableRow(data)}</tbody>
 				</table>
 			)}

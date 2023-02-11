@@ -51,7 +51,7 @@ function Dropdown({ Name, Default, Options, ShowLabel, Icon }) {
 							id={Name.replace(' ', '')}
 							name={Name.replace(' ', '')}
 							title={Name}
-							value={selected.displayName}
+							value={selected?.displayName}
 							data-value={JSON.stringify(selected)}
 							readOnly
 						/>

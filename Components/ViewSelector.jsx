@@ -1,30 +1,29 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import Dropdown from './Reusable/Dropdown'
 import Loading from './Reusable/Loading'
+import FirebaseAPI from '../Context/FirebaseAPI'
 
-function ViewSelector({ Collection }) {
-	const [isLoading, setIsLoading] = useState(true)
+function ViewSelector() {
+	const { isLoading, table } = useContext(FirebaseAPI)
 	const [views, setViews] = useState([])
 
-	const GetViews = (Collection) => {
-		switch (Collection) {
+	const GetViews = (table) => {
+		switch (table) {
 			case 'Clients':
 				setViews([
 					{ value: 'All', displayName: 'All' },
 					{ value: 'Active', displayName: 'Active' },
 				])
-				setIsLoading(false)
 				return
 			default:
 				setViews([])
-				setIsLoading(false)
 				return
 		}
 	}
 
 	useEffect(() => {
-		GetViews(Collection)
-	}, [Collection])
+		GetViews(table)
+	}, [table])
 
 	return (
 		<>

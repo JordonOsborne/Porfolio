@@ -1,10 +1,13 @@
 import styles from '../../styles/Forms.module.scss'
+import FirebaseAPI from '../../Context/FirebaseAPI'
 import { MdSave, MdOutlineExitToApp } from 'react-icons/md'
-import { SaveForm, ConvertUTC } from '../../Context/FirebaseAPI'
 import { FormIsValid } from '../../Utilities/Form'
+import { useContext } from 'react'
 import { Timestamp } from 'firebase/firestore'
 
 function Actions({ CloseForm, Form }) {
+	const { SaveForm, ConvertUTC } = useContext(FirebaseAPI)
+
 	const SubmitForm = async (Form) => {
 		const allFields = Array.from(Form.elements)
 		GetFormData()

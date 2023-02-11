@@ -1,26 +1,27 @@
 import styles from '../../styles/Forms.module.scss'
 import Input from '../../Components/Reusable/Input'
 import Dropdown from '../../Components/Reusable/Dropdown'
-import { GetData } from '../../Context/FirebaseAPI'
-import { useState, useEffect } from 'react'
+import FirebaseAPI from '../../Context/FirebaseAPI'
+import { useState, useEffect, useContext } from 'react'
 
 function Client({ data }) {
+	const { GetData } = useContext(FirebaseAPI)
 	const [users, setUsers] = useState([])
-	const GetUsers = async () => {
-		const Users = await GetData('Users')
-		let usersArray = []
-		Users.map((user) => {
-			usersArray.push({
-				value: user.id,
-				displayName: `${user.FirstName + ' ' + user.LastName}`,
-				Email: user.Email,
-				Phone: user.Phone,
-			})
-		})
-		setUsers(usersArray)
-	}
 
 	useEffect(() => {
+		const GetUsers = async () => {
+			const Users = await GetData('Users', true)
+			let usersArray = []
+			Users.map((user) => {
+				usersArray.push({
+					value: user.id,
+					displayName: `${user.FirstName + ' ' + user.LastName}`,
+					Email: user.Email,
+					Phone: user.Phone,
+				})
+			})
+			setUsers(usersArray)
+		}
 		GetUsers()
 	}, [])
 

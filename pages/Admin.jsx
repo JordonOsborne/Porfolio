@@ -8,8 +8,7 @@ import styles from '../styles/Admin.module.scss'
 import AuthContext from '../Context/AuthContext'
 import FirebaseAPI from '../Context/FirebaseAPI'
 import { ToastContainer } from 'react-toastify'
-import { GetCollectionTotal } from '../Context/FirebaseAPI'
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState } from 'react'
 import { auth } from '../firebase.config'
 import { useRouter } from 'next/router'
 import { UpdateProfile } from '../Utilities/Form'
@@ -20,34 +19,12 @@ import { GoCommentDiscussion } from 'react-icons/go'
 
 export default function Admin() {
 	const user = useContext(AuthContext)
-	const { collection, setCollection } = useContext(FirebaseAPI)
+	const { table, setTable, collectionTotals, isLoading } =
+		useContext(FirebaseAPI)
 	const router = useRouter()
-	// TABLE TOTALS
-	const [Clients, setClients] = useState(0)
-	const [Users, setUsers] = useState(0)
-	const [Work, setWork] = useState(0)
-	const [Communications, setCommunications] = useState(0)
-	const [Invoices, setInvoices] = useState(0)
 	// SHOW-HIDE ACTIONS
 	const [editProfile, setEditProfile] = useState(false)
-	const [selected, setSelected] = useState('Clients')
 	const [showForm, setShowForm] = useState(false)
-
-	useEffect(() => {
-		const getCollectionTotals = async () => {
-			const clientCount = await GetCollectionTotal('Clients')
-			setClients(clientCount)
-			const userCount = await GetCollectionTotal('Users')
-			setUsers(userCount)
-			const workCount = await GetCollectionTotal('My-Work')
-			setWork(workCount)
-			const communicationCount = await GetCollectionTotal('Communications')
-			setCommunications(communicationCount)
-			const InvoiceCount = await GetCollectionTotal('Invoices')
-			setInvoices(InvoiceCount)
-		}
-		getCollectionTotals()
-	}, [Clients, Users, Work, Communications, Invoices])
 
 	const LogOut = async (e) => {
 		e.preventDefault()
@@ -159,63 +136,64 @@ export default function Admin() {
 						<div id='Company'>
 							<h1>Site Administrator</h1>
 						</div>
-						<div className={styles.Forms}>
-							<button
-								className={selected === 'Clients' ? styles.selected : ''}
-								onClick={() => setSelected('Clients')}
-							>
-								<GrOrganization />
-								{Clients === 1 ? Clients + ` Client` : Clients + ` Clients`}
-							</button>
-							<button
-								className={selected === 'Users' ? styles.selected : ''}
-								onClick={() => setSelected('Users')}
-							>
-								<FaUsers />
-								{Users} Users
-							</button>
-							{user.isAdmin && (
+						{!isLoading && (
+							<div className={styles.Forms}>
 								<button
-									className={selected === 'My-Work' ? styles.selected : ''}
-									onClick={() => setSelected('My-Work')}
+									className={table === 'Clients' ? styles.selected : ''}
+									onClick={() => setTable('Clients')}
 								>
-									<FaCode />
-									{Work === 1 ? Work + ` Project` : Work + ` Projects`}
+									<GrOrganization />
+									{collectionTotals.Clients === 1
+										? collectionTotals.Clients + ` Client`
+										: collectionTotals.Clients + ` Clients`}
 								</button>
-							)}
-							<button
-								className={selected === 'Communications' ? styles.selected : ''}
-								onClick={() => setSelected('Communications')}
-							>
-								<GoCommentDiscussion />
-								{Communications === 1
-									? Communications + ` Communication`
-									: Communications + ` Communications`}
-							</button>
-							<button
-								className={selected === 'Invoices' ? styles.selected : ''}
-								onClick={() => setSelected('Invoices')}
-							>
-								<FaFileInvoiceDollar />
-								{Invoices === 1
-									? Invoices + ` Invoice`
-									: Invoices + ` Invoices`}
-							</button>
-						</div>
+								<button
+									className={table === 'Users' ? styles.selected : ''}
+									onClick={() => setTable('Users')}
+								>
+									<FaUsers />
+									{collectionTotals.Users} Users
+								</button>
+								{user.isAdmin && (
+									<button
+										className={table === 'My-Work' ? styles.selected : ''}
+										onClick={() => setTable('My-Work')}
+									>
+										<FaCode />
+										{collectionTotals.Work === 1
+											? collectionTotals.Work + ` Project`
+											: collectionTotals.Work + ` Projects`}
+									</button>
+								)}
+								<button
+									className={table === 'Communications' ? styles.selected : ''}
+									onClick={() => setTable('Communications')}
+								>
+									<GoCommentDiscussion />
+									{collectionTotals.Communications === 1
+										? collectionTotals.Communications + ` Communication`
+										: collectionTotals.Communications + ` Communications`}
+								</button>
+								<button
+									className={table === 'Invoices' ? styles.selected : ''}
+									onClick={() => setTable('Invoices')}
+								>
+									<FaFileInvoiceDollar />
+									{collectionTotals.Invoices === 1
+										? collectionTotals.Invoices + ` Invoice`
+										: collectionTotals.Invoices + ` Invoices`}
+								</button>
+							</div>
+						)}
 						<div className={styles.Menu}>
 							<button onClick={() => setShowForm(true)}>
 								<IoMdAddCircle />
 								New
 							</button>
-							<ViewSelector Collection={selected} />
+							<ViewSelector />
 						</div>
-						<Table Collection={selected} />
-						{showForm && (
-							<FormSelector
-								Collection={selected}
-								CloseForm={() => setShowForm(false)}
-							/>
-						)}
+						{isLoading ? <Loading /> : <Table />}
+						{showForm && <FormSelector CloseForm={() => setShowForm(false)} />}
 					</main>
 				)}
 			</div>

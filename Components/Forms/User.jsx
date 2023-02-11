@@ -1,28 +1,29 @@
 import styles from '../../styles/Forms.module.scss'
 import Input from '../Reusable/Input'
 import Dropdown from '../Reusable/Dropdown'
-import { useState, useEffect } from 'react'
-import { GetData } from '../../Context/FirebaseAPI'
+import FirebaseAPI from '../../Context/FirebaseAPI'
+import { useState, useEffect, useContext } from 'react'
 import { FaKey } from 'react-icons/fa'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 
 export default function User({ data }) {
+	const { GetData } = useContext(FirebaseAPI)
 	const [showPassword, setShowPassword] = useState(false)
 	const [clients, setClients] = useState([])
-	const GetClients = async () => {
-		const Clients = await GetData('Clients')
-		let clientsArray = []
-		Clients.map((client) => {
-			clientsArray.push({
-				value: client.id,
-				displayName: client.Client,
-				Since: client.Since,
-			})
-		})
-		setClients(clientsArray)
-	}
 
 	useEffect(() => {
+		const GetClients = async () => {
+			const Clients = await GetData('Clients', true)
+			let clientsArray = []
+			Clients.map((client) => {
+				clientsArray.push({
+					value: client.id,
+					displayName: client.Client,
+					Since: client.Since,
+				})
+			})
+			setClients(clientsArray)
+		}
 		GetClients()
 	}, [])
 
