@@ -1,11 +1,12 @@
 import styles from '../../styles/SignIn.module.scss'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { MdEmail, MdAccountCircle } from 'react-icons/md'
 import { FaKey, FaPhoneAlt } from 'react-icons/fa'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
-import { NewUserIsValid, RegisterWithEmail } from '../../Utilities/Form'
+import AuthContext from '../../Context/AuthContext'
 
 export default function Registration() {
+	const { NewUserIsValid, RegisterWithEmail } = useContext(AuthContext)
 	const [showPassword, setShowPassword] = useState(false)
 
 	// SUBMIT THE FORM AND SIGN-IN USER

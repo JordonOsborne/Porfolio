@@ -8,9 +8,7 @@ import Registration from '../Components/Forms/Registration'
 
 export default function SignIn() {
 	const [newUser, setNewUser] = useState(false)
-	const user = useContext(AuthContext)
-
-	console.log('User: ', user)
+	const { user } = useContext(AuthContext)
 
 	return (
 		<div id='Page'>

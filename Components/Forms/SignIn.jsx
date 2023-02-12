@@ -1,13 +1,14 @@
 import styles from '../../styles/SignIn.module.scss'
-import { useState } from 'react'
+import AuthContext from '../../Context/AuthContext'
+import { useState, useContext } from 'react'
 import { MdEmail } from 'react-icons/md'
 import { FaKey } from 'react-icons/fa'
 import { AiOutlineEye } from 'react-icons/ai'
 import { AiOutlineEyeInvisible } from 'react-icons/ai'
-import { SignInWithEmail } from '../../Utilities/Form'
 import { useRouter } from 'next/router'
 
 export default function SignIn() {
+	const { SignInWithEmail } = useContext(AuthContext)
 	const [showPassword, setShowPassword] = useState(false)
 	const router = useRouter()
 

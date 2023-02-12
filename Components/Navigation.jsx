@@ -7,7 +7,7 @@ import AuthContext from '../Context/AuthContext'
 
 export default function Navigation() {
 	const router = useRouter()
-	const user = useContext(AuthContext)
+	const { user } = useContext(AuthContext)
 
 	return (
 		<nav>
