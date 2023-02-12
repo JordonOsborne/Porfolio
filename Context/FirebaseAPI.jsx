@@ -17,15 +17,20 @@ import {
 const FirebaseAPI = createContext()
 
 export const FirebaseProvider = ({ children }) => {
-	const [collectionTotals, setCollectionTotals] = useState({})
-	const [table, setTable] = useState('Clients')
+	const [collectionTotals, setCollectionTotals] = useState({
+		Clients: 0,
+		Users: 0,
+		Work: 0,
+		Communications: 0,
+		Invoices: 0,
+	})
+	const [table, setTable] = useState('Users')
 	const [data, setData] = useState([])
-	const [form, setForm] = useState(null)
 	const [formData, setFormData] = useState(null)
 	const [showForm, setShowForm] = useState(false)
 	const [isLoading, setIsLoading] = useState(false)
-	const [updates, setUpdates] = useState(0)
-	const [deletes, setDeletes] = useState(0)
+	// const [updates, setUpdates] = useState(0)
+	// const [deletes, setDeletes] = useState(0)
 
 	useEffect(() => {
 		const getCollectionTotals = async () => {
@@ -48,7 +53,7 @@ export const FirebaseProvider = ({ children }) => {
 			GetData(table)
 			getCollectionTotals()
 		}
-	}, [table, updates, deletes])
+	}, [table])
 
 	// GET COLLECTION TOTALS
 	const GetCollectionTotal = async (table) => {
@@ -96,22 +101,10 @@ export const FirebaseProvider = ({ children }) => {
 		setIsLoading(false)
 	}
 
-	// GET FORM FROM HTML
-	const GetForm = (table) => {
-		switch (table) {
-			case 'Clients':
-				return setForm(document.Clients)
-			case 'Users':
-				return setForm(document.Users)
-			default:
-				break
-		}
-	}
-
 	// GET HTML FORM DATA
 	const GetHTMLFormData = () => {
 		let data, id
-		Array.from(form.elements).forEach((input) => {
+		Array.from(document[table].elements).forEach((input) => {
 			if (input.nodeName === 'INPUT' && input.id !== 'Id') {
 				// CHECK FOR DROPDOWN OBJECT VALUES
 				if (input.dataset.value === undefined) {
@@ -141,19 +134,16 @@ export const FirebaseProvider = ({ children }) => {
 				}
 			}
 		})
+		console.log('htmlFormData: ', { Id: id, Data: data })
 		return { Id: id, Data: data }
 	}
 
 	// SUBMIT FORM - VALIDATION INCLUDED
-	const SubmitForm = async (form) => {
-		const allFields = Array.from(form.elements)
+	const SubmitForm = async () => {
+		const allFields = Array.from(document[table].elements)
 		if (FormIsValid(allFields)) {
-			const htmlFormData = await GetHTMLFormData()
-			const newData = await SaveForm(
-				form.name,
-				htmlFormData.Id,
-				htmlFormData.Data
-			)
+			const htmlFormData = GetHTMLFormData()
+			const newData = await SaveForm(htmlFormData.Id, htmlFormData.Data)
 			setData([...data, newData])
 			setFormData(null)
 			setShowForm(false)
@@ -161,17 +151,21 @@ export const FirebaseProvider = ({ children }) => {
 	}
 
 	// SUBMIT FORM DATA TO DATABASE
-	const SaveForm = async (table, id, data) => {
+	const SaveForm = async (id, data) => {
 		data.Updated = serverTimestamp()
 		data.UpdatedBy = auth.currentUser.uid
 		try {
 			const docRef = doc(db, table, id)
 			const success = await setDoc(docRef, data)
+			setCollectionTotals({
+				...collectionTotals,
+				[table]: collectionTotals[table] + 1,
+			})
 			console.log('Form Saved Successfully')
-			setUpdates(updates + 1)
+			data.id = id
 			return data
 		} catch (error) {
-			console.log(error.message)
+			console.log('Save Form Failed: ', error.message)
 			return false
 		}
 	}
@@ -187,9 +181,14 @@ export const FirebaseProvider = ({ children }) => {
 		try {
 			const docRef = doc(db, table, id)
 			deleteDoc(docRef)
+			setData(data.filter((item) => item.id !== id))
+			setCollectionTotals({
+				...collectionTotals,
+				[table]: collectionTotals[table] - 1,
+			})
 			setFormData(null)
 			setShowForm(false)
-			setDeletes(deletes + 1)
+			console.log('Form Deleted')
 		} catch (error) {
 			console.log('Delete Doc Failed: ', error.message)
 		}
@@ -201,14 +200,12 @@ export const FirebaseProvider = ({ children }) => {
 				collectionTotals,
 				table,
 				data,
-				form,
 				formData,
 				showForm,
 				isLoading,
 				GetData,
 				GetDoc,
 				ConvertUTC,
-				GetForm,
 				SubmitForm,
 				DeleteDoc,
 				setCollectionTotals,
