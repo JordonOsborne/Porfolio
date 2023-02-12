@@ -17,7 +17,9 @@ function Dropdown({ Name, Default, Options, ShowLabel, Icon }) {
 					<div
 						key={option.value}
 						onClick={() => ChangeValue(option)}
-						className={option.value === selected.value ? styles.selected : ''}
+						className={
+							selected && option.value === selected.value ? styles.selected : ''
+						}
 					>
 						{option.displayName}
 					</div>
@@ -26,7 +28,6 @@ function Dropdown({ Name, Default, Options, ShowLabel, Icon }) {
 			setOptions(options)
 		}
 		BuildOptions(Options)
-		setSelected(Default)
 	}, [Options])
 
 	const setIcon = (Icon) => {
@@ -47,7 +48,7 @@ function Dropdown({ Name, Default, Options, ShowLabel, Icon }) {
 
 	return (
 		<>
-			{Options.length > 0 ? (
+			{Options.length > 0 && (
 				<div className={styles.dropdown}>
 					{ShowLabel && <label htmlFor={Name.replace(' ', '')}>{Name}</label>}
 					<div onClick={() => setIsOpen(!isOpen)}>
@@ -64,8 +65,6 @@ function Dropdown({ Name, Default, Options, ShowLabel, Icon }) {
 					</div>
 					{isOpen && <div className={styles.options}>{options}</div>}
 				</div>
-			) : (
-				<></>
 			)}
 		</>
 	)
