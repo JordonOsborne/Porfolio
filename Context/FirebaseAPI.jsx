@@ -95,6 +95,7 @@ export const FirebaseProvider = ({ children }) => {
 		}
 		setIsLoading(false)
 	}
+
 	// GET FORM FROM HTML
 	const GetForm = (table) => {
 		switch (table) {

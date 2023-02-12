@@ -4,14 +4,9 @@ import Client from './Client'
 import User from './User'
 import FirebaseAPI from '../../Context/FirebaseAPI'
 import { useContext } from 'react'
-import { useEffect } from 'react'
 
 function FormSelector() {
-	const { table, GetForm } = useContext(FirebaseAPI)
-
-	useEffect(() => {
-		GetForm(table)
-	}, [table])
+	const { table } = useContext(FirebaseAPI)
 
 	const ChooseForm = () => {
 		switch (table) {

@@ -24,11 +24,17 @@ export default function Admin() {
 	const {
 		table,
 		setTable,
+		setFormData,
 		collectionTotals,
 		showForm,
 		setShowForm,
 		isLoading,
 	} = useContext(FirebaseAPI)
+
+	const NewForm = () => {
+		setFormData(null)
+		setShowForm(true)
+	}
 
 	const LogOut = async (e) => {
 		e.preventDefault()
@@ -190,7 +196,7 @@ export default function Admin() {
 							</div>
 						)}
 						<div className={styles.Menu}>
-							<button onClick={() => setShowForm(true)}>
+							<button onClick={() => NewForm()}>
 								<IoMdAddCircle />
 								New
 							</button>
