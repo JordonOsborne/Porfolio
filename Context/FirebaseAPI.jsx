@@ -1,5 +1,6 @@
 import { db, auth } from '../firebase.config'
-import { createContext, useState, useEffect, useCallback } from 'react'
+import { FormIsValid } from '../Utilities/Form'
+import { createContext, useState, useEffect } from 'react'
 import {
 	collection,
 	query,
@@ -9,6 +10,8 @@ import {
 	getCountFromServer,
 	setDoc,
 	serverTimestamp,
+	Timestamp,
+	deleteDoc,
 } from 'firebase/firestore'
 
 const FirebaseAPI = createContext()
@@ -17,9 +20,12 @@ export const FirebaseProvider = ({ children }) => {
 	const [collectionTotals, setCollectionTotals] = useState({})
 	const [table, setTable] = useState('Clients')
 	const [data, setData] = useState([])
+	const [form, setForm] = useState(null)
 	const [formData, setFormData] = useState(null)
+	const [showForm, setShowForm] = useState(false)
 	const [isLoading, setIsLoading] = useState(false)
 	const [updates, setUpdates] = useState(0)
+	const [deletes, setDeletes] = useState(0)
 
 	useEffect(() => {
 		const getCollectionTotals = async () => {
@@ -42,21 +48,32 @@ export const FirebaseProvider = ({ children }) => {
 			GetData(table)
 			getCollectionTotals()
 		}
-	}, [table, updates])
+	}, [table, updates, deletes])
+
+	// GET COLLECTION TOTALS
+	const GetCollectionTotal = async (table) => {
+		let count = 0
+		count = await getCountFromServer(collection(db, table))
+		return count.data().count
+	}
 
 	// GET ALL DATA IN COLLECTION
-	const GetData = async (selected, isDropdown) => {
+	const GetData = async (table, isDropdown) => {
+		let data = []
 		if (!isDropdown) {
 			setIsLoading(true)
 		}
-		const q = query(collection(db, selected))
-		const dataRaw = await getDocs(q)
-		let data = []
-		dataRaw.forEach((doc) => {
-			let item = doc.data()
-			item.id = doc.id
-			data.push(item)
-		})
+		try {
+			const q = query(collection(db, table))
+			const dataRaw = await getDocs(q)
+			dataRaw.forEach((doc) => {
+				let item = doc.data()
+				item.id = doc.id
+				data.push(item)
+			})
+		} catch (error) {
+			console.log('Data Fetch Failed: ', error.message)
+		}
 		if (!isDropdown) {
 			setData(data)
 			setIsLoading(false)
@@ -65,20 +82,81 @@ export const FirebaseProvider = ({ children }) => {
 	}
 
 	// GET DOCUMENT DATA
-	const GetDoc = async (table, selected) => {
+	const GetDoc = async (table, id) => {
 		setIsLoading(true)
-		const docRef = doc(db, table, selected)
-		const data = await getDoc(docRef)
-		setFormData(data)
+		try {
+			const docRef = doc(db, table, id)
+			const dataRaw = await getDoc(docRef)
+			const data = dataRaw.data()
+			data.id = id
+			setFormData(data)
+		} catch (error) {
+			setFormData(null)
+		}
 		setIsLoading(false)
-		return data.data()
+	}
+	// GET FORM FROM HTML
+	const GetForm = (table) => {
+		switch (table) {
+			case 'Clients':
+				return setForm(document.Clients)
+			case 'Users':
+				return setForm(document.Users)
+			default:
+				break
+		}
 	}
 
-	// GET COLLECTION TOTALS
-	const GetCollectionTotal = async (table) => {
-		let count = 0
-		count = await getCountFromServer(collection(db, table))
-		return count.data().count
+	// GET HTML FORM DATA
+	const GetHTMLFormData = () => {
+		let data, id
+		Array.from(form.elements).forEach((input) => {
+			if (input.nodeName === 'INPUT' && input.id !== 'Id') {
+				// CHECK FOR DROPDOWN OBJECT VALUES
+				if (input.dataset.value === undefined) {
+					switch (input.type) {
+						case 'date':
+							const date = ConvertUTC(input.valueAsDate)
+							data = {
+								...data,
+								[input.id]: Timestamp.fromDate(date),
+							}
+							break
+						default:
+							data = { ...data, [input.id]: input.value }
+							break
+					}
+				} else {
+					const obj = JSON.parse(input.dataset.value)
+					obj.id = obj.value
+					delete obj.value
+					data = { ...data, [input.id]: obj }
+				}
+			} else {
+				if (input.id !== undefined) {
+					id = input.value
+				} else {
+					id = null
+				}
+			}
+		})
+		return { Id: id, Data: data }
+	}
+
+	// SUBMIT FORM - VALIDATION INCLUDED
+	const SubmitForm = async (form) => {
+		const allFields = Array.from(form.elements)
+		if (FormIsValid(allFields)) {
+			const htmlFormData = await GetHTMLFormData()
+			const newData = await SaveForm(
+				form.name,
+				htmlFormData.Id,
+				htmlFormData.Data
+			)
+			setData([...data, newData])
+			setFormData(null)
+			setShowForm(false)
+		}
 	}
 
 	// SUBMIT FORM DATA TO DATABASE
@@ -88,6 +166,7 @@ export const FirebaseProvider = ({ children }) => {
 		try {
 			const docRef = doc(db, table, id)
 			const success = await setDoc(docRef, data)
+			console.log('Form Saved Successfully')
 			setUpdates(updates + 1)
 			return data
 		} catch (error) {
@@ -102,22 +181,41 @@ export const FirebaseProvider = ({ children }) => {
 		return date
 	}
 
+	// DELETE DOCUMENT
+	const DeleteDoc = (table, id) => {
+		try {
+			const docRef = doc(db, table, id)
+			deleteDoc(docRef)
+			setFormData(null)
+			setShowForm(false)
+			setDeletes(deletes + 1)
+		} catch (error) {
+			console.log('Delete Doc Failed: ', error.message)
+		}
+	}
+
 	return (
 		<FirebaseAPI.Provider
 			value={{
 				collectionTotals,
 				table,
 				data,
+				form,
 				formData,
+				showForm,
 				isLoading,
 				GetData,
 				GetDoc,
 				ConvertUTC,
-				SaveForm,
+				GetForm,
+				SubmitForm,
+				DeleteDoc,
 				setCollectionTotals,
 				setTable,
 				setData,
 				setFormData,
+				GetHTMLFormData,
+				setShowForm,
 				setIsLoading,
 			}}
 		>

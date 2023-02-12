@@ -4,36 +4,21 @@ import Client from './Client'
 import User from './User'
 import FirebaseAPI from '../../Context/FirebaseAPI'
 import { useContext } from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
-function FormSelector({ Id, CloseForm }) {
-	const { table, formData, GetDoc } = useContext(FirebaseAPI)
-	const [form, setForm] = useState(null)
+function FormSelector() {
+	const { table, GetForm } = useContext(FirebaseAPI)
 
 	useEffect(() => {
-		if (Id) {
-			GetDoc(table, Id)
-		}
 		GetForm(table)
-	}, [table, Id])
+	}, [table])
 
-	const GetForm = (table) => {
+	const ChooseForm = () => {
 		switch (table) {
 			case 'Clients':
-				return setForm(document.Clients)
+				return <Client />
 			case 'Users':
-				return setForm(document.Users)
-			default:
-				break
-		}
-	}
-
-	const ChooseForm = (formData) => {
-		switch (table) {
-			case 'Clients':
-				return <Client data={formData} />
-			case 'Users':
-				return <User data={formData} />
+				return <User />
 			default:
 				break
 		}
@@ -41,11 +26,8 @@ function FormSelector({ Id, CloseForm }) {
 
 	return (
 		<div className={styles.SidePanel}>
-			<Actions
-				CloseForm={CloseForm}
-				Form={form}
-			/>
-			{ChooseForm(formData)}
+			<Actions />
+			{ChooseForm()}
 		</div>
 	)
 }

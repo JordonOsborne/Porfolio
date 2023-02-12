@@ -19,12 +19,16 @@ import { GoCommentDiscussion } from 'react-icons/go'
 
 export default function Admin() {
 	const user = useContext(AuthContext)
-	const { table, setTable, collectionTotals, isLoading } =
-		useContext(FirebaseAPI)
 	const router = useRouter()
-	// SHOW-HIDE ACTIONS
 	const [editProfile, setEditProfile] = useState(false)
-	const [showForm, setShowForm] = useState(false)
+	const {
+		table,
+		setTable,
+		collectionTotals,
+		showForm,
+		setShowForm,
+		isLoading,
+	} = useContext(FirebaseAPI)
 
 	const LogOut = async (e) => {
 		e.preventDefault()
@@ -193,7 +197,7 @@ export default function Admin() {
 							<ViewSelector />
 						</div>
 						{isLoading ? <Loading /> : <Table />}
-						{showForm && <FormSelector CloseForm={() => setShowForm(false)} />}
+						{showForm && <FormSelector />}
 					</main>
 				)}
 			</div>

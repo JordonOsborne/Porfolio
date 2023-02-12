@@ -1,5 +1,5 @@
 import styles from '../../styles/Forms.module.scss'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { BsChevronDoubleDown, BsChevronDoubleUp } from 'react-icons/bs'
 import { MdAccountCircle } from 'react-icons/md'
 import { GrOrganization } from 'react-icons/gr'
@@ -7,6 +7,27 @@ import { GrOrganization } from 'react-icons/gr'
 function Dropdown({ Name, Default, Options, ShowLabel, Icon }) {
 	const [selected, setSelected] = useState(Default)
 	const [isOpen, setIsOpen] = useState(false)
+	const [options, setOptions] = useState([])
+
+	useEffect(() => {
+		const BuildOptions = (Options) => {
+			let options = []
+			Options.map((option) => {
+				options.push(
+					<div
+						key={option.value}
+						onClick={() => ChangeValue(option)}
+						className={option.value === selected.value ? styles.selected : ''}
+					>
+						{option.displayName}
+					</div>
+				)
+			})
+			setOptions(options)
+		}
+		BuildOptions(Options)
+		setSelected(Default)
+	}, [Options])
 
 	const setIcon = (Icon) => {
 		switch (Icon) {
@@ -17,22 +38,6 @@ function Dropdown({ Name, Default, Options, ShowLabel, Icon }) {
 			default:
 				return
 		}
-	}
-
-	const BuildOptions = (Options) => {
-		let options = []
-		Options.map((option) => {
-			options.push(
-				<div
-					key={option.value}
-					onClick={() => ChangeValue(option)}
-					className={option.value === selected.value ? styles.selected : ''}
-				>
-					{option.displayName}
-				</div>
-			)
-		})
-		return options
 	}
 
 	const ChangeValue = (value) => {
@@ -57,9 +62,7 @@ function Dropdown({ Name, Default, Options, ShowLabel, Icon }) {
 						/>
 						{isOpen ? <BsChevronDoubleUp /> : <BsChevronDoubleDown />}
 					</div>
-					{isOpen && (
-						<div className={styles.options}>{BuildOptions(Options)}</div>
-					)}
+					{isOpen && <div className={styles.options}>{options}</div>}
 				</div>
 			) : (
 				<></>

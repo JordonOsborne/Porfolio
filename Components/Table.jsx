@@ -5,7 +5,7 @@ import { useContext } from 'react'
 import { FaFileInvoiceDollar } from 'react-icons/fa'
 
 function Table() {
-	const { table, data, isLoading } = useContext(FirebaseAPI)
+	const { table, data, isLoading, setShowForm } = useContext(FirebaseAPI)
 
 	const TableHeader = (table) => {
 		switch (table) {
@@ -63,8 +63,11 @@ function Table() {
 			case 'Clients':
 				return data.map((client) => {
 					return (
-						<tr key={client.id}>
-							<td>{client?.Client}</td>
+						<tr
+							key={client.id}
+							id={client.id}
+						>
+							<td onClick={() => setShowForm(client.id)}>{client?.Client}</td>
 							<td>{client?.Since?.toDate().toDateString()}</td>
 							<td>{client?.Contact?.displayName}</td>
 							<td>{`$` + client?.AnnualCharge}</td>
