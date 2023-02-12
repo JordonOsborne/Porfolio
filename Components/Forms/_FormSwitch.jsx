@@ -5,7 +5,7 @@ import User from './User'
 import FirebaseAPI from '../../Context/FirebaseAPI'
 import { useContext } from 'react'
 
-function FormSelector() {
+function FormSwitch() {
 	const { table } = useContext(FirebaseAPI)
 
 	const ChooseForm = () => {
@@ -27,4 +27,4 @@ function FormSelector() {
 	)
 }
 
-export default FormSelector
+export default FormSwitch

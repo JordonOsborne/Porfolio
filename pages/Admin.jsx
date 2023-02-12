@@ -2,8 +2,8 @@ import Header from '../Components/Header'
 import Loading from '../Components/Reusable/Loading'
 import Input from '../Components/Reusable/Input'
 import ViewSelector from '../Components/ViewSelector'
-import FormSelector from '../Components/Forms/FormSelector'
-import Table from '../Components/Table'
+import FormSwitch from '../Components/Forms/_FormSwitch'
+import TableSwitch from '../Components/Tables/_TableSwitch'
 import styles from '../styles/Admin.module.scss'
 import AuthContext from '../Context/AuthContext'
 import FirebaseAPI from '../Context/FirebaseAPI'
@@ -202,8 +202,8 @@ export default function Admin() {
 							</button>
 							<ViewSelector />
 						</div>
-						{isLoading ? <Loading /> : <Table />}
-						{showForm && <FormSelector />}
+						{isLoading ? <Loading /> : <TableSwitch />}
+						{showForm && <FormSwitch />}
 					</main>
 				)}
 			</div>
