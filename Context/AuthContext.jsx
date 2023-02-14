@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
 						Phone: dbUser.Phone,
 						FirstName: dbUser.FirstName,
 						LastName: dbUser.LastName,
-						Created: auth.currentUser.metadata.creationTime,
+						Created: dbUser.Created,
 						isAdmin: dbUser?.isAdmin,
 					}
 					setUser(data)
@@ -119,14 +119,15 @@ export const AuthProvider = ({ children }) => {
 		Email
 	) => {
 		const formUser = {
+			Created: serverTimestamp(),
 			FirstName: FirstName.value,
 			LastName: LastName.value,
 			Phone: GetPhoneNumber(Phone.value),
 			Email: Email.value,
-			Created: serverTimestamp(),
 			isAdmin: false,
 		}
 		await setDoc(doc(db, 'Users', user.uid), formUser)
+		auth.currentUser.getIdToken(true)
 	}
 
 	// SIGN IN SUCCESS - UPDATE LAST SIGN IN DATE/TIME
@@ -155,6 +156,7 @@ export const AuthProvider = ({ children }) => {
 				Updated: serverTimestamp(),
 			}
 			user = await setDoc(doc(db, 'Users', user.uid), formUser)
+			ToastSuccess('Profile Updated!')
 			console.log('Database Updated!')
 			return user
 		} catch (error) {

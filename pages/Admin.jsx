@@ -11,14 +11,13 @@ import { ToastContainer } from 'react-toastify'
 import { useContext, useState, useEffect } from 'react'
 import { auth } from '../firebase.config'
 import { useRouter } from 'next/router'
-import { UpdateProfile } from '../Utilities/Form'
 import { FaUsers, FaFileInvoiceDollar, FaCode } from 'react-icons/fa'
 import { IoMdAddCircle } from 'react-icons/io'
 import { GrOrganization } from 'react-icons/gr'
 import { GoCommentDiscussion } from 'react-icons/go'
 
 export default function Admin() {
-	const { user } = useContext(AuthContext)
+	const { user, UpdateProfile } = useContext(AuthContext)
 	const router = useRouter()
 	const [editProfile, setEditProfile] = useState(false)
 	const {
