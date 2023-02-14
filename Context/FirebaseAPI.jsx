@@ -154,9 +154,15 @@ export const FirebaseProvider = ({ children }) => {
 			}
 			const newData = await SaveForm(docId, newDoc)
 			const tempData = data.filter((item) => item.id !== docId)
+			const existingItem = data.find((item) => item.id === docId)
 			setData([...tempData, newData])
 			setFormData(null)
 			setShowForm(false)
+			!existingItem &&
+				setCollectionTotals({
+					...collectionTotals,
+					[table]: collectionTotals[table] + 1,
+				})
 		}
 	}
 
@@ -165,10 +171,6 @@ export const FirebaseProvider = ({ children }) => {
 		try {
 			const docRef = doc(db, table, id)
 			await setDoc(docRef, data)
-			setCollectionTotals({
-				...collectionTotals,
-				[table]: collectionTotals[table] + 1,
-			})
 			data.id = id
 			return data
 		} catch (error) {
