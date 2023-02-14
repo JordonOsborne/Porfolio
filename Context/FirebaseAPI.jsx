@@ -29,8 +29,6 @@ export const FirebaseProvider = ({ children }) => {
 	const [formData, setFormData] = useState(null)
 	const [showForm, setShowForm] = useState(false)
 	const [isLoading, setIsLoading] = useState(false)
-	// const [updates, setUpdates] = useState(0)
-	// const [deletes, setDeletes] = useState(0)
 
 	useEffect(() => {
 		const getCollectionTotals = async () => {
@@ -142,8 +140,16 @@ export const FirebaseProvider = ({ children }) => {
 	const SubmitForm = async () => {
 		const allFields = Array.from(document[table].elements)
 		if (FormIsValid(allFields)) {
-			const htmlFormData = GetHTMLFormData()
-			const newData = await SaveForm(htmlFormData.Id, htmlFormData.Data)
+			delete formData.id
+			const htmlFormData = GetHTMLFormData().Data
+			const docId = GetHTMLFormData().Id
+			const newDoc = {
+				...formData,
+				...htmlFormData,
+				Updated: serverTimestamp(),
+				UpdatedBy: auth.currentUser.uid,
+			}
+			const newData = await SaveForm(docId, newDoc)
 			setData([...data, newData])
 			setFormData(null)
 			setShowForm(false)
@@ -152,11 +158,9 @@ export const FirebaseProvider = ({ children }) => {
 
 	// SUBMIT FORM DATA TO DATABASE
 	const SaveForm = async (id, data) => {
-		data.Updated = serverTimestamp()
-		data.UpdatedBy = auth.currentUser.uid
 		try {
 			const docRef = doc(db, table, id)
-			const success = await setDoc(docRef, data)
+			await setDoc(docRef, data)
 			setCollectionTotals({
 				...collectionTotals,
 				[table]: collectionTotals[table] + 1,

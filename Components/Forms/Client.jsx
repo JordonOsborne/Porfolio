@@ -15,6 +15,7 @@ function Client() {
 			Users.map((user) => {
 				usersArray.push({
 					value: user.id,
+					id: user.id,
 					displayName: `${user.FirstName + ' ' + user.LastName}`,
 					Email: user.Email,
 					Phone: user.Phone,
@@ -58,7 +59,9 @@ function Client() {
 					Label='Member Since'
 					Placeholder='Date Client Started'
 					Default={
-						formData ? formData.Since.toDate().toISOString().split('T')[0] : ''
+						formData.Since
+							? formData.Since.toDate().toISOString().split('T')[0]
+							: ''
 					}
 					Icon='Date'
 				/>
