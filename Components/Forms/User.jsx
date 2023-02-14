@@ -8,8 +8,6 @@ export default function User() {
 	const { formData, GetData } = useContext(FirebaseAPI)
 	const [clients, setClients] = useState([])
 
-	console.log()
-
 	useEffect(() => {
 		const GetClients = async () => {
 			const Clients = await GetData('Clients', true)
@@ -18,7 +16,6 @@ export default function User() {
 				clientsArray.push({
 					value: client.id,
 					displayName: client.Client,
-					Since: client.Since,
 				})
 			})
 			setClients(clientsArray)
@@ -34,7 +31,7 @@ export default function User() {
 			<h2>{formData ? `User Form` : `New User Form`}</h2>
 			<div className={styles.Container}>
 				<Dropdown
-					Name='Client'
+					Name='Company'
 					Default={formData ? formData.Contact : ''}
 					Options={clients}
 					ShowLabel={true}

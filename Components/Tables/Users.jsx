@@ -29,10 +29,10 @@ function Users() {
 							<td onClick={() => EditForm(user.id)}>
 								{user?.FirstName + ' ' + user?.LastName}
 							</td>
-							<td>{user?.Company}</td>
+							<td>{user?.Company?.displayName}</td>
 							<td>{user?.Phone}</td>
 							<td>{user?.Email}</td>
-							{/* <td>{user?.Created?.toDate().toDateString()}</td> */}
+							<td>{user?.Created?.toDate().toDateString()}</td>
 						</tr>
 					)
 				})}

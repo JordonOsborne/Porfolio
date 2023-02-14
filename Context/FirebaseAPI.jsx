@@ -127,12 +127,15 @@ export const FirebaseProvider = ({ children }) => {
 			} else {
 				if (input.id !== undefined) {
 					id = input.value
-				} else {
-					id = null
 				}
 			}
 		})
-		console.log('htmlFormData: ', { Id: id, Data: data })
+		// CHECK IF NEW FORM OR UPDATE
+		if (document[table].id.includes('New')) {
+			id = null
+		} else {
+			id = document[table].id
+		}
 		return { Id: id, Data: data }
 	}
 
@@ -150,7 +153,8 @@ export const FirebaseProvider = ({ children }) => {
 				UpdatedBy: auth.currentUser.uid,
 			}
 			const newData = await SaveForm(docId, newDoc)
-			setData([...data, newData])
+			const tempData = data.filter((item) => item.id !== docId)
+			setData([...tempData, newData])
 			setFormData(null)
 			setShowForm(false)
 		}
@@ -165,7 +169,6 @@ export const FirebaseProvider = ({ children }) => {
 				...collectionTotals,
 				[table]: collectionTotals[table] + 1,
 			})
-			console.log('Form Saved Successfully')
 			data.id = id
 			return data
 		} catch (error) {
