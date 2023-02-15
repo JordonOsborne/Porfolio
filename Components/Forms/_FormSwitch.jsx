@@ -3,6 +3,7 @@ import styles from '../../styles/Forms.module.scss'
 import Client from './Client'
 import User from './User'
 import Project from './Project'
+import Communication from './Communication'
 import FirebaseAPI from '../../Context/FirebaseAPI'
 import { useContext } from 'react'
 
@@ -17,6 +18,8 @@ function FormSwitch() {
 				return <User />
 			case 'My-Work':
 				return <Project />
+			case 'Communications':
+				return <Communication />
 			default:
 				break
 		}

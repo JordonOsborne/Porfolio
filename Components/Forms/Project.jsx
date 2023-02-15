@@ -32,7 +32,7 @@ export default function User() {
 			<div className={styles.Container}>
 				<Dropdown
 					Name='Company'
-					Default={formData ? formData.Contact : ''}
+					Default={formData?.Contact}
 					Options={clients}
 					ShowLabel={true}
 					Icon='Client'
@@ -40,32 +40,32 @@ export default function User() {
 				<Input
 					Id='Project'
 					Label='Project Name'
-					Default={formData ? formData.Project : ''}
+					Default={formData?.Project}
 					Icon='Code'
 				/>
 				<Input
 					Id='Date'
 					Label='Date Completed'
-					Default={formData ? formData.Date : ''}
+					Default={formData?.Date}
 					Icon='Date'
 				/>
 				<Input
 					Id='Description'
 					Label='Project Details'
-					Default={formData ? formData.Description : ''}
+					Default={formData?.Description}
 					Icon='Text'
 				/>
 				<Input
 					Id='Link'
 					Label='Link Name'
-					Default={formData ? formData.Link : ''}
+					Default={formData?.Link}
 					Icon='Text'
 				/>
 				<Input
 					Id='URL'
 					Label='URL'
-					Placeholder='URL to Live Project or Github'
-					Default={formData ? formData.URL : ''}
+					Placeholder='URL to Project or Github'
+					Default={formData?.URL}
 					Icon='URL'
 				/>
 			</div>

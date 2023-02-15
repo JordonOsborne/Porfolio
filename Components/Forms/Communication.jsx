@@ -4,7 +4,7 @@ import Dropdown from '../../Components/Reusable/Dropdown'
 import FirebaseAPI from '../../Context/FirebaseAPI'
 import { useState, useEffect, useContext } from 'react'
 
-function Client() {
+function Communication() {
 	const { formData, GetData } = useContext(FirebaseAPI)
 	const [users, setUsers] = useState([])
 
@@ -28,49 +28,32 @@ function Client() {
 
 	return (
 		<form
-			id={formData ? formData.id : 'NewClientForm'}
-			name='Clients'
+			id={formData ? formData.id : 'NewCommunicationForm'}
+			name='Communication'
 		>
-			<h2>{formData ? `Client Form` : `New Client Form`}</h2>
+			<h2>{formData ? `Communication Form` : `New Communication Form`}</h2>
 			<div className={styles.Container}>
 				<Input
-					Id='Id'
-					Label='Client Id'
-					Placeholder='Example: FUMCCH'
-					Default={formData?.id}
-					Icon='Id'
-				/>
-				<Input
-					Id='Client'
-					Label='Company Name'
-					Placeholder='Example: Church Hill First United Methodist'
-					Default={formData?.Client}
-					Icon='Client'
-				/>
-				<Input
-					Id='AnnualCharge'
-					Label='Annual Charge'
-					Placeholder='Amount Charged Annually'
-					Default={formData?.AnnualCharge}
-					Icon='Dollar'
-				/>
-				<Input
-					Id='Since'
-					Label='Member Since'
-					Placeholder='Date Client Started'
-					Default={formData?.Since}
+					Id='Submitted'
+					Label='Date'
+					Default={formData?.Submitted}
 					Icon='Date'
 				/>
-				<Dropdown
-					Name='Contact'
-					Default={formData?.Contact}
-					Options={users}
-					ShowLabel={true}
-					Icon='Person'
+				<Input
+					Id='Subject'
+					Label='Subject'
+					Default={formData?.Subject}
+					Icon='Text'
+				/>
+				<Input
+					Id='Body'
+					Label='Body'
+					Default={formData?.Body}
+					Icon='Text'
 				/>
 			</div>
 		</form>
 	)
 }
 
-export default Client
+export default Communication

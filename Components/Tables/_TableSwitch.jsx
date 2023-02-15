@@ -2,6 +2,7 @@ import Loading from '../Reusable/Loading'
 import Clients from './Clients'
 import Users from './Users'
 import Projects from './Projects'
+import Communications from './Communications'
 import FirebaseAPI from '../../Context/FirebaseAPI'
 import { useContext } from 'react'
 
@@ -16,6 +17,8 @@ function TableSwitch() {
 				return <Users />
 			case 'My-Work':
 				return <Projects />
+			case 'Communications':
+				return <Communications />
 			default:
 				break
 		}

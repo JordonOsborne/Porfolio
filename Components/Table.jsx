@@ -15,14 +15,6 @@ function Table() {
 
 	const TableHeader = (table) => {
 		switch (table) {
-			case 'Communications':
-				return (
-					<tr>
-						<th>Form</th>
-						<th>Subject</th>
-						<th>Submitted</th>
-					</tr>
-				)
 			case 'Invoices':
 				return (
 					<tr>
@@ -39,16 +31,6 @@ function Table() {
 	}
 	const TableRow = (data) => {
 		switch (table) {
-			case 'Communications':
-				return data.map((communication) => {
-					return (
-						<tr key={communication.id}>
-							<td>{communication?.Form}</td>
-							<td>{communication?.Subject}</td>
-							<td>{communication?.Submitted?.toDate().toDateString()}</td>
-						</tr>
-					)
-				})
 			case 'Invoices':
 				return data.map((invoice) => {
 					return (
