@@ -1,6 +1,6 @@
 import styles from '../../styles/Forms.module.scss'
 import { MdEmail, MdAccountCircle } from 'react-icons/md'
-import { FaKey, FaPhoneAlt } from 'react-icons/fa'
+import { FaKey, FaPhoneAlt, FaCode } from 'react-icons/fa'
 import {
 	AiOutlineEye,
 	AiOutlineEyeInvisible,
@@ -9,7 +9,7 @@ import {
 import { BsShieldLockFill } from 'react-icons/bs'
 import { GrOrganization } from 'react-icons/gr'
 import { MdDateRange } from 'react-icons/md'
-import { BiText } from 'react-icons/bi'
+import { BiText, BiLink } from 'react-icons/bi'
 
 function Input({ Id, Label, Placeholder, Default, Icon, ReadOnly }) {
 	const DatePicker = (e) => {
@@ -31,6 +31,10 @@ function Input({ Id, Label, Placeholder, Default, Icon, ReadOnly }) {
 				return <BsShieldLockFill className={styles.Icon} />
 			case 'Client':
 				return <GrOrganization className={styles.Icon} />
+			case 'Code':
+				return <FaCode className={styles.Icon} />
+			case 'URL':
+				return <BiLink className={styles.Icon} />
 			case 'Date':
 				return (
 					<MdDateRange
@@ -50,6 +54,8 @@ function Input({ Id, Label, Placeholder, Default, Icon, ReadOnly }) {
 				return 'email'
 			case 'Phone':
 				return 'phone'
+			case 'URL':
+				return 'url'
 			default:
 				if (Icon === 'Date') {
 					return 'date'
@@ -77,7 +83,11 @@ function Input({ Id, Label, Placeholder, Default, Icon, ReadOnly }) {
 							name={Label}
 							title={Label}
 							placeholder={Placeholder}
-							defaultValue={Default}
+							defaultValue={
+								Default && Icon === 'Date'
+									? Default.toDate().toISOString().split('T')[0]
+									: Default
+							}
 						/>
 					</div>
 				</div>

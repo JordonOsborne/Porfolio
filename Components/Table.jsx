@@ -15,33 +15,6 @@ function Table() {
 
 	const TableHeader = (table) => {
 		switch (table) {
-			case 'Clients':
-				return (
-					<tr>
-						<th>Company Name</th>
-						<th>Client Since</th>
-						<th>Primary Contact</th>
-						<th>Annual Charge</th>
-					</tr>
-				)
-			case 'Users':
-				return (
-					<tr>
-						<th>Display Name</th>
-						<th>Company Name</th>
-						<th>Phone Number</th>
-						<th>Email</th>
-						<th>Created</th>
-					</tr>
-				)
-			case 'My-Work':
-				return (
-					<tr>
-						<th>Project</th>
-						<th>Date</th>
-						<th>Description</th>
-					</tr>
-				)
 			case 'Communications':
 				return (
 					<tr>
@@ -66,42 +39,6 @@ function Table() {
 	}
 	const TableRow = (data) => {
 		switch (table) {
-			case 'Clients':
-				return data.map((client) => {
-					return (
-						<tr
-							key={client.id}
-							id={client.id}
-						>
-							<td onClick={() => EditForm(client.id)}>{client?.Client}</td>
-							<td>{client?.Since?.toDate().toDateString()}</td>
-							<td>{client?.Contact?.displayName}</td>
-							<td>{`$` + client?.AnnualCharge}</td>
-						</tr>
-					)
-				})
-			case 'Users':
-				return data.map((user) => {
-					return (
-						<tr key={user.id}>
-							<td>{user?.FirstName + ' ' + user?.LastName}</td>
-							<td>{user?.Company}</td>
-							<td>{user?.Phone}</td>
-							<td>{user?.Email}</td>
-							<td>{user?.Created?.toDate().toDateString()}</td>
-						</tr>
-					)
-				})
-			case 'My-Work':
-				return data.map((project) => {
-					return (
-						<tr key={project.id}>
-							<td>{project?.Project}</td>
-							<td>{project?.Date?.toDate().toDateString()}</td>
-							<td>{project?.Description}</td>
-						</tr>
-					)
-				})
 			case 'Communications':
 				return data.map((communication) => {
 					return (

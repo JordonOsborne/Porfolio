@@ -58,11 +58,7 @@ function Client() {
 					Id='Since'
 					Label='Member Since'
 					Placeholder='Date Client Started'
-					Default={
-						formData.Since
-							? formData.Since.toDate().toISOString().split('T')[0]
-							: ''
-					}
+					Default={formData.Since}
 					Icon='Date'
 				/>
 				<Dropdown
