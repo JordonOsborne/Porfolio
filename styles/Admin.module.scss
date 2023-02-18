@@ -123,6 +123,9 @@
 			td:first-child {
 				text-align: left;
 			}
+			td:first-child {
+				cursor: pointer;
+			}
 			td.last {
 				width: 1px;
 				white-space: nowrap;

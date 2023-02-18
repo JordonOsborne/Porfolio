@@ -1,12 +1,14 @@
 import styles from '../../styles/Forms.module.scss'
 import Input from '../../Components/Reusable/Input'
 import Dropdown from '../../Components/Reusable/Dropdown'
+import Upload from '../../Components/Reusable/Upload'
 import FirebaseAPI from '../../Context/FirebaseAPI'
 import { useState, useEffect, useContext } from 'react'
 
 function Client() {
 	const { formData, GetData } = useContext(FirebaseAPI)
 	const [users, setUsers] = useState([])
+	const allowedTypes = ['image/png, image/jpeg, image/svg']
 
 	useEffect(() => {
 		const GetUsers = async () => {
@@ -31,15 +33,26 @@ function Client() {
 			id={formData ? formData.id : 'NewClientForm'}
 			name='Clients'
 		>
-			<h2>{formData ? `Client Form` : `New Client Form`}</h2>
+			<h2>{formData ? formData.id : `New Client Form`}</h2>
 			<div className={styles.Container}>
-				<Input
-					Id='Id'
-					Label='Client Id'
-					Placeholder='Example: FUMCCH'
-					Default={formData?.id}
-					Icon='Id'
-				/>
+				{formData ? (
+					<Upload
+						Id='Logo'
+						Label='Company Logo'
+						Types={allowedTypes}
+						Source={formData.Logo}
+						filePath={`${formData.id}/_Logo.jpg`}
+					/>
+				) : (
+					<Input
+						Id='Id'
+						Label='Client Id'
+						Placeholder='Example: FUMCCH'
+						Default={formData?.id}
+						Icon='Id'
+						ReadOnly={formData !== null}
+					/>
+				)}
 				<Input
 					Id='Client'
 					Label='Company Name'

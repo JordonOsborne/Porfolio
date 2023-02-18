@@ -1,5 +1,6 @@
-import { db, auth } from '../firebase.config'
+import { db, auth, storage } from '../firebase.config'
 import { FormIsValid } from '../Utilities/Form'
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { createContext, useState, useEffect } from 'react'
 import {
 	collection,
@@ -29,6 +30,8 @@ export const FirebaseProvider = ({ children }) => {
 	const [formData, setFormData] = useState(null)
 	const [showForm, setShowForm] = useState(false)
 	const [isLoading, setIsLoading] = useState(false)
+	const [percent, setPercent] = useState(0)
+	const [uploading, setUploading] = useState(false)
 
 	useEffect(() => {
 		const getCollectionTotals = async () => {
@@ -203,6 +206,56 @@ export const FirebaseProvider = ({ children }) => {
 		}
 	}
 
+	// UPLOAD FILE TO STORAGE
+	const UploadFile = (Id, file, filePath) => {
+		setUploading(true)
+		const fileRef = ref(storage, filePath ? filePath : file.name)
+		// UPLOAD TO FIRE STORAGE
+		const uploadTask = uploadBytesResumable(fileRef, file)
+		uploadTask.on(
+			'state_changed',
+			// DURING UPLOAD
+			(snapshot) => {
+				const percent = Math.round(
+					(snapshot.bytesTransferred / snapshot.totalBytes) * 100
+				)
+				setPercent(percent)
+				percent === 100 && setUploading(false)
+			},
+			// ON UPLOAD ERROR
+			(error) => {
+				setUploading(false)
+				switch (error.code) {
+					case 'storage/unauthorized':
+						console.log('User does not have permission to access the object')
+						break
+					case 'storage/canceled':
+						console.log('User canceled the upload')
+						break
+					default:
+						console.log('Unknown Error:', error.message)
+				}
+			},
+			// ON SUCCESSFUL UPLOAD
+			async () => {
+				const url = await getDownloadURL(uploadTask.snapshot.ref)
+				AssignURL(Id, url)
+			}
+		)
+	}
+
+	// ASSIGN FILE URL TO DOCUMENT
+	const AssignURL = async (Id, url) => {
+		const update = { [Id]: url }
+		const newDoc = { ...formData, ...update }
+		delete newDoc.id
+		console.log(newDoc)
+		const newData = await SaveForm(formData.id, newDoc)
+		setFormData(newData)
+		setUploading(false)
+		return url
+	}
+
 	return (
 		<FirebaseAPI.Provider
 			value={{
@@ -212,6 +265,8 @@ export const FirebaseProvider = ({ children }) => {
 				formData,
 				showForm,
 				isLoading,
+				uploading,
+				percent,
 				GetData,
 				GetDoc,
 				ConvertUTC,
@@ -224,6 +279,7 @@ export const FirebaseProvider = ({ children }) => {
 				GetHTMLFormData,
 				setShowForm,
 				setIsLoading,
+				UploadFile,
 			}}
 		>
 			{children}
