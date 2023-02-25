@@ -23,8 +23,14 @@ function Invoices() {
 			<tbody>
 				{data.map((invoice) => {
 					return (
-						<tr key={invoice.id}>
-							<td title={invoice?.Client}>
+						<tr
+							key={invoice.id}
+							id={invoice.id}
+						>
+							<td
+								title={invoice?.Client}
+								onClick={() => EditForm(invoice.id)}
+							>
 								<a
 									href={invoice?.File}
 									title={invoice?.Date?.toDate().toDateString() + ` Invoice`}
