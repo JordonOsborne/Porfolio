@@ -6,6 +6,7 @@ import ClientsGrid from '../Grids/Clients'
 import Users from './Users'
 import Projects from './Projects'
 import Communications from './Communications'
+import Invoices from './Invoices'
 import FirebaseAPI from '../../Context/FirebaseAPI'
 import { useContext, useState } from 'react'
 import { IoMdAddCircle } from 'react-icons/io'
@@ -24,6 +25,8 @@ function TableSwitch() {
 				return <Projects />
 			case 'Communications':
 				return <Communications />
+			case 'Invoices':
+				return <Invoices />
 			default:
 				break
 		}
