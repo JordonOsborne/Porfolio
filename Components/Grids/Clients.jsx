@@ -9,7 +9,10 @@ function Clients() {
 		setShowForm(true)
 	}
 	return (
-		<div className={styles.Grid}>
+		<div
+			id={styles.Clients}
+			className={styles.Grid}
+		>
 			{data.map((client) => (
 				<div
 					key={client.id}
@@ -23,7 +26,7 @@ function Clients() {
 						height='100px'
 					/>
 					<h3>{client.Client}</h3>
-					<p>{`Client Since ${client.Since.toDate().toDateString()}`}</p>
+					<p>{`Client Since ${client?.Since?.toDate().toDateString()}`}</p>
 					<p>{client?.Contact?.displayName}</p>
 				</div>
 			))}

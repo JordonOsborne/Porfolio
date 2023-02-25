@@ -4,6 +4,7 @@ import ViewSelector from '../../Components/ViewSelector'
 import Clients from './Clients'
 import ClientsGrid from '../Grids/Clients'
 import Users from './Users'
+import UsersGrid from '../Grids/Users'
 import Projects from './Projects'
 import Communications from './Communications'
 import Invoices from './Invoices'
@@ -20,7 +21,7 @@ function TableSwitch() {
 			case 'Clients':
 				return selected === 'List' ? <Clients /> : <ClientsGrid />
 			case 'Users':
-				return <Users />
+				return selected === 'List' ? <Users /> : <UsersGrid />
 			case 'My-Work':
 				return <Projects />
 			case 'Communications':

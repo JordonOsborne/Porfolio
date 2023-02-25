@@ -32,7 +32,7 @@ export default function User() {
 			<div className={styles.Container}>
 				<Dropdown
 					Name='Company'
-					Default={formData ? formData.Contact : ''}
+					Default={formData ? formData.Company : ''}
 					Options={clients}
 					ShowLabel={true}
 					Icon='Client'
