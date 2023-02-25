@@ -28,6 +28,7 @@ function Dropdown({ Name, Default, Options, ShowLabel, Icon }) {
 			setOptions(options)
 		}
 		BuildOptions(Options)
+		setSelected(Default)
 	}, [Options])
 
 	const setIcon = (Icon) => {

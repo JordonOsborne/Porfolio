@@ -1,18 +1,23 @@
+import styles from '../../styles/Admin.module.scss'
 import Loading from '../Reusable/Loading'
+import ViewSelector from '../../Components/ViewSelector'
 import Clients from './Clients'
+import ClientsGrid from '../Grids/Clients'
 import Users from './Users'
 import Projects from './Projects'
 import Communications from './Communications'
 import FirebaseAPI from '../../Context/FirebaseAPI'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
+import { IoMdAddCircle } from 'react-icons/io'
 
 function TableSwitch() {
-	const { isLoading, table } = useContext(FirebaseAPI)
+	const { isLoading, table, setShowForm, setFormData } = useContext(FirebaseAPI)
+	const [selected, setSelected] = useState('List')
 
-	const ChooseTable = () => {
+	const ChooseData = () => {
 		switch (table) {
 			case 'Clients':
-				return <Clients />
+				return selected === 'List' ? <Clients /> : <ClientsGrid />
 			case 'Users':
 				return <Users />
 			case 'My-Work':
@@ -24,7 +29,26 @@ function TableSwitch() {
 		}
 	}
 
-	return <>{isLoading ? <Loading /> : ChooseTable()}</>
+	const NewForm = () => {
+		setFormData(null)
+		setShowForm(true)
+	}
+
+	return (
+		<>
+			<div className={styles.Menu}>
+				<button onClick={() => NewForm()}>
+					<IoMdAddCircle />
+					New
+				</button>
+				<ViewSelector
+					selected={selected}
+					setSelected={setSelected}
+				/>
+			</div>
+			{isLoading ? <Loading /> : ChooseData()}
+		</>
+	)
 }
 
 export default TableSwitch
