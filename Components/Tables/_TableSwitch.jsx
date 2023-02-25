@@ -1,33 +1,38 @@
 import styles from '../../styles/Admin.module.scss'
 import Loading from '../Reusable/Loading'
 import ViewSelector from '../../Components/ViewSelector'
-import Clients from './Clients'
-import ClientsGrid from '../Grids/Clients'
-import Users from './Users'
-import UsersGrid from '../Grids/Users'
-import Projects from './Projects'
-import Communications from './Communications'
-import Invoices from './Invoices'
 import FirebaseAPI from '../../Context/FirebaseAPI'
 import { useContext, useState } from 'react'
 import { IoMdAddCircle } from 'react-icons/io'
+// TABLES
+import Clients from './Clients'
+import Users from './Users'
+import Projects from './Projects'
+import Communications from './Communications'
+import Invoices from './Invoices'
+// GRIDS
+import ClientsGrid from '../Grids/Clients'
+import UsersGrid from '../Grids/Users'
+import ProjectsGrid from '../Grids/Projects'
+import CommunicationsGrid from '../Grids/Communications'
+import InvoicesGrid from '../Grids/Invoices'
 
 function TableSwitch() {
-	const { isLoading, table, setShowForm, setFormData } = useContext(FirebaseAPI)
-	const [selected, setSelected] = useState('List')
+	const { isLoading, table, viewType, setViewType, setShowForm, setFormData } =
+		useContext(FirebaseAPI)
 
 	const ChooseData = () => {
 		switch (table) {
 			case 'Clients':
-				return selected === 'List' ? <Clients /> : <ClientsGrid />
+				return viewType !== 'Grid' ? <Clients /> : <ClientsGrid />
 			case 'Users':
-				return selected === 'List' ? <Users /> : <UsersGrid />
+				return viewType !== 'Grid' ? <Users /> : <UsersGrid />
 			case 'My-Work':
-				return <Projects />
+				return viewType !== 'Grid' ? <Projects /> : <ProjectsGrid />
 			case 'Communications':
-				return <Communications />
+				return viewType !== 'Grid' ? <Communications /> : <CommunicationsGrid />
 			case 'Invoices':
-				return <Invoices />
+				return viewType !== 'Grid' ? <Invoices /> : <InvoicesGrid />
 			default:
 				break
 		}
@@ -45,10 +50,7 @@ function TableSwitch() {
 					<IoMdAddCircle />
 					New
 				</button>
-				<ViewSelector
-					selected={selected}
-					setSelected={setSelected}
-				/>
+				<ViewSelector />
 			</div>
 			{isLoading ? <Loading /> : ChooseData()}
 		</>

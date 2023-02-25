@@ -5,8 +5,8 @@ import Loading from './Reusable/Loading'
 import FirebaseAPI from '../Context/FirebaseAPI'
 import { AiOutlineUnorderedList, AiOutlineAppstore } from 'react-icons/ai'
 
-function ViewSelector({ selected, setSelected }) {
-	const { isLoading, table } = useContext(FirebaseAPI)
+function ViewSelector() {
+	const { isLoading, table, viewType, setViewType } = useContext(FirebaseAPI)
 	const [views, setViews] = useState([])
 
 	useEffect(() => {
@@ -40,15 +40,15 @@ function ViewSelector({ selected, setSelected }) {
 					<div className={styles.viewType}>
 						<button
 							title='List View'
-							className={selected === 'List' && styles.Selected}
-							onClick={() => setSelected('List')}
+							className={viewType === 'List' && styles.Selected}
+							onClick={() => setViewType('List')}
 						>
 							<AiOutlineUnorderedList />
 						</button>
 						<button
 							title='Grid View'
-							className={selected === 'Grid' && styles.Selected}
-							onClick={() => setSelected('Grid')}
+							className={viewType === 'Grid' && styles.Selected}
+							onClick={() => setViewType('Grid')}
 						>
 							<AiOutlineAppstore />
 						</button>

@@ -244,5 +244,19 @@
 				}
 			}
 		}
+		#Projects.Grid {
+			grid-template-columns: repeat(4, 1fr);
+			.Card {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+		}
+		#Communications.Grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		#Invoices.Grid {
+			grid-template-columns: repeat(4, 1fr);
+		}
 	}
 }

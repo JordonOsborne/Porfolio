@@ -29,6 +29,7 @@ export const FirebaseProvider = ({ children }) => {
 		Invoices: 0,
 	})
 	const [table, setTable] = useState('Users')
+	const [viewType, setViewType] = useState('List')
 	const [data, setData] = useState([])
 	const [formData, setFormData] = useState(null)
 	const [showForm, setShowForm] = useState(false)
@@ -271,6 +272,7 @@ export const FirebaseProvider = ({ children }) => {
 			value={{
 				collectionTotals,
 				table,
+				viewType,
 				data,
 				formData,
 				showForm,
@@ -284,6 +286,7 @@ export const FirebaseProvider = ({ children }) => {
 				DeleteDoc,
 				setCollectionTotals,
 				setTable,
+				setViewType,
 				setData,
 				setFormData,
 				GetHTMLFormData,
