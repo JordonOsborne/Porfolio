@@ -5,6 +5,9 @@
 		grid-column: 1;
 		form {
 			margin: 0.25rem;
+			img {
+				object-fit: cover;
+			}
 			h1 {
 				margin: 0;
 				padding: 0.5rem;
@@ -96,6 +99,34 @@
 					font-size: 1.25rem;
 				}
 			}
+			.viewSelector {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				.viewType {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					border: 1px solid var(--light-color);
+					button {
+						padding: 0.5rem;
+						border-radius: 0;
+						border: 1px solid var(--light-color);
+						border-left: none;
+						&:hover {
+							background: var(--light-color);
+						}
+						&.Selected {
+							background: var(--light-faded);
+						}
+						svg {
+							font-size: inherit;
+							margin-right: 0;
+							cursor: pointer;
+						}
+					}
+				}
+			}
 		}
 		.Collection {
 			width: 100%;
@@ -129,6 +160,36 @@
 			td.last {
 				width: 1px;
 				white-space: nowrap;
+			}
+		}
+		.Grid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 1rem;
+			padding-top: 1rem;
+			.Card {
+				border: 1px solid var(--light-color);
+				cursor: pointer;
+				&:hover {
+					border: 1px solid var(--light-faded);
+					background: var(--light-color);
+				}
+				img {
+					object-fit: contain;
+					padding: 1rem 2rem;
+					width: 100%;
+				}
+				h3 {
+					margin: 0;
+					padding: 0.5rem 1rem;
+					padding-top: 0;
+					text-align: center;
+					font-weight: 600;
+				}
+				p {
+					padding: 0 0.5rem;
+					text-align: center;
+				}
 			}
 		}
 	}

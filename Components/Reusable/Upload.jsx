@@ -24,7 +24,10 @@ function Upload({ Id, Label, Types, Required, Multiple, filePath, Source }) {
 						alt={`${Label} Image`}
 						title={`Upload New ${Label}`}
 					/>
-					<label className={styles.ImageUpload}>
+					<label
+						className={styles.ImageUpload}
+						htmlFor={Id}
+					>
 						<input
 							id={Id}
 							name={Id}

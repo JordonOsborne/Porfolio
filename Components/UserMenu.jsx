@@ -16,7 +16,18 @@ function UserMenu({ user }) {
 				setShowMenu(!showMenu)
 			}}
 		>
-			<MdAccountCircle title={user.displayName} />
+			{!user?.photoURL ? (
+				<img
+					src={user.PhotoURL}
+					alt={user.displayName}
+					title={user.displayName}
+					width='40px'
+					height='40px'
+					className='ProfileImg'
+				/>
+			) : (
+				<MdAccountCircle title={user.displayName} />
+			)}
 			{showMenu && (
 				<menu>
 					<li className='heading'>{user.displayName}</li>

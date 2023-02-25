@@ -1,7 +1,7 @@
 import Header from '../Components/Header'
 import Loading from '../Components/Reusable/Loading'
 import Input from '../Components/Reusable/Input'
-import ViewSelector from '../Components/ViewSelector'
+import Upload from '../Components/Reusable/Upload'
 import FormSwitch from '../Components/Forms/_FormSwitch'
 import TableSwitch from '../Components/Tables/_TableSwitch'
 import styles from '../styles/Admin.module.scss'
@@ -12,7 +12,6 @@ import { useContext, useState, useEffect } from 'react'
 import { auth } from '../firebase.config'
 import { useRouter } from 'next/router'
 import { FaUsers, FaFileInvoiceDollar, FaCode } from 'react-icons/fa'
-import { IoMdAddCircle } from 'react-icons/io'
 import { GrOrganization } from 'react-icons/gr'
 import { GoCommentDiscussion } from 'react-icons/go'
 
@@ -20,26 +19,14 @@ export default function Admin() {
 	const { user, UpdateProfile } = useContext(AuthContext)
 	const router = useRouter()
 	const [editProfile, setEditProfile] = useState(false)
-	const {
-		table,
-		setTable,
-		setFormData,
-		collectionTotals,
-		showForm,
-		setShowForm,
-		isLoading,
-	} = useContext(FirebaseAPI)
+	const { table, setTable, collectionTotals, showForm, isLoading } =
+		useContext(FirebaseAPI)
 
 	useEffect(() => {
 		if (user?.isAdmin) {
 			setTable('Clients')
 		}
 	}, [user])
-
-	const NewForm = () => {
-		setFormData(null)
-		setShowForm(true)
-	}
 
 	const LogOut = async (e) => {
 		e.preventDefault()
@@ -64,16 +51,15 @@ export default function Admin() {
 					{user && (
 						<>
 							<form>
-								<img
-									src={
-										user?.photoURL === undefined ? 'NotFound' : user.photoURL
-									}
-									title={user?.displayName}
-									width='250px'
-									height='250px'
-								/>
 								{editProfile ? (
 									<>
+										<Upload
+											Id='PhotoURL'
+											Label='Profile'
+											Types={['image/png, image/jpeg, image/svg']}
+											filePath={`Users/${user.uid}.jpg`}
+											Source={user?.PhotoURL}
+										/>
 										<Input
 											Id='FirstName'
 											Label='First Name'
@@ -108,6 +94,16 @@ export default function Admin() {
 									</>
 								) : (
 									<>
+										<img
+											src={
+												user?.PhotoURL === undefined
+													? 'NotFound'
+													: user.PhotoURL
+											}
+											title={user?.displayName}
+											width='250px'
+											height='250px'
+										/>
 										<h1>{user.displayName}</h1>
 										<Input
 											Id='Email'
@@ -201,13 +197,6 @@ export default function Admin() {
 									? collectionTotals.Invoices + ` Invoice`
 									: collectionTotals.Invoices + ` Invoices`}
 							</button>
-						</div>
-						<div className={styles.Menu}>
-							<button onClick={() => NewForm()}>
-								<IoMdAddCircle />
-								New
-							</button>
-							<ViewSelector />
 						</div>
 						{isLoading ? <Loading /> : <TableSwitch />}
 						{showForm && <FormSwitch />}

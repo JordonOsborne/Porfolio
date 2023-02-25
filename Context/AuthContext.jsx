@@ -30,6 +30,7 @@ export const AuthProvider = ({ children }) => {
 					const data = {
 						uid: auth.currentUser.uid,
 						displayName: auth.currentUser.displayName,
+						PhotoURL: auth.currentUser.photoURL,
 						Email: auth.currentUser.email,
 						Phone: dbUser.Phone,
 						FirstName: dbUser.FirstName,
@@ -215,6 +216,7 @@ export const AuthProvider = ({ children }) => {
 		<AuthContext.Provider
 			value={{
 				user,
+				setUser,
 				NewUserIsValid,
 				RegisterWithEmail,
 				SignInWithEmail,

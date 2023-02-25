@@ -73,7 +73,7 @@ header nav .Login a {
 	padding-left: 0.4rem;
 	font-size: 0.8rem;
 }
-header nav a:hover {
+header nav div:not(.active) a:hover {
 	border-bottom: 2px solid white;
 }
 header nav .Login a:hover {
@@ -88,6 +88,14 @@ header nav .Login a:hover {
 	margin-top: 0.25rem;
 	font-size: 2.5rem;
 	padding: 0.25rem;
+	cursor: pointer;
+}
+#UserMenu .ProfileImg {
+	width: 2rem;
+	height: 2rem;
+	border-radius: 2rem;
+	object-fit: cover;
+	object-position: center;
 	cursor: pointer;
 }
 #UserMenu menu {

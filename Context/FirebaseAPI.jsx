@@ -1,7 +1,9 @@
 import { db, auth, storage } from '../firebase.config'
 import { FormIsValid } from '../Utilities/Form'
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useState, useEffect, useContext } from 'react'
+import { updateProfile } from 'firebase/auth'
+import AuthContext from '../Context/AuthContext'
 import {
 	collection,
 	query,
@@ -18,6 +20,7 @@ import {
 const FirebaseAPI = createContext()
 
 export const FirebaseProvider = ({ children }) => {
+	const { user, setUser } = useContext(AuthContext)
 	const [collectionTotals, setCollectionTotals] = useState({
 		Clients: 0,
 		Users: 0,
@@ -249,10 +252,17 @@ export const FirebaseProvider = ({ children }) => {
 		const update = { [Id]: url }
 		const newDoc = { ...formData, ...update }
 		delete newDoc.id
-		console.log(newDoc)
-		const newData = await SaveForm(formData.id, newDoc)
-		setFormData(newData)
-		setUploading(false)
+		if ((Id = 'PhotoURL')) {
+			const docRef = doc(db, 'Users', user.uid)
+			const data = { PhotoURL: url }
+			await updateProfile(auth.currentUser, { photoURL: url })
+			await setDoc(docRef, { ...user, ...data })
+			setUser({ ...user, ...data })
+		} else {
+			const newData = await SaveForm(formData.id, newDoc)
+			setFormData(newData)
+			setUploading(false)
+		}
 		return url
 	}
 
