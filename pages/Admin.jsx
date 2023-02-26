@@ -16,7 +16,7 @@ import { GrOrganization } from 'react-icons/gr'
 import { GoCommentDiscussion } from 'react-icons/go'
 
 export default function Admin() {
-	const { user, UpdateProfile } = useContext(AuthContext)
+	const { user, UpdateProfile, ResetPassword } = useContext(AuthContext)
 	const router = useRouter()
 	const [editProfile, setEditProfile] = useState(false)
 	const { table, setTable, collectionTotals, showForm, isLoading } =
@@ -28,8 +28,7 @@ export default function Admin() {
 		}
 	}, [user])
 
-	const LogOut = async (e) => {
-		e.preventDefault()
+	const LogOut = async () => {
 		await auth.signOut()
 		router.push('/')
 	}
@@ -130,14 +129,8 @@ export default function Admin() {
 								>
 									{editProfile ? 'View Profile' : 'Edit Profile'}
 								</li>
-								<li>Reset Password</li>
-								<li
-									onClick={(e) => {
-										LogOut(e)
-									}}
-								>
-									Log Out
-								</li>
+								<li onClick={() => ResetPassword()}>Reset Password</li>
+								<li onClick={() => LogOut()}>Log Out</li>
 							</menu>
 						</>
 					)}

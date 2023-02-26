@@ -13,6 +13,7 @@ import {
 	signInWithEmailAndPassword,
 	updateEmail,
 	updateProfile,
+	sendPasswordResetEmail,
 } from 'firebase/auth'
 
 const AuthContext = createContext()
@@ -169,6 +170,16 @@ export const AuthProvider = ({ children }) => {
 		}
 	}
 
+	// SEND PASSWORD RESET
+	const ResetPassword = async () => {
+		console.log('Sending Password Reset Email to ', user.Email)
+		try {
+			await sendPasswordResetEmail(auth, user.Email)
+		} catch (error) {
+			console.log('Email Failed to Send: ', error.message)
+		}
+	}
+
 	// GET USER DATA FROM DATABASE
 	const getUserData = async (uid) => {
 		const docRef = doc(db, 'Users', uid)
@@ -221,6 +232,7 @@ export const AuthProvider = ({ children }) => {
 				RegisterWithEmail,
 				SignInWithEmail,
 				UpdateProfile,
+				ResetPassword,
 			}}
 		>
 			{children}

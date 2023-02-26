@@ -1,12 +1,13 @@
 import Link from 'next/link'
+import AuthContext from '../Context/AuthContext'
 import { auth } from '../firebase.config'
 import { MdAccountCircle } from 'react-icons/md'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 
 function UserMenu({ user }) {
+	const { ResetPassword } = useContext(AuthContext)
 	const [showMenu, setShowMenu] = useState(false)
-	const LogOut = async (e) => {
-		e.preventDefault()
+	const LogOut = async () => {
 		await auth.signOut()
 	}
 	return (
@@ -34,11 +35,9 @@ function UserMenu({ user }) {
 					<li>
 						<Link href='/Admin'>Admin Page</Link>
 					</li>
-					<li>Reset Password</li>
+					<li onClick={() => ResetPassword()}>Reset Password</li>
 					<li
-						onClick={(e) => {
-							LogOut(e)
-						}}
+						onClick={() => LogOut()}
 						className='divider'
 					>
 						Logout
