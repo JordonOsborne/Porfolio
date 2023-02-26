@@ -56,26 +56,25 @@ export const AuthProvider = ({ children }) => {
 		Email,
 		Password
 	) => {
-		const requirements = [FirstName, LastName, Email, Password]
-		if (!FormIsValid(requirements)) {
-			return
-		}
 		try {
+			let password
 			const fullName = FirstName.value.trim() + ' ' + LastName.value.trim()
 			if (!Password) {
-				Password.value = fullName.trim()
+				password = fullName.trim()
+			} else {
+				password = Password.value
 			}
 			const userCredential = await createUserWithEmailAndPassword(
 				auth,
 				Email.value,
-				Password.value
+				password
 			)
 			const user = userCredential.user
 			updateProfile(auth.currentUser, {
 				displayName: fullName,
 				phoneNumber: GetPhoneNumber(Phone.value),
 			})
-			RegistrationSuccess(user, FirstName, LastName, Phone, Email, Password)
+			RegistrationSuccess(user, FirstName, LastName, Phone, Email)
 			return true
 		} catch (error) {
 			console.log(error.message)
@@ -83,6 +82,7 @@ export const AuthProvider = ({ children }) => {
 				ToastError('User already exist. Please use Sign In.')
 			} else {
 				ToastError('Sign-In Failed!')
+				console.log('Error: ', error.message)
 			}
 			return false
 		}

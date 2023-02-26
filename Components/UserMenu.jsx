@@ -16,7 +16,7 @@ function UserMenu({ user }) {
 				setShowMenu(!showMenu)
 			}}
 		>
-			{!user?.photoURL ? (
+			{user?.PhotoURL !== null ? (
 				<img
 					src={user.PhotoURL}
 					alt={user.displayName}

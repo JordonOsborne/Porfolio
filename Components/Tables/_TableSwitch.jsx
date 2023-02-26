@@ -2,7 +2,8 @@ import styles from '../../styles/Admin.module.scss'
 import Loading from '../Reusable/Loading'
 import ViewSelector from '../../Components/ViewSelector'
 import FirebaseAPI from '../../Context/FirebaseAPI'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
+import { useRouter } from 'next/router'
 import { IoMdAddCircle } from 'react-icons/io'
 // TABLES
 import Clients from './Clients'
@@ -18,7 +19,8 @@ import CommunicationsGrid from '../Grids/Communications'
 import InvoicesGrid from '../Grids/Invoices'
 
 function TableSwitch() {
-	const { isLoading, table, viewType, setViewType, setShowForm, setFormData } =
+	const router = useRouter()
+	const { isLoading, table, viewType, setShowForm, setFormData } =
 		useContext(FirebaseAPI)
 
 	const ChooseData = () => {
@@ -46,7 +48,11 @@ function TableSwitch() {
 	return (
 		<>
 			<div className={styles.Menu}>
-				<button onClick={() => NewForm()}>
+				<button
+					onClick={() =>
+						table === 'Users' ? router.push('/SignIn?Register=true') : NewForm()
+					}
+				>
 					<IoMdAddCircle />
 					New
 				</button>
