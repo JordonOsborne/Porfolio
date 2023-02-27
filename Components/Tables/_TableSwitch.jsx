@@ -29,7 +29,7 @@ function TableSwitch() {
 				return viewType !== 'Grid' ? <Clients /> : <ClientsGrid />
 			case 'Users':
 				return viewType !== 'Grid' ? <Users /> : <UsersGrid />
-			case 'My-Work':
+			case 'Projects':
 				return viewType !== 'Grid' ? <Projects /> : <ProjectsGrid />
 			case 'Communications':
 				return viewType !== 'Grid' ? <Communications /> : <CommunicationsGrid />

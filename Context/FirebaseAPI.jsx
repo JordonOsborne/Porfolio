@@ -41,13 +41,13 @@ export const FirebaseProvider = ({ children }) => {
 		const getCollectionTotals = async () => {
 			const clientCount = await GetCollectionTotal('Clients')
 			const userCount = await GetCollectionTotal('Users')
-			const workCount = await GetCollectionTotal('My-Work')
+			const projectCount = await GetCollectionTotal('Projects')
 			const communicationCount = await GetCollectionTotal('Communications')
 			const invoiceCount = await GetCollectionTotal('Invoices')
 			setCollectionTotals({
 				Clients: clientCount,
 				Users: userCount,
-				Work: workCount,
+				Projects: projectCount,
 				Communications: communicationCount,
 				Invoices: invoiceCount,
 			})

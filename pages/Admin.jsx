@@ -163,13 +163,13 @@ export default function Admin() {
 							</button>
 							{user.isAdmin && (
 								<button
-									className={table === 'My-Work' ? styles.selected : ''}
-									onClick={() => setTable('My-Work')}
+									className={table === 'Projects' ? styles.selected : ''}
+									onClick={() => setTable('Projects')}
 								>
 									<FaCode />
-									{collectionTotals.Work === 1
-										? collectionTotals.Work + ` Project`
-										: collectionTotals.Work + ` Projects`}
+									{collectionTotals.Projects === 1
+										? collectionTotals.Projects + ` Project`
+										: collectionTotals.Projects + ` Projects`}
 								</button>
 							)}
 							<button

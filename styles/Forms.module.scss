@@ -1,5 +1,5 @@
 // SIDE PANEL FORMS
-.SidePanel {
+#SidePanel {
 	position: absolute;
 	right: 0;
 	top: 0;
@@ -16,6 +16,60 @@
 		var(--primary-dark) 0%,
 		rgba(2, 0, 36, 1) 8%
 	);
+	&.Lg {
+		width: 70vw;
+		.ActionMenu {
+			padding-right: 0;
+		}
+		form {
+			width: 100%;
+			.Container {
+				margin: 0 2rem;
+				display: grid;
+				grid-template-columns: repeat(5, 1fr);
+				gap: 1rem;
+				justify-content: center;
+				align-items: center;
+			}
+			.dropdown {
+				display: flex;
+				flex-wrap: wrap;
+				margin-bottom: 0.5rem;
+				&:has([id='Company']) {
+					grid-column: span 2;
+				}
+				div {
+					width: 100%;
+				}
+				label {
+					padding: 0.25rem 1rem;
+				}
+				input {
+					width: 100%;
+				}
+				.options {
+					right: 0;
+				}
+			}
+			.labelDiv {
+				&:has([id='Project'], [id='Link']) {
+					grid-column: span 2;
+				}
+				&:has([id='URL']) {
+					grid-column: span 3;
+				}
+				&:has([id='Description']) {
+					grid-column: span 5;
+				}
+				.inputDiv {
+					width: 100%;
+					input {
+						width: 100%;
+					}
+				}
+			}
+		}
+	}
 	.ActionMenu {
 		padding: 0.5rem 1rem;
 		padding-left: 2rem;
@@ -45,7 +99,7 @@
 			div {
 				border: none;
 				input {
-					padding: 0.5rem 1rem;
+					padding: 0.5rem 2.75rem;
 					padding-left: 2.25rem;
 					font-weight: 200;
 					font-size: 1rem;

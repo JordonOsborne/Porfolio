@@ -16,7 +16,7 @@ function FormSwitch() {
 				return <Client />
 			case 'Users':
 				return <User />
-			case 'My-Work':
+			case 'Projects':
 				return <Project />
 			case 'Communications':
 				return <Communication />
@@ -26,7 +26,10 @@ function FormSwitch() {
 	}
 
 	return (
-		<div className={styles.SidePanel}>
+		<div
+			id={styles.SidePanel}
+			className={table === 'Projects' && styles.Lg}
+		>
 			<Actions />
 			{ChooseForm()}
 		</div>

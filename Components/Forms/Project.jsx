@@ -50,12 +50,6 @@ export default function User() {
 					Icon='Date'
 				/>
 				<Input
-					Id='Description'
-					Label='Project Details'
-					Default={formData?.Description}
-					Icon='Text'
-				/>
-				<Input
 					Id='Link'
 					Label='Link Name'
 					Default={formData?.Link}
@@ -67,6 +61,12 @@ export default function User() {
 					Placeholder='URL to Project or Github'
 					Default={formData?.URL}
 					Icon='URL'
+				/>
+				<Input
+					Id='Description'
+					Label='Project Details'
+					Default={formData?.Description}
+					Icon='Text'
 				/>
 			</div>
 		</form>

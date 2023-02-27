@@ -5,7 +5,7 @@ import { useContext } from 'react'
 function Projects() {
 	const { data, setShowForm, GetDoc } = useContext(FirebaseAPI)
 	const EditForm = async (id) => {
-		await GetDoc('My-Work', id)
+		await GetDoc('Projects', id)
 		setShowForm(true)
 	}
 	return (
