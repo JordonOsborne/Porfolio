@@ -11,7 +11,7 @@ import { GrOrganization } from 'react-icons/gr'
 import { MdDateRange } from 'react-icons/md'
 import { BiText, BiLink } from 'react-icons/bi'
 
-function Input({ Id, Label, Placeholder, Default, Icon, ReadOnly }) {
+function Input({ Id, Label, Placeholder, Default, Icon, ReadOnly, Required }) {
 	const DatePicker = (e) => {
 		try {
 			e.target.nextSibling.showPicker()
@@ -35,6 +35,8 @@ function Input({ Id, Label, Placeholder, Default, Icon, ReadOnly }) {
 				return <FaCode className={styles.Icon} />
 			case 'URL':
 				return <BiLink className={styles.Icon} />
+			case 'Key':
+				return <FaKey className={styles.Icon} />
 			case 'Date':
 				return (
 					<MdDateRange
@@ -88,6 +90,7 @@ function Input({ Id, Label, Placeholder, Default, Icon, ReadOnly }) {
 									? Default.toDate().toISOString().split('T')[0]
 									: Default
 							}
+							required={Required}
 						/>
 					</div>
 				</div>

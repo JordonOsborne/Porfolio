@@ -4,7 +4,7 @@ import { BsChevronDoubleDown, BsChevronDoubleUp } from 'react-icons/bs'
 import { MdAccountCircle } from 'react-icons/md'
 import { GrOrganization } from 'react-icons/gr'
 
-function Dropdown({ Name, Default, Options, ShowLabel, Icon }) {
+function Dropdown({ Name, Default, Options, ShowLabel, Icon, Required }) {
 	const [selected, setSelected] = useState(Default)
 	const [isOpen, setIsOpen] = useState(false)
 	const [options, setOptions] = useState([])
@@ -60,6 +60,7 @@ function Dropdown({ Name, Default, Options, ShowLabel, Icon }) {
 							title={Name}
 							value={selected?.displayName}
 							data-value={JSON.stringify(selected)}
+							required={Required}
 							readOnly
 						/>
 						{isOpen ? <BsChevronDoubleUp /> : <BsChevronDoubleDown />}

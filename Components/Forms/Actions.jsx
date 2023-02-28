@@ -4,7 +4,7 @@ import { MdSave, MdDelete, MdOutlineExitToApp } from 'react-icons/md'
 import { useContext } from 'react'
 
 function Actions() {
-	const { table, formData, SubmitForm, DeleteDoc, setShowForm } =
+	const { table, formData, onChange, SubmitForm, DeleteDoc, setShowForm } =
 		useContext(FirebaseAPI)
 
 	return (
@@ -17,7 +17,10 @@ function Actions() {
 				{formData && <MdDelete onClick={() => DeleteDoc(table, formData.id)} />}{' '}
 			</div>
 			<MdOutlineExitToApp
-				onClick={() => setShowForm(false)}
+				onClick={() => {
+					setShowForm(false)
+					onChange(null)
+				}}
 				title='Close Form'
 			/>
 		</div>

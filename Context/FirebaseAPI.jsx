@@ -1,5 +1,5 @@
 import { db, auth, storage } from '../firebase.config'
-import { FormIsValid } from '../Utilities/Form'
+import { FormIsValid, RequiredFields } from '../Utilities/Form'
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { createContext, useState, useEffect, useContext } from 'react'
 import { updateProfile } from 'firebase/auth'
@@ -36,6 +36,7 @@ export const FirebaseProvider = ({ children }) => {
 	const [isLoading, setIsLoading] = useState(false)
 	const [percent, setPercent] = useState(0)
 	const [uploading, setUploading] = useState(false)
+	const [value, onChange] = useState(null)
 
 	useEffect(() => {
 		const getCollectionTotals = async () => {
@@ -110,7 +111,12 @@ export const FirebaseProvider = ({ children }) => {
 	const GetHTMLFormData = () => {
 		let data, id
 		Array.from(document[table].elements).forEach((input) => {
-			if (input.nodeName === 'INPUT' && input.id !== 'Id') {
+			if (
+				input.nodeName === 'INPUT' &&
+				input.id !== 'Id' &&
+				input.dataset.link !== 'https://quilljs.com'
+			) {
+				console.log(input)
 				// CHECK FOR DROPDOWN OBJECT VALUES
 				if (input.dataset.value === undefined) {
 					switch (input.type) {
@@ -137,6 +143,13 @@ export const FirebaseProvider = ({ children }) => {
 				}
 			}
 		})
+		// CHECK FOR RICH TEXT EDITOR
+		const rte = document.getElementsByClassName('quill')[0]
+		if (rte !== undefined) {
+			const field = rte.previousSibling.id
+			const rteInput = rte.getElementsByClassName('ql-editor')[0]
+			data = { ...data, [field]: rteInput.innerHTML }
+		}
 		// CHECK IF NEW FORM OR UPDATE
 		if (document[table].id.includes('New')) {
 			id = null
@@ -148,14 +161,14 @@ export const FirebaseProvider = ({ children }) => {
 
 	// SUBMIT FORM - VALIDATION INCLUDED
 	const SubmitForm = async () => {
-		const allFields = Array.from(document[table].elements)
-		if (FormIsValid(allFields)) {
+		const requirements = RequiredFields(table)
+		if (FormIsValid(requirements)) {
 			delete formData.id
-			const htmlFormData = GetHTMLFormData().Data
-			const docId = GetHTMLFormData().Id
+			const htmlFormData = GetHTMLFormData()
+			const docId = htmlFormData.Id
 			const newDoc = {
 				...formData,
-				...htmlFormData,
+				...htmlFormData.Data,
 				Updated: serverTimestamp(),
 				UpdatedBy: auth.currentUser.uid,
 			}
@@ -164,6 +177,7 @@ export const FirebaseProvider = ({ children }) => {
 			const existingItem = data.find((item) => item.id === docId)
 			setData([...tempData, newData])
 			setFormData(null)
+			onChange(null)
 			setShowForm(false)
 			!existingItem &&
 				setCollectionTotals({
@@ -175,6 +189,7 @@ export const FirebaseProvider = ({ children }) => {
 
 	// SUBMIT FORM DATA TO DATABASE
 	const SaveForm = async (id, data) => {
+		console.log(data)
 		try {
 			const docRef = doc(db, table, id)
 			await setDoc(docRef, data)
@@ -275,6 +290,7 @@ export const FirebaseProvider = ({ children }) => {
 				viewType,
 				data,
 				formData,
+				value,
 				showForm,
 				isLoading,
 				uploading,
@@ -289,6 +305,7 @@ export const FirebaseProvider = ({ children }) => {
 				setViewType,
 				setData,
 				setFormData,
+				onChange,
 				GetHTMLFormData,
 				setShowForm,
 				setIsLoading,

@@ -1,6 +1,17 @@
 import { toast } from 'react-toastify'
 
 // FORM VALIDATION FUNCTIONS
+export function RequiredFields(Form) {
+	const allFields = Array.from(document[Form].elements)
+	let requirements = []
+	allFields.forEach((input) => {
+		if (input.nodeName === 'INPUT' && input.required) {
+			requirements.push(input)
+		}
+	})
+	return requirements
+}
+
 export function FormIsValid(requirements) {
 	const errors = []
 	requirements.forEach((requirement) => {

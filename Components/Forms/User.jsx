@@ -28,7 +28,11 @@ export default function User() {
 			id={formData ? formData.id : 'NewUserForm'}
 			name='Users'
 		>
-			<h2>{formData ? `User Form` : `New User Form`}</h2>
+			<h2>
+				{formData
+					? `${formData.FirstName} ${formData.LastName}`
+					: `New User Form`}
+			</h2>
 			<div className={styles.Container}>
 				<Dropdown
 					Name='Company'

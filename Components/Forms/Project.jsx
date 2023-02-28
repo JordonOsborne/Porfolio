@@ -1,6 +1,7 @@
 import styles from '../../styles/Forms.module.scss'
 import Input from '../Reusable/Input'
 import Dropdown from '../Reusable/Dropdown'
+import RichTextInput from '../Reusable/RichTextInput'
 import FirebaseAPI from '../../Context/FirebaseAPI'
 import { useState, useEffect, useContext } from 'react'
 
@@ -28,26 +29,29 @@ export default function User() {
 			id={formData ? formData.id : 'NewProjectForm'}
 			name='Projects'
 		>
-			<h2>{formData ? `Project Form` : `New Project Form`}</h2>
+			<h2>{formData ? formData.Project : `New Project Form`}</h2>
 			<div className={styles.Container}>
 				<Dropdown
 					Name='Company'
-					Default={formData?.Contact}
+					Default={formData?.Company}
 					Options={clients}
 					ShowLabel={true}
 					Icon='Client'
+					Required={true}
 				/>
 				<Input
 					Id='Project'
 					Label='Project Name'
 					Default={formData?.Project}
 					Icon='Code'
+					Required={true}
 				/>
 				<Input
 					Id='Date'
 					Label='Date Completed'
 					Default={formData?.Date}
 					Icon='Date'
+					Required={true}
 				/>
 				<Input
 					Id='Link'
@@ -62,11 +66,10 @@ export default function User() {
 					Default={formData?.URL}
 					Icon='URL'
 				/>
-				<Input
+				<RichTextInput
 					Id='Description'
 					Label='Project Details'
 					Default={formData?.Description}
-					Icon='Text'
 				/>
 			</div>
 		</form>
