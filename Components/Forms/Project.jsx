@@ -1,6 +1,7 @@
 import styles from '../../styles/Forms.module.scss'
 import Input from '../Reusable/Input'
 import Dropdown from '../Reusable/Dropdown'
+import Upload from '../Reusable/Upload'
 import RichTextInput from '../Reusable/RichTextInput'
 import FirebaseAPI from '../../Context/FirebaseAPI'
 import { useState, useEffect, useContext } from 'react'
@@ -8,6 +9,7 @@ import { useState, useEffect, useContext } from 'react'
 export default function User() {
 	const { formData, GetData } = useContext(FirebaseAPI)
 	const [clients, setClients] = useState([])
+	const allowedTypes = ['image/png, image/jpeg, image/svg']
 
 	useEffect(() => {
 		const GetClients = async () => {
@@ -31,6 +33,25 @@ export default function User() {
 		>
 			<h2>{formData ? formData.Project : `New Project Form`}</h2>
 			<div className={styles.Container}>
+				{formData?.Project && formData?.Company && (
+					<>
+						<Upload
+							Id='MockUpImg'
+							Label='Mock-Up Image'
+							Types={allowedTypes}
+							Source={formData?.MockUpImg}
+							filePath={`${formData.Company.id}/${formData.Project}/Mock-Up.png`}
+						/>
+						<Upload
+							Id='Images'
+							Label='Project Images'
+							Types={allowedTypes}
+							Source={formData?.Images}
+							filePath={`${formData.Company.id}/Images`}
+							Multiple={true}
+						/>
+					</>
+				)}
 				<Dropdown
 					Name='Company'
 					Default={formData?.Company}

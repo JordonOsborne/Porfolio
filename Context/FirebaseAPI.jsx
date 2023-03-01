@@ -32,6 +32,7 @@ export const FirebaseProvider = ({ children }) => {
 	const [viewType, setViewType] = useState('List')
 	const [data, setData] = useState([])
 	const [formData, setFormData] = useState(null)
+	const [savedFiles, setSavedFiles] = useState([])
 	const [showForm, setShowForm] = useState(false)
 	const [isLoading, setIsLoading] = useState(false)
 	const [percent, setPercent] = useState(0)
@@ -189,7 +190,7 @@ export const FirebaseProvider = ({ children }) => {
 
 	// SUBMIT FORM DATA TO DATABASE
 	const SaveForm = async (id, data) => {
-		console.log(data)
+		console.log('data: ', data)
 		try {
 			const docRef = doc(db, table, id)
 			await setDoc(docRef, data)
@@ -226,7 +227,7 @@ export const FirebaseProvider = ({ children }) => {
 	}
 
 	// UPLOAD FILE TO STORAGE
-	const UploadFile = (Id, file, filePath) => {
+	const UploadFile = async (file, filePath) => {
 		setUploading(true)
 		const fileRef = ref(storage, filePath ? filePath : file.name)
 		// UPLOAD TO FIRE STORAGE
@@ -239,7 +240,7 @@ export const FirebaseProvider = ({ children }) => {
 					(snapshot.bytesTransferred / snapshot.totalBytes) * 100
 				)
 				setPercent(percent)
-				percent === 100 && setUploading(false)
+				percent === 100
 			},
 			// ON UPLOAD ERROR
 			(error) => {
@@ -256,30 +257,32 @@ export const FirebaseProvider = ({ children }) => {
 				}
 			},
 			// ON SUCCESSFUL UPLOAD
-			async () => {
-				const url = await getDownloadURL(uploadTask.snapshot.ref)
-				AssignURL(Id, url)
+			() => {
+				console.log('File Saved!')
 			}
 		)
+		const completedTask = await uploadTask
+		const url = await getDownloadURL(completedTask.ref)
+		return url
 	}
 
 	// ASSIGN FILE URL TO DOCUMENT
-	const AssignURL = async (Id, url) => {
-		const update = { [Id]: url }
+	const AssignURLs = async (Id, urls) => {
+		const update = { [Id]: urls }
 		const newDoc = { ...formData, ...update }
 		delete newDoc.id
-		if ((Id = 'PhotoURL')) {
+		if (Id === 'PhotoURL') {
 			const docRef = doc(db, 'Users', user.uid)
-			const data = { PhotoURL: url }
-			await updateProfile(auth.currentUser, { photoURL: url })
+			const data = { PhotoURL: urls }
+			await updateProfile(auth.currentUser, { photoURL: urls })
 			await setDoc(docRef, { ...user, ...data })
 			setUser({ ...user, ...data })
 		} else {
 			const newData = await SaveForm(formData.id, newDoc)
 			setFormData(newData)
-			setUploading(false)
 		}
-		return url
+		setUploading(false)
+		return urls
 	}
 
 	return (
@@ -310,6 +313,7 @@ export const FirebaseProvider = ({ children }) => {
 				setShowForm,
 				setIsLoading,
 				UploadFile,
+				AssignURLs,
 			}}
 		>
 			{children}
