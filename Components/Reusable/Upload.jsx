@@ -1,6 +1,7 @@
 import styles from '../../styles/Forms.module.scss'
 import FirebaseAPI from '../../Context/FirebaseAPI'
 import { useContext } from 'react'
+import { MdCloudUpload } from 'react-icons/md'
 import Uploading from './Uploading'
 import UploadPreview from './UploadPreview'
 
@@ -13,7 +14,7 @@ function Upload({ Id, Label, Types, Required, Multiple, filePath, Source }) {
 			try {
 				const file = e.target.files[0]
 				if (file) {
-					const url = UploadFile(file, filePath)
+					const url = await UploadFile(file, filePath)
 					AssignURLs(Id, url)
 				}
 			} catch (error) {
@@ -49,6 +50,7 @@ function Upload({ Id, Label, Types, Required, Multiple, filePath, Source }) {
 			{Source ? (
 				<div className={Multiple ? styles.MultipleUpload : styles.ImageUpload}>
 					<UploadPreview
+						Id={Id}
 						Source={Source}
 						Label={Label}
 						Multiple={Multiple}
@@ -57,6 +59,7 @@ function Upload({ Id, Label, Types, Required, Multiple, filePath, Source }) {
 						className={styles.ImageUpload}
 						htmlFor={Id}
 					>
+						<MdCloudUpload />
 						<input
 							id={Id}
 							name={Id}
@@ -66,7 +69,7 @@ function Upload({ Id, Label, Types, Required, Multiple, filePath, Source }) {
 							multiple={Multiple}
 							onChange={handleUpload}
 						/>
-						{uploading ? <Uploading /> : `Upload New ${Label}`}
+						{uploading ? <Uploading /> : `Upload ${Label}`}
 					</label>
 				</div>
 			) : (
@@ -74,6 +77,7 @@ function Upload({ Id, Label, Types, Required, Multiple, filePath, Source }) {
 					htmlFor={Id}
 					className={Multiple ? styles.MultipleUpload : styles.ImageUpload}
 				>
+					<MdCloudUpload />
 					<input
 						id={Id}
 						name={Id}

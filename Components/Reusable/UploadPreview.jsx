@@ -1,20 +1,47 @@
-function UploadPreview({ Source, Label, Multiple }) {
+import styles from '../../styles/Forms.module.scss'
+import FirebaseAPI from '../../Context/FirebaseAPI'
+import { MdDelete } from 'react-icons/md'
+import { useContext } from 'react'
+
+function UploadPreview({ Id, Source, Label, Multiple }) {
+	const { AssignURLs } = useContext(FirebaseAPI)
 	const Images = () => {
 		return Source.map((url, index) => (
-			<img
+			<div
+				className={styles.ImagePreview}
 				key={index}
-				src={url}
-				alt={`Image ${index}`}
-				title={url
-					.replace(
-						'https://firebasestorage.googleapis.com/v0/b/josborne-dev.appspot.com/o',
-						''
-					)
-					.replace(/%2F/g, '/')}
-			/>
+			>
+				<img
+					src={url}
+					alt={`Image ${index}`}
+					title={GetPath(url)}
+				/>
+				<MdDelete
+					onClick={(e) => RemoveImg(e)}
+					className={styles.DeleteImg}
+				/>
+			</div>
 		))
 	}
-	console.log(Multiple)
+
+	const GetPath = (url) => {
+		const path = new URL(url).pathname.replace(
+			'/v0/b/josborne-dev.appspot.com/o',
+			''
+		)
+		return path
+	}
+
+	const RemoveImg = async (e) => {
+		const title = e.target.parentElement.firstElementChild.title
+		console.log(Source)
+		const savedFiles = Source.filter((item) => {
+			return !GetPath(item).includes(title)
+		})
+		await AssignURLs(Id, savedFiles)
+		console.log(`${title} Removed`)
+	}
+
 	return Multiple ? (
 		Images()
 	) : (

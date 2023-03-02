@@ -220,7 +220,6 @@ export const FirebaseProvider = ({ children }) => {
 			})
 			setFormData(null)
 			setShowForm(false)
-			console.log('Form Deleted')
 		} catch (error) {
 			console.log('Delete Doc Failed: ', error.message)
 		}
@@ -268,21 +267,26 @@ export const FirebaseProvider = ({ children }) => {
 
 	// ASSIGN FILE URL TO DOCUMENT
 	const AssignURLs = async (Id, urls) => {
-		const update = { [Id]: urls }
-		const newDoc = { ...formData, ...update }
-		delete newDoc.id
-		if (Id === 'PhotoURL') {
-			const docRef = doc(db, 'Users', user.uid)
-			const data = { PhotoURL: urls }
-			await updateProfile(auth.currentUser, { photoURL: urls })
-			await setDoc(docRef, { ...user, ...data })
-			setUser({ ...user, ...data })
-		} else {
-			const newData = await SaveForm(formData.id, newDoc)
-			setFormData(newData)
+		try {
+			const update = { [Id]: urls }
+			const newDoc = { ...formData, ...update }
+			delete newDoc.id
+			if (Id === 'PhotoURL') {
+				const docRef = doc(db, 'Users', user.uid)
+				const data = { PhotoURL: urls }
+				await updateProfile(auth.currentUser, { photoURL: urls })
+				await setDoc(docRef, { ...user, ...data })
+				setUser({ ...user, ...data })
+			} else {
+				const newData = await SaveForm(formData.id, newDoc)
+				setFormData(newData)
+			}
+			setUploading(false)
+			return urls
+		} catch (error) {
+			console.log(error.message)
+			return false
 		}
-		setUploading(false)
-		return urls
 	}
 
 	return (

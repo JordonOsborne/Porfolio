@@ -44,7 +44,7 @@ export default function User() {
 						/>
 						<Upload
 							Id='Images'
-							Label='Project Images'
+							Label='Images'
 							Types={allowedTypes}
 							Source={formData?.Images}
 							filePath={`${formData.Company.id}/Images`}

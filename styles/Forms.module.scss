@@ -151,15 +151,6 @@
 			label {
 				font-size: 1rem;
 			}
-			div.ImageUpload {
-				width: 250px;
-				height: 100px;
-				margin-bottom: 1rem;
-				label.ImageUpload {
-					width: 250px;
-					height: 100px;
-				}
-			}
 		}
 	}
 }
@@ -188,12 +179,12 @@ div.ImageUpload {
 		align-items: center;
 		cursor: pointer;
 		border: 1px solid white;
-		color: var(--light-faded);
+		color: white;
 		&:has(progress) {
 			opacity: 1;
 		}
 		&:hover {
-			opacity: 1;
+			opacity: 0.6;
 		}
 		input {
 			display: none;
@@ -215,14 +206,20 @@ label.ImageUpload {
 	text-align: center;
 	justify-content: center;
 	align-items: center;
+	flex-direction: column;
 	margin-bottom: 0;
+	font-size: 0.9rem;
+	padding: 0.5rem;
 	cursor: pointer;
 	width: 250px;
 	height: 100px;
 	&:not(:has(img)) {
 		border: 1px solid white;
-		color: var(--light-faded);
+		color: white;
 		background: transparent;
+	}
+	svg {
+		font-size: 3rem;
 	}
 	input {
 		display: none;
@@ -235,6 +232,14 @@ label.ImageUpload {
 	}
 }
 
+// CLIENT LOGOS
+label.ImageUpload[for='Logo'],
+div.ImageUpload:has(label[for='Logo']) {
+	width: 250px;
+	height: 100px;
+	margin-bottom: 1rem;
+}
+
 // PROFILE IMAGE SIZING
 label.ImageUpload[for='PhotoURL'],
 div.ImageUpload:has(label[for='PhotoURL']) {
@@ -245,13 +250,15 @@ div.ImageUpload:has(label[for='PhotoURL']) {
 label.ImageUpload[for='MockUpImg'],
 div.ImageUpload:has(label[for='MockUpImg']) {
 	grid-column: span 2;
-	width: 100%;
-	height: 100%;
+	display: flex;
+	justify-content: center;
+	width: 300px;
+	height: 225px;
 	margin: 0;
 	Img {
 		object-fit: cover;
 		object-position: center;
-		aspect-ratio: 3/2;
+		aspect-ratio: 4/3;
 	}
 }
 
@@ -260,25 +267,27 @@ div.ImageUpload:has(label[for='MockUpImg']) {
 	position: relative;
 	height: 100%;
 	label.ImageUpload {
-		position: absolute;
-		width: 100%;
-		height: 100%;
+		width: 150px;
+		height: 115px;
+		aspect-ratio: 4/3;
 		margin: 0;
-		color: transparent;
-		border-color: transparent;
-		&:hover {
-			color: var(--light-faded);
-			border-color: var(--light-faded);
-		}
 	}
 	&:has([id='Images']) {
 		grid-column: span 3;
 		width: 100%;
-		Img {
-			object-fit: contain;
-			object-position: center;
-			aspect-ratio: 3/2;
-			width: 100%;
+		.ImagePreview {
+			position: relative;
+			Img {
+				object-fit: contain;
+				object-position: center;
+				width: 100%;
+				max-width: 150px;
+				aspect-ratio: 4/3;
+			}
+			.DeleteImg {
+				position: absolute;
+				right: 0;
+			}
 		}
 	}
 }
@@ -336,7 +345,7 @@ div.ImageUpload:has(label[for='MockUpImg']) {
 // RICH TEXT EDITOR
 .RichText {
 	width: 100%;
-	height: 250px;
+	height: 200px;
 	font-family: inherit;
 	font-size: 0.85rem;
 	button:active {
