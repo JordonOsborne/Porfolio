@@ -8,6 +8,7 @@ function Projects() {
 		await GetDoc('Projects', id)
 		setShowForm(true)
 	}
+
 	return (
 		<table className={styles.Collection}>
 			<thead>
@@ -26,7 +27,12 @@ function Projects() {
 						>
 							<td onClick={() => EditForm(project.id)}>{project?.Project}</td>
 							<td>{project?.Date?.toDate().toDateString()}</td>
-							<td>{project?.Description}</td>
+							<td
+								className={styles.rteHTML}
+								dangerouslySetInnerHTML={{
+									__html: project.Description,
+								}}
+							></td>
 						</tr>
 					)
 				})}

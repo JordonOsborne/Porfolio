@@ -32,7 +32,7 @@ export const FirebaseProvider = ({ children }) => {
 	const [viewType, setViewType] = useState('List')
 	const [data, setData] = useState([])
 	const [formData, setFormData] = useState(null)
-	const [savedFiles, setSavedFiles] = useState([])
+	const [formUpdates, setFormUpdates] = useState({})
 	const [showForm, setShowForm] = useState(false)
 	const [isLoading, setIsLoading] = useState(false)
 	const [percent, setPercent] = useState(0)
@@ -108,68 +108,68 @@ export const FirebaseProvider = ({ children }) => {
 		setIsLoading(false)
 	}
 
-	// GET HTML FORM DATA
-	const GetHTMLFormData = () => {
-		let data, id
-		Array.from(document[table].elements).forEach((input) => {
-			if (
-				input.nodeName === 'INPUT' &&
-				input.id !== 'Id' &&
-				input.dataset.link !== 'https://quilljs.com'
-			) {
-				console.log(input)
-				// CHECK FOR DROPDOWN OBJECT VALUES
-				if (input.dataset.value === undefined) {
-					switch (input.type) {
-						case 'date':
-							const date = ConvertUTC(input.valueAsDate)
-							data = {
-								...data,
-								[input.id]: Timestamp.fromDate(date),
-							}
-							break
-						default:
-							data = { ...data, [input.id]: input.value }
-							break
-					}
-				} else {
-					const obj = JSON.parse(input.dataset.value)
-					obj.id = obj.value
-					delete obj.value
-					data = { ...data, [input.id]: obj }
-				}
-			} else {
-				if (input.id !== undefined) {
-					id = input.value
-				}
-			}
-		})
-		// CHECK FOR RICH TEXT EDITOR
-		const rte = document.getElementsByClassName('quill')[0]
-		if (rte !== undefined) {
-			const field = rte.previousSibling.id
-			const rteInput = rte.getElementsByClassName('ql-editor')[0]
-			data = { ...data, [field]: rteInput.innerHTML }
-		}
+	// GET FORM ID
+	const GetFormId = () => {
 		// CHECK IF NEW FORM OR UPDATE
 		if (document[table].id.includes('New')) {
-			id = null
+			return null
 		} else {
-			id = document[table].id
+			return document[table].id
 		}
-		return { Id: id, Data: data }
+	}
+
+	// GET INPUT DATA
+	const GetInputData = (input) => {
+		input = input.target
+		let data = {}
+		if (input.id !== 'Id') {
+			// CHECK FOR DROPDOWN OBJECT VALUES
+			if (input.dataset.value === undefined) {
+				switch (input.type) {
+					case 'date':
+						const date = ConvertUTC(input.valueAsDate)
+						data = {
+							[input.id]: Timestamp.fromDate(date),
+						}
+						break
+					default:
+						data = { [input.id]: input.value }
+						break
+				}
+			} else {
+				const obj = JSON.parse(input.dataset.value)
+				obj.id = obj.value
+				delete obj.value
+				data = { [input.dataset.id]: obj }
+			}
+		}
+		setFormUpdates({ ...formUpdates, ...data })
+		return data
+	}
+
+	// GET RICH TEXT EDITOR UPDATES
+	const RichTextUpdates = () => {
+		const RTEs = document.getElementsByClassName('ql-editor')
+		let data = {}
+		Array.from(RTEs).forEach((input) => {
+			const id = input.parentElement.parentElement.previousSibling.id
+			data = { ...data, [id]: input.innerHTML }
+		})
+		setFormUpdates({ ...formUpdates, ...data })
+		return data
 	}
 
 	// SUBMIT FORM - VALIDATION INCLUDED
 	const SubmitForm = async () => {
 		const requirements = RequiredFields(table)
 		if (FormIsValid(requirements)) {
+			const rteUpdates = RichTextUpdates()
 			delete formData.id
-			const htmlFormData = GetHTMLFormData()
-			const docId = htmlFormData.Id
+			const docId = GetFormId()
 			const newDoc = {
 				...formData,
-				...htmlFormData.Data,
+				...formUpdates,
+				...rteUpdates,
 				Updated: serverTimestamp(),
 				UpdatedBy: auth.currentUser.uid,
 			}
@@ -190,7 +190,6 @@ export const FirebaseProvider = ({ children }) => {
 
 	// SUBMIT FORM DATA TO DATABASE
 	const SaveForm = async (id, data) => {
-		console.log('data: ', data)
 		try {
 			const docRef = doc(db, table, id)
 			await setDoc(docRef, data)
@@ -312,8 +311,9 @@ export const FirebaseProvider = ({ children }) => {
 				setViewType,
 				setData,
 				setFormData,
-				onChange,
-				GetHTMLFormData,
+				setFormUpdates,
+				GetInputData,
+				RichTextUpdates,
 				setShowForm,
 				setIsLoading,
 				UploadFile,

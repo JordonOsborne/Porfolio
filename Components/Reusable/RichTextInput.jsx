@@ -1,7 +1,6 @@
 import styles from '../../styles/Forms.module.scss'
 import RichTextEditor from '../RichTextEditor'
-import { useContext } from 'react'
-import FirebaseAPI from '../../Context/FirebaseAPI'
+import { useState } from 'react'
 
 function RichTextInput({
 	Id,
@@ -11,15 +10,16 @@ function RichTextInput({
 	ReadOnly,
 	Required,
 }) {
-	const { value, onChange } = useContext(FirebaseAPI)
+	const [value, setValue] = useState(Default)
+
 	return (
 		<div className={styles.labelDiv}>
 			<label htmlFor={Id}>{Label}</label>
 			<RichTextEditor
 				id={Id}
 				placeholder={Placeholder}
-				value={value ? value : Default}
-				onChange={onChange}
+				value={value}
+				onChange={setValue}
 				controls={[
 					['h1', 'h2', 'h3', 'h4'],
 					['bold', 'italic', 'underline', 'link'],

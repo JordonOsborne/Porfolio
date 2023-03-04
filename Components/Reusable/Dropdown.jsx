@@ -1,10 +1,12 @@
 import styles from '../../styles/Forms.module.scss'
-import { useState, useEffect } from 'react'
+import FirebaseAPI from '../../Context/FirebaseAPI'
+import { useState, useEffect, useContext } from 'react'
 import { BsChevronDoubleDown, BsChevronDoubleUp } from 'react-icons/bs'
 import { MdAccountCircle } from 'react-icons/md'
 import { GrOrganization } from 'react-icons/gr'
 
 function Dropdown({ Name, Default, Options, ShowLabel, Icon, Required }) {
+	const { GetInputData } = useContext(FirebaseAPI)
 	const [selected, setSelected] = useState(Default)
 	const [isOpen, setIsOpen] = useState(false)
 	const [options, setOptions] = useState([])
@@ -16,7 +18,9 @@ function Dropdown({ Name, Default, Options, ShowLabel, Icon, Required }) {
 				options.push(
 					<div
 						key={option.value}
-						onClick={() => ChangeValue(option)}
+						onClick={(e) => ChangeValue(e, option)}
+						data-id={Name.replace(' ', '')}
+						data-value={JSON.stringify(option)}
 						className={
 							selected && option.value === selected.value ? styles.selected : ''
 						}
@@ -42,7 +46,8 @@ function Dropdown({ Name, Default, Options, ShowLabel, Icon, Required }) {
 		}
 	}
 
-	const ChangeValue = (value) => {
+	const ChangeValue = (e) => {
+		const value = GetInputData(e)[Name]
 		setSelected(value)
 		setIsOpen(false)
 	}

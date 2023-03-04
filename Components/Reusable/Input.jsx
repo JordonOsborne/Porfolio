@@ -1,4 +1,6 @@
 import styles from '../../styles/Forms.module.scss'
+import { useContext } from 'react'
+import FirebaseAPI from '../../Context/FirebaseAPI'
 import { MdEmail, MdAccountCircle } from 'react-icons/md'
 import { FaKey, FaPhoneAlt, FaCode } from 'react-icons/fa'
 import {
@@ -12,6 +14,7 @@ import { MdDateRange } from 'react-icons/md'
 import { BiText, BiLink } from 'react-icons/bi'
 
 function Input({ Id, Label, Placeholder, Default, Icon, ReadOnly, Required }) {
+	const { GetInputData } = useContext(FirebaseAPI)
 	const DatePicker = (e) => {
 		try {
 			e.target.nextSibling.showPicker()
@@ -68,13 +71,12 @@ function Input({ Id, Label, Placeholder, Default, Icon, ReadOnly, Required }) {
 	}
 	return (
 		<>
-			{ReadOnly && (
+			{ReadOnly ? (
 				<div className={styles.viewDiv}>
 					{setIcon(Icon)}
 					<div>{Default}</div>
 				</div>
-			)}
-			{!ReadOnly && (
+			) : (
 				<div className={styles.labelDiv}>
 					<label htmlFor={Id}>{Label}</label>
 					<div className={styles.inputDiv}>
@@ -91,6 +93,7 @@ function Input({ Id, Label, Placeholder, Default, Icon, ReadOnly, Required }) {
 									: Default
 							}
 							required={Required}
+							onChange={(e) => GetInputData(e)}
 						/>
 					</div>
 				</div>
