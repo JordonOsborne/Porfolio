@@ -40,14 +40,14 @@ function ViewSelector() {
 					<div className={styles.viewType}>
 						<button
 							title='List View'
-							className={viewType === 'List' && styles.Selected}
+							className={viewType === 'List' ? styles.Selected : undefined}
 							onClick={() => setViewType('List')}
 						>
 							<AiOutlineUnorderedList />
 						</button>
 						<button
 							title='Grid View'
-							className={viewType === 'Grid' && styles.Selected}
+							className={viewType === 'Grid' ? styles.Selected : undefined}
 							onClick={() => setViewType('Grid')}
 						>
 							<AiOutlineAppstore />

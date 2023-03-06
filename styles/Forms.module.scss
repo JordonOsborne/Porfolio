@@ -4,7 +4,7 @@
 	right: 0;
 	top: 0;
 	width: 350px;
-	height: 100vh;
+	min-height: 100vh;
 	background: black;
 	display: flex;
 	flex-direction: column;
@@ -36,7 +36,7 @@
 				flex-wrap: wrap;
 				margin-bottom: 0.5rem;
 				&:has([id='Company']) {
-					grid-column: span 2;
+					grid-column: span 4;
 				}
 				div {
 					width: 100%;
@@ -52,11 +52,11 @@
 				}
 			}
 			.labelDiv {
-				&:has([id='Project'], [id='Link']) {
-					grid-column: span 2;
+				&:has([id='Project']) {
+					grid-column: span 3;
 				}
 				&:has([id='URL']) {
-					grid-column: span 3;
+					grid-column: span 2;
 				}
 				&:has([id='Description']) {
 					grid-column: span 5;
@@ -340,6 +340,13 @@ div.ImageUpload:has(label[for='MockUpImg']) {
 			}
 		}
 	}
+}
+
+// MULTI-SELECT OPTIONS
+.MultiSelect {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	grid-column: span 5;
 }
 
 // RICH TEXT EDITOR

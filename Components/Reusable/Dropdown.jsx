@@ -18,7 +18,7 @@ function Dropdown({ Name, Default, Options, ShowLabel, Icon, Required }) {
 				options.push(
 					<div
 						key={option.value}
-						onClick={(e) => ChangeValue(e, option)}
+						onClick={(e) => ChangeValue(e)}
 						data-id={Name.replace(' ', '')}
 						data-value={JSON.stringify(option)}
 						className={

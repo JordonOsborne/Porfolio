@@ -5,6 +5,7 @@ import Upload from '../Reusable/Upload'
 import RichTextInput from '../Reusable/RichTextInput'
 import FirebaseAPI from '../../Context/FirebaseAPI'
 import { useState, useEffect, useContext } from 'react'
+import MultiSelect from '../Reusable/MultiSelect'
 
 export default function User() {
 	const { formData, GetData } = useContext(FirebaseAPI)
@@ -61,13 +62,6 @@ export default function User() {
 					Required={true}
 				/>
 				<Input
-					Id='Project'
-					Label='Project Name'
-					Default={formData?.Project}
-					Icon='Code'
-					Required={true}
-				/>
-				<Input
 					Id='Date'
 					Label='Date Completed'
 					Default={formData?.Date}
@@ -75,10 +69,11 @@ export default function User() {
 					Required={true}
 				/>
 				<Input
-					Id='Link'
-					Label='Link Name'
-					Default={formData?.Link}
-					Icon='Text'
+					Id='Project'
+					Label='Project Name'
+					Default={formData?.Project}
+					Icon='Code'
+					Required={true}
 				/>
 				<Input
 					Id='URL'
@@ -86,6 +81,15 @@ export default function User() {
 					Placeholder='URL to Project or Github'
 					Default={formData?.URL}
 					Icon='URL'
+				/>
+				<MultiSelect
+					Id='Technology'
+					Label='Technology Used'
+					Default={formData?.Technology}
+					Options={[
+						{ displayName: 'WIX', value: 'WIX' },
+						{ displayName: 'JavaScript', value: 'JS' },
+					]}
 				/>
 				<RichTextInput
 					Id='Description'

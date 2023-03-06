@@ -123,9 +123,26 @@ export const FirebaseProvider = ({ children }) => {
 		input = input.target
 		let data = {}
 		if (input.id !== 'Id') {
-			// CHECK FOR DROPDOWN OBJECT VALUES
-			if (input.dataset.value === undefined) {
+			const parentDiv = input.parentElement.parentElement
+			// CHECK FOR DROPDOWN
+			if (!input.dataset.value) {
 				switch (input.type) {
+					case 'checkbox':
+						// CHECK FOR MULTI-SELECT
+						if (parentDiv.nodeName === 'FIELDSET') {
+							data = []
+							const options = Array.from(parentDiv.elements)
+							options.forEach((option) => {
+								if (option.nodeName === 'INPUT' && option.checked) {
+									const obj = JSON.parse(option.dataset.selected)
+									data = [...data, obj]
+								}
+							})
+							data = { [parentDiv.id]: data }
+							break
+						}
+						data = { [input.id]: input.checked }
+						break
 					case 'date':
 						const date = ConvertUTC(input.valueAsDate)
 						data = {
