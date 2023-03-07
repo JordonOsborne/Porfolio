@@ -139,6 +139,7 @@ export const FirebaseProvider = ({ children }) => {
 								}
 							})
 							data = { [parentDiv.id]: data }
+							console.log('Data: ', data)
 							break
 						}
 						data = { [input.id]: input.checked }
@@ -155,8 +156,7 @@ export const FirebaseProvider = ({ children }) => {
 				}
 			} else {
 				const obj = JSON.parse(input.dataset.value)
-				obj.id = obj.value
-				delete obj.value
+				console.log(input.dataset.id)
 				data = { [input.dataset.id]: obj }
 			}
 		}

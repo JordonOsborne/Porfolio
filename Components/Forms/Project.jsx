@@ -18,8 +18,8 @@ export default function User() {
 			let clientsArray = []
 			Clients.map((client) => {
 				clientsArray.push({
-					value: client.id,
-					displayName: client.Client,
+					id: client.id,
+					Company: client.Client,
 				})
 			})
 			setClients(clientsArray)
@@ -54,18 +54,12 @@ export default function User() {
 					</>
 				)}
 				<Dropdown
-					Name='Company'
+					Id='Company'
 					Default={formData?.Company}
+					DisplayField='id'
 					Options={clients}
 					ShowLabel={true}
 					Icon='Client'
-					Required={true}
-				/>
-				<Input
-					Id='Date'
-					Label='Date Completed'
-					Default={formData?.Date}
-					Icon='Date'
 					Required={true}
 				/>
 				<Input
@@ -73,6 +67,13 @@ export default function User() {
 					Label='Project Name'
 					Default={formData?.Project}
 					Icon='Code'
+					Required={true}
+				/>
+				<Input
+					Id='Date'
+					Label='Date Completed'
+					Default={formData?.Date}
+					Icon='Date'
 					Required={true}
 				/>
 				<Input
@@ -86,10 +87,7 @@ export default function User() {
 					Id='Technology'
 					Label='Technology Used'
 					Default={formData?.Technology}
-					Options={[
-						{ displayName: 'WIX', value: 'WIX' },
-						{ displayName: 'JavaScript', value: 'JS' },
-					]}
+					Options={['WIX', 'JavaScript']}
 				/>
 				<RichTextInput
 					Id='Description'

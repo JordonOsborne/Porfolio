@@ -5,7 +5,15 @@ import { BsChevronDoubleDown, BsChevronDoubleUp } from 'react-icons/bs'
 import { MdAccountCircle } from 'react-icons/md'
 import { GrOrganization } from 'react-icons/gr'
 
-function Dropdown({ Name, Default, Options, ShowLabel, Icon, Required }) {
+function Dropdown({
+	Id,
+	Default,
+	Options,
+	DisplayField,
+	ShowLabel,
+	Icon,
+	Required,
+}) {
 	const { GetInputData } = useContext(FirebaseAPI)
 	const [selected, setSelected] = useState(Default)
 	const [isOpen, setIsOpen] = useState(false)
@@ -19,13 +27,13 @@ function Dropdown({ Name, Default, Options, ShowLabel, Icon, Required }) {
 					<div
 						key={option.value}
 						onClick={(e) => ChangeValue(e)}
-						data-id={Name.replace(' ', '')}
+						data-id={Id.replace(' ', '')}
 						data-value={JSON.stringify(option)}
 						className={
-							selected && option.value === selected.value ? styles.selected : ''
+							selected && option.id === selected.id ? styles.selected : ''
 						}
 					>
-						{option.displayName}
+						{option[DisplayField]}
 					</div>
 				)
 			})
@@ -47,7 +55,7 @@ function Dropdown({ Name, Default, Options, ShowLabel, Icon, Required }) {
 	}
 
 	const ChangeValue = (e) => {
-		const value = GetInputData(e)[Name]
+		const value = GetInputData(e)[id]
 		setSelected(value)
 		setIsOpen(false)
 	}
@@ -56,14 +64,14 @@ function Dropdown({ Name, Default, Options, ShowLabel, Icon, Required }) {
 		<>
 			{Options.length > 0 && (
 				<div className={styles.dropdown}>
-					{ShowLabel && <label htmlFor={Name.replace(' ', '')}>{Name}</label>}
+					{ShowLabel && <label htmlFor={Id.replace(' ', '')}>{Id}</label>}
 					<div onClick={() => setIsOpen(!isOpen)}>
 						{setIcon(Icon)}
 						<input
-							id={Name.replace(' ', '')}
-							name={Name.replace(' ', '')}
-							title={Name}
-							value={selected?.displayName}
+							id={Id.replace(' ', '')}
+							name={Id.replace(' ', '')}
+							title={Id}
+							value={selected?.[DisplayField]}
 							data-value={JSON.stringify(selected)}
 							required={Required}
 							readOnly

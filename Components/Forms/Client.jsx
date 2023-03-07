@@ -75,7 +75,7 @@ function Client() {
 					Icon='Date'
 				/>
 				<Dropdown
-					Name='Contact'
+					Id='Contact'
 					Default={formData?.Contact}
 					Options={users}
 					ShowLabel={true}

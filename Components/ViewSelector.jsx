@@ -33,7 +33,7 @@ function ViewSelector() {
 			) : (
 				<div className={styles.viewSelector}>
 					<Dropdown
-						Name='View'
+						Id='View'
 						Default={{ value: 'All', displayName: 'All' }}
 						Options={views}
 					/>
