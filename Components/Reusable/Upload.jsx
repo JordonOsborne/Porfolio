@@ -1,12 +1,18 @@
 import styles from '../../styles/Forms.module.scss'
 import FirebaseAPI from '../../Context/FirebaseAPI'
-import { useContext } from 'react'
+import Loader from './Loading'
+import { useContext, useState } from 'react'
 import { MdCloudUpload } from 'react-icons/md'
 import Uploading from './Uploading'
 import UploadPreview from './UploadPreview'
 
 function Upload({ Id, Label, Types, Required, Multiple, filePath, Source }) {
 	const { UploadFile, uploading, AssignURLs } = useContext(FirebaseAPI)
+	const [showLoader, setShowLoader] = useState(true)
+
+	const RemoveLoader = () => {
+		setShowLoader(false)
+	}
 
 	const handleUpload = async (e) => {
 		e.target.disabled = true
@@ -54,7 +60,9 @@ function Upload({ Id, Label, Types, Required, Multiple, filePath, Source }) {
 						Source={Source}
 						Label={Label}
 						Multiple={Multiple}
+						RemoveLoader={() => RemoveLoader()}
 					/>
+					{Source.length !== 0 && showLoader && <Loader />}
 					<label
 						className={styles.ImageUpload}
 						htmlFor={Id}

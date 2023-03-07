@@ -1,9 +1,10 @@
 import styles from '../../styles/Forms.module.scss'
+import Image from 'next/image'
 import FirebaseAPI from '../../Context/FirebaseAPI'
 import { MdDelete } from 'react-icons/md'
 import { useContext } from 'react'
 
-function UploadPreview({ Id, Source, Label, Multiple }) {
+function UploadPreview({ Id, Source, Label, Multiple, RemoveLoader }) {
 	const { AssignURLs } = useContext(FirebaseAPI)
 	const Images = () => {
 		return Source.map((url, index) => (
@@ -11,10 +12,12 @@ function UploadPreview({ Id, Source, Label, Multiple }) {
 				className={styles.ImagePreview}
 				key={index}
 			>
-				<img
+				<Image
 					src={url}
 					alt={`Image ${index}`}
 					title={GetPath(url)}
+					onLoadingComplete={RemoveLoader()}
+					layout='fill'
 				/>
 				<MdDelete
 					onClick={(e) => RemoveImg(e)}
@@ -45,11 +48,15 @@ function UploadPreview({ Id, Source, Label, Multiple }) {
 	return Multiple ? (
 		Images()
 	) : (
-		<img
-			src={Source}
-			alt={Label}
-			title={Label}
-		/>
+		<>
+			<Image
+				src={Source}
+				alt={Label}
+				title={Label}
+				onLoadingComplete={RemoveLoader()}
+				layout='fill'
+			/>
+		</>
 	)
 }
 

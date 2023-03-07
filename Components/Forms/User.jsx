@@ -35,7 +35,7 @@ export default function User() {
 			</h2>
 			<div className={styles.Container}>
 				<Dropdown
-					Name='Company'
+					Id='Company'
 					Default={formData ? formData.Company : ''}
 					Options={clients}
 					ShowLabel={true}
