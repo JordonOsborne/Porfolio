@@ -1,6 +1,15 @@
+// MULTI-SELECT USED FOR ARRAY'S WITH VALUES ONLY (DO NOT USE OBJECT ARRAY'S)
 import styles from '../../styles/Forms.module.scss'
 import FirebaseAPI from '../../Context/FirebaseAPI'
 import { useState, useEffect, useContext } from 'react'
+import { FaWix, FaJs, FaHtml5, FaReact } from 'react-icons/fa'
+import {
+	SiNextdotjs,
+	SiMicrosoftsharepoint,
+	SiPowerapps,
+	SiPowerautomate,
+	SiPowerbi,
+} from 'react-icons/si'
 
 function MultiSelect({ Id, Label, Default, Options, Icon, Required }) {
 	const { GetInputData } = useContext(FirebaseAPI)
@@ -13,21 +22,18 @@ function MultiSelect({ Id, Label, Default, Options, Icon, Required }) {
 			Options.map((option) => {
 				options.push(
 					<label
-						key={option.value}
-						className={
-							selected && option.value === selected.value ? styles.selected : ''
-						}
+						key={option}
+						className={selected && option ? styles.selected : ''}
 					>
-						{option.displayName}
+						{Id === 'Technology' ? setIcon(option) : option}
 						<input
 							type='checkbox'
-							name={option.displayName}
-							id={option.value}
+							name={option}
+							id={option}
+							value={isSelected(option)}
 							data-selected={JSON.stringify(option)}
 							onChange={(e) => ChangeValue(e)}
-							checked={
-								selected && selected.find(({ value }) => value === option.value)
-							}
+							checked={isSelected(option)}
 						/>
 					</label>
 				)
@@ -39,13 +45,65 @@ function MultiSelect({ Id, Label, Default, Options, Icon, Required }) {
 
 	const setIcon = (Icon) => {
 		switch (Icon) {
-			case 'Person':
-				return <MdAccountCircle className={styles.Icon} />
-			case 'Client':
-				return <GrOrganization className={styles.Icon} />
+			case 'WIX':
+				return (
+					<FaWix
+						className={styles.Icon}
+						title='WIX'
+					/>
+				)
+			case 'JavaScript':
+				return (
+					<FaJs
+						className={styles.Icon}
+						title='JavaScript'
+					/>
+				)
+			case 'HTML/CSS':
+				return (
+					<FaHtml5
+						className={styles.Icon}
+						title='HTML/CSS'
+					/>
+				)
+			case 'React':
+				return (
+					<FaReact
+						className={styles.Icon}
+						title='React'
+					/>
+				)
+			case 'Next JS':
+				return (
+					<SiNextdotjs
+						className={styles.Icon}
+						title='Next JS'
+					/>
+				)
+			case 'SharePoint':
+				return (
+					<SiMicrosoftsharepoint
+						className={styles.Icon}
+						title='SharePoint'
+					/>
+				)
+			// case 'Power Apps':
+			// 	return <SiPowerapps className={styles.Icon} />
+			// case 'Power Automate':
+			// 	return <SiPowerautomate className={styles.Icon} />
+			case 'Power BI':
+				return (
+					<SiPowerbi
+						className={styles.Icon}
+						title='Power BI'
+					/>
+				)
 			default:
 				return
 		}
+	}
+	const isSelected = (value) => {
+		return selected && selected.find((item) => item === value) !== undefined
 	}
 
 	const ChangeValue = (e) => {

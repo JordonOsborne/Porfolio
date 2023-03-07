@@ -35,9 +35,6 @@
 				display: flex;
 				flex-wrap: wrap;
 				margin-bottom: 0.5rem;
-				&:has([id='Company']) {
-					grid-column: span 4;
-				}
 				div {
 					width: 100%;
 				}
@@ -345,8 +342,32 @@ div.ImageUpload:has(label[for='MockUpImg']) {
 // MULTI-SELECT OPTIONS
 .MultiSelect {
 	display: grid;
-	grid-template-columns: repeat(5, 1fr);
-	grid-column: span 5;
+	grid-template-columns: repeat(7, 1fr);
+	grid-column: span 3;
+	gap: 0.25rem;
+	border-radius: 5px;
+	font-size: 0.8rem;
+	&[name='Technology'] {
+		input[type='checkbox'] {
+			display: none;
+		}
+		label {
+			text-align: center;
+			cursor: pointer;
+			&:not(:has(.Icon)) {
+				display: none;
+			}
+			.Icon {
+				font-size: 1.75rem;
+				fill: var(--light-color);
+			}
+		}
+		label:has(input[value='true']) {
+			.Icon {
+				fill: white;
+			}
+		}
+	}
 }
 
 // RICH TEXT EDITOR

@@ -87,7 +87,17 @@ export default function User() {
 					Id='Technology'
 					Label='Technology Used'
 					Default={formData?.Technology}
-					Options={['WIX', 'JavaScript']}
+					Options={[
+						'WIX',
+						'JavaScript',
+						'HTML/CSS',
+						'React',
+						'Next JS',
+						'SharePoint',
+						'Power Apps',
+						'Power Automate',
+						'Power BI',
+					]}
 				/>
 				<RichTextInput
 					Id='Description'
