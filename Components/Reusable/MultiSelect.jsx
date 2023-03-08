@@ -2,9 +2,11 @@
 import styles from '../../styles/Forms.module.scss'
 import FirebaseAPI from '../../Context/FirebaseAPI'
 import { useState, useEffect, useContext } from 'react'
-import { FaWix, FaJs, FaHtml5, FaReact } from 'react-icons/fa'
+import { FaWix, FaJs, FaHtml5, FaCss3Alt, FaReact } from 'react-icons/fa'
 import {
+	SiFirebase,
 	SiNextdotjs,
+	SiMicrosoftsqlserver,
 	SiMicrosoftsharepoint,
 	SiPowerapps,
 	SiPowerautomate,
@@ -59,11 +61,32 @@ function MultiSelect({ Id, Label, Default, Options, Icon, Required }) {
 						title='JavaScript'
 					/>
 				)
-			case 'HTML/CSS':
+			case 'HTML':
 				return (
 					<FaHtml5
 						className={styles.Icon}
 						title='HTML/CSS'
+					/>
+				)
+			case 'CSS':
+				return (
+					<FaCss3Alt
+						className={styles.Icon}
+						title='HTML/CSS'
+					/>
+				)
+			case 'SQL':
+				return (
+					<SiMicrosoftsqlserver
+						className={styles.Icon}
+						title='SQL'
+					/>
+				)
+			case 'Firebase':
+				return (
+					<SiFirebase
+						className={styles.Icon}
+						title='Firebase'
 					/>
 				)
 			case 'React':
@@ -87,10 +110,20 @@ function MultiSelect({ Id, Label, Default, Options, Icon, Required }) {
 						title='SharePoint'
 					/>
 				)
-			// case 'Power Apps':
-			// 	return <SiPowerapps className={styles.Icon} />
-			// case 'Power Automate':
-			// 	return <SiPowerautomate className={styles.Icon} />
+			case 'Power Apps':
+				return (
+					<SiPowerapps
+						className={styles.Icon}
+						title='Power Apps'
+					/>
+				)
+			case 'Power Automate':
+				return (
+					<SiPowerautomate
+						className={styles.Icon}
+						title='Power Automate'
+					/>
+				)
 			case 'Power BI':
 				return (
 					<SiPowerbi

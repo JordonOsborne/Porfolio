@@ -90,7 +90,10 @@ export default function User() {
 					Options={[
 						'WIX',
 						'JavaScript',
-						'HTML/CSS',
+						'HTML',
+						'CSS',
+						'SQL',
+						'Firebase',
 						'React',
 						'Next JS',
 						'SharePoint',
