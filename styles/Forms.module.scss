@@ -342,7 +342,7 @@ div.ImageUpload:has(label[for='MockUpImg']) {
 // MULTI-SELECT OPTIONS
 .MultiSelect {
 	display: grid;
-	grid-template-columns: repeat(7, 1fr);
+	grid-template-columns: repeat(6, 1fr);
 	grid-column: span 3;
 	gap: 0.25rem;
 	border-radius: 5px;
