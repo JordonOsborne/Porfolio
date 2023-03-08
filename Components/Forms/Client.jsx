@@ -78,6 +78,7 @@ function Client() {
 					Id='Contact'
 					Default={formData?.Contact}
 					Options={users}
+					DisplayField='displayName'
 					ShowLabel={true}
 					Icon='Person'
 				/>

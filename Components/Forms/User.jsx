@@ -14,8 +14,8 @@ export default function User() {
 			let clientsArray = []
 			Clients.map((client) => {
 				clientsArray.push({
-					value: client.id,
-					displayName: client.Client,
+					id: client.id,
+					Company: client.Client,
 				})
 			})
 			setClients(clientsArray)
@@ -37,6 +37,7 @@ export default function User() {
 				<Dropdown
 					Id='Company'
 					Default={formData ? formData.Company : ''}
+					DisplayField='Company'
 					Options={clients}
 					ShowLabel={true}
 					Icon='Client'

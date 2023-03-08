@@ -55,7 +55,7 @@ function Dropdown({
 	}
 
 	const ChangeValue = (e) => {
-		const value = GetInputData(e)[id]
+		const value = GetInputData(e)[Id]
 		setSelected(value)
 		setIsOpen(false)
 	}
