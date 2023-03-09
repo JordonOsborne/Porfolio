@@ -245,11 +245,42 @@
 			}
 		}
 		#Projects.Grid {
-			grid-template-columns: repeat(4, 1fr);
+			grid-template-columns: repeat(2, 1fr);
 			.Card {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
+				display: grid;
+				grid-template-columns: 2fr 3fr;
+				justify-content: center;
+				padding: 1rem;
+				.Visuals {
+					.Company {
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						.CompanyLogo {
+							object-fit: contain;
+						}
+						span {
+							margin-left: 1rem;
+						}
+					}
+				}
+				.Info {
+					padding: 0.5rem;
+					.Project h3 {
+						font-size: 1rem;
+						margin: 0 0.5rem;
+					}
+					.Technology {
+						padding: 0.5rem 0;
+					}
+					.rteHTML {
+						font-size: 0.75rem;
+						display: -webkit-box;
+						-webkit-line-clamp: 8;
+						-webkit-box-orient: vertical;
+						overflow: hidden;
+					}
+				}
 			}
 		}
 		#Communications.Grid {

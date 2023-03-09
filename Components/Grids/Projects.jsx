@@ -1,11 +1,12 @@
 import styles from '../../styles/Admin.module.scss'
+import Image from 'next/image'
 import FirebaseAPI from '../../Context/FirebaseAPI'
 import { useContext } from 'react'
 
 function Projects() {
 	const { data, setShowForm, GetDoc } = useContext(FirebaseAPI)
 	const EditForm = async (id) => {
-		await GetDoc('My-Work', id)
+		await GetDoc('Projects', id)
 		setShowForm(true)
 	}
 	return (
@@ -20,12 +21,68 @@ function Projects() {
 					className={styles.Card}
 					onClick={() => EditForm(project.id)}
 				>
-					<img
-						src={project.Image}
-						alt={`${project.Project} Image`}
-						width='100px'
-						height='100px'
-					/>
+					<div className={styles.Visuals}>
+						<div className={styles.Company}>
+							<Image
+								className={styles.CompanyLogo}
+								src={project?.Company?.Logo}
+								alt={project?.Company?.id}
+								width={project?.Company?.id === 'EMN' ? '300px' : '40px'}
+								height='40px'
+							/>
+							{project?.Company?.id !== 'EMN' && (
+								<span>{project.Company?.id}</span>
+							)}
+						</div>
+						<Image
+							className={styles.MockUp}
+							src={project.MockUpImg}
+							alt={`${project.Project} Image`}
+							width='300px'
+							height='225px'
+						/>
+						<div className={styles.Images}>
+							{project?.Images?.map((image, index) => {
+								return (
+									<Image
+										key={image}
+										src={image}
+										alt={`Image ${index}`}
+										width='100px'
+										hieght='75px'
+									/>
+								)
+							})}
+						</div>
+					</div>
+					<div className={styles.Info}>
+						<a
+							className={styles.Project}
+							href={project?.URL}
+							target='_blank'
+						>
+							<h3>{project?.Project}</h3>
+						</a>
+						<div className={styles.Technology}>
+							{project?.Technology?.map((tech) => {
+								return (
+									<Image
+										key={tech}
+										src={`/Logos/${tech}.svg`}
+										alt={tech}
+										width='30px'
+										height='30px'
+									/>
+								)
+							})}
+						</div>
+						<div
+							className={styles.rteHTML}
+							dangerouslySetInnerHTML={{
+								__html: project?.Description,
+							}}
+						></div>
+					</div>
 				</div>
 			))}
 		</div>

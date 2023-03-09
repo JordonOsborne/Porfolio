@@ -20,6 +20,7 @@ export default function User() {
 				clientsArray.push({
 					id: client.id,
 					Company: client.Client,
+					Logo: client.Logo,
 				})
 			})
 			setClients(clientsArray)
@@ -86,7 +87,7 @@ export default function User() {
 				<MultiSelect
 					Id='Technology'
 					Label='Technology Used'
-					Default={formData?.Technology}
+					Default={formData?.Technology ? formData.Technology : []}
 					Options={[
 						'WIX',
 						'JavaScript',
