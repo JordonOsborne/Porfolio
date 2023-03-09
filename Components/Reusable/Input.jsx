@@ -62,10 +62,13 @@ function Input({ Id, Label, Placeholder, Default, Icon, ReadOnly, Required }) {
 			case 'URL':
 				return 'url'
 			default:
-				if (Icon === 'Date') {
-					return 'date'
-				} else {
-					return 'text'
+				switch (Icon) {
+					case 'Date':
+						return 'date'
+					case 'Dollar':
+						return 'number'
+					default:
+						return 'text'
 				}
 		}
 	}

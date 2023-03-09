@@ -7,6 +7,7 @@ import AuthContext from '../Context/AuthContext'
 import {
 	collection,
 	query,
+	addDoc,
 	doc,
 	getDocs,
 	getDoc,
@@ -112,6 +113,13 @@ export const FirebaseProvider = ({ children }) => {
 	const GetFormId = () => {
 		// CHECK IF NEW FORM OR UPDATE
 		if (document[table].id.includes('New')) {
+			switch (table) {
+				case 'Projects':
+					return `${formUpdates.Company.id}-${formUpdates.Project.replace(
+						/ /g,
+						'-'
+					)}`
+			}
 			return null
 		} else {
 			return document[table].id
@@ -139,7 +147,6 @@ export const FirebaseProvider = ({ children }) => {
 								}
 							})
 							data = { [parentDiv.id]: data }
-							console.log('Data: ', data)
 							break
 						}
 						data = { [input.id]: input.checked }
@@ -156,7 +163,6 @@ export const FirebaseProvider = ({ children }) => {
 				}
 			} else {
 				const obj = JSON.parse(input.dataset.value)
-				console.log(input.dataset.id)
 				data = { [input.dataset.id]: obj }
 			}
 		}
@@ -181,7 +187,9 @@ export const FirebaseProvider = ({ children }) => {
 		const requirements = RequiredFields(table)
 		if (FormIsValid(requirements)) {
 			const rteUpdates = RichTextUpdates()
-			delete formData.id
+			if (formData?.id) {
+				delete formData.id
+			}
 			const docId = GetFormId()
 			const newDoc = {
 				...formData,
@@ -208,9 +216,10 @@ export const FirebaseProvider = ({ children }) => {
 	// SUBMIT FORM DATA TO DATABASE
 	const SaveForm = async (id, data) => {
 		try {
-			const docRef = doc(db, table, id)
+			const docRef = id ? doc(db, table, id) : await addDoc(db, table)
 			await setDoc(docRef, data)
 			data.id = id
+			console.log(data)
 			return data
 		} catch (error) {
 			console.log('Save Form Failed: ', error.message)
@@ -220,8 +229,12 @@ export const FirebaseProvider = ({ children }) => {
 
 	// CONVERT TO UTC TIME (ADD 5 HOURS)
 	const ConvertUTC = (date) => {
-		date.setHours(date.getHours() + 5)
-		return date
+		try {
+			date.setHours(date.getHours() + 5)
+			return date
+		} catch (error) {
+			console.log(error.message)
+		}
 	}
 
 	// DELETE DOCUMENT
