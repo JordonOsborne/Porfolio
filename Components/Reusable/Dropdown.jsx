@@ -14,7 +14,7 @@ function Dropdown({
 	Icon,
 	Required,
 }) {
-	const { GetInputData } = useContext(FirebaseAPI)
+	const { GetInputData, GetData, table } = useContext(FirebaseAPI)
 	const [selected, setSelected] = useState(Default)
 	const [isOpen, setIsOpen] = useState(false)
 	const [options, setOptions] = useState([])
@@ -55,6 +55,10 @@ function Dropdown({
 	}
 
 	const ChangeValue = (e) => {
+		if (Icon === 'Filter') {
+			const filter = JSON.parse(e.target.dataset.value).filter
+			GetData(table, filter)
+		}
 		const value = GetInputData(e)[Id]
 		setSelected(value)
 		setIsOpen(false)

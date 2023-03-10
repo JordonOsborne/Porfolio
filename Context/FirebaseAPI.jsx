@@ -7,6 +7,7 @@ import AuthContext from '../Context/AuthContext'
 import {
 	collection,
 	query,
+	where,
 	addDoc,
 	doc,
 	getDocs,
@@ -71,13 +72,21 @@ export const FirebaseProvider = ({ children }) => {
 	}
 
 	// GET ALL DATA IN COLLECTION
-	const GetData = async (table, isDropdown) => {
+	const GetData = async (table, filter, isDropdown) => {
 		let data = []
+		let q = query(collection(db, table))
 		if (!isDropdown) {
 			setIsLoading(true)
 		}
+		if (filter) {
+			filter = filter.split(' ')
+			if (filter.at(-1) == 'true' || filter.at(-1) == 'false') {
+				filter[2] = filter.at(-1) == 'true'
+			}
+			filter = where(filter[0], filter[1], filter[2])
+			q = query(collection(db, table), filter)
+		}
 		try {
-			const q = query(collection(db, table))
 			const dataRaw = await getDocs(q)
 			dataRaw.forEach((doc) => {
 				let item = doc.data()

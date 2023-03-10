@@ -14,8 +14,8 @@ function ViewSelector() {
 			switch (table) {
 				case 'Clients':
 					setViews([
-						{ value: 'All', displayName: 'All' },
-						{ value: 'Active', displayName: 'Active' },
+						{ id: 'All', filter: null },
+						{ id: 'Active', filter: 'Active != false' },
 					])
 					return
 				default:
@@ -34,9 +34,10 @@ function ViewSelector() {
 				<div className={styles.viewSelector}>
 					<Dropdown
 						Id='View'
-						Default={{ id: 'All', displayName: 'All' }}
+						Default={{ id: 'All', filter: null }}
 						Options={views}
-						DisplayField='displayName'
+						DisplayField='id'
+						Icon='Filter'
 					/>
 					<div className={styles.viewType}>
 						<button

@@ -1,6 +1,7 @@
 import styles from '../../styles/Forms.module.scss'
 import Input from '../../Components/Reusable/Input'
 import Dropdown from '../../Components/Reusable/Dropdown'
+import Checkbox from '../../Components/Reusable/Checkbox'
 import Upload from '../../Components/Reusable/Upload'
 import FirebaseAPI from '../../Context/FirebaseAPI'
 import { useState, useEffect, useContext } from 'react'
@@ -12,7 +13,7 @@ function Client() {
 
 	useEffect(() => {
 		const GetUsers = async () => {
-			const Users = await GetData('Users', true)
+			const Users = await GetData('Users', null, true)
 			let usersArray = []
 			Users.map((user) => {
 				usersArray.push({
@@ -81,6 +82,11 @@ function Client() {
 					DisplayField='displayName'
 					ShowLabel={true}
 					Icon='Person'
+				/>
+				<Checkbox
+					Id='Active'
+					Label='Active'
+					Default={formData?.Active}
 				/>
 			</div>
 		</form>
