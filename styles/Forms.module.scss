@@ -180,7 +180,7 @@ div.ImageUpload {
 		&:has(progress) {
 			opacity: 1;
 		}
-		&:hover {
+		&:hover:not(:has(progress)) {
 			opacity: 0.6;
 		}
 		input {

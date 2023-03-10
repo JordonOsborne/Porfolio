@@ -68,7 +68,7 @@ function Projects() {
 								return (
 									<Image
 										key={tech}
-										src={`/Logos/${tech}.svg`}
+										src={`/Icons/${tech}.png`}
 										alt={tech}
 										width='30px'
 										height='30px'

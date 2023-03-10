@@ -6,7 +6,7 @@ function Uploading(Id) {
 	const { percent } = useContext(FirebaseAPI)
 	return (
 		<div className={styles.loaderBlock}>
-			<span class='loader2'></span>
+			<span class={styles.loader2}></span>
 			<label htmlFor={Id}>{percent}% Complete</label>
 			<progress
 				id={Id}
