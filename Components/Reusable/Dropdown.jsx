@@ -25,7 +25,7 @@ function Dropdown({
 			Options.map((option) => {
 				options.push(
 					<div
-						key={option.value}
+						key={option.id}
 						onClick={(e) => ChangeValue(e)}
 						data-id={Id.replace(' ', '')}
 						data-value={JSON.stringify(option)}
@@ -55,10 +55,6 @@ function Dropdown({
 	}
 
 	const ChangeValue = (e) => {
-		if (Icon === 'Filter') {
-			const filter = JSON.parse(e.target.dataset.value).filter
-			GetData(table, filter)
-		}
 		const value = GetInputData(e)[Id]
 		setSelected(value)
 		setIsOpen(false)

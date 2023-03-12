@@ -8,6 +8,7 @@ import {
 	collection,
 	query,
 	where,
+	orderBy,
 	addDoc,
 	doc,
 	getDocs,
@@ -31,6 +32,8 @@ export const FirebaseProvider = ({ children }) => {
 		Invoices: 0,
 	})
 	const [table, setTable] = useState('Users')
+	const [views, setViews] = useState('All')
+	const [view, setView] = useState('All')
 	const [viewType, setViewType] = useState('List')
 	const [data, setData] = useState([])
 	const [formData, setFormData] = useState(null)
@@ -59,6 +62,8 @@ export const FirebaseProvider = ({ children }) => {
 		}
 		setIsLoading(true)
 		if (table !== null) {
+			GetViews()
+			setView('All')
 			GetData(table)
 			getCollectionTotals()
 		}
@@ -72,7 +77,7 @@ export const FirebaseProvider = ({ children }) => {
 	}
 
 	// GET ALL DATA IN COLLECTION
-	const GetData = async (table, filter, isDropdown) => {
+	const GetData = async (table, filter, sort, isDropdown) => {
 		let data = []
 		let q = query(collection(db, table))
 		if (!isDropdown) {
@@ -85,6 +90,18 @@ export const FirebaseProvider = ({ children }) => {
 			}
 			filter = where(filter[0], filter[1], filter[2])
 			q = query(collection(db, table), filter)
+		}
+		if (sort) {
+			if (!sort?.field) {
+				q = query(
+					collection(db, table),
+					filter,
+					orderBy(sort[0].field, sort[0].type),
+					orderBy(sort[1].field, sort[1].type)
+				)
+			} else {
+				q = query(collection(db, table), filter, orderBy(sort.field, sort.type))
+			}
 		}
 		try {
 			const dataRaw = await getDocs(q)
@@ -101,6 +118,28 @@ export const FirebaseProvider = ({ children }) => {
 			setIsLoading(false)
 		}
 		return data
+	}
+
+	// COLLECTION QUERIES
+	const GetViews = () => {
+		switch (table) {
+			case 'Clients':
+				setViews([
+					{ id: 'All', filter: null },
+					{
+						id: 'Active',
+						filter: 'Active != false',
+						sort: [
+							{ field: 'Active', type: 'asc' },
+							{ field: 'Client', type: 'asc' },
+						],
+					},
+				])
+				return
+			default:
+				setViews([])
+				return
+		}
 	}
 
 	// GET DOCUMENT DATA
@@ -332,6 +371,8 @@ export const FirebaseProvider = ({ children }) => {
 			value={{
 				collectionTotals,
 				table,
+				views,
+				view,
 				viewType,
 				data,
 				formData,
@@ -340,6 +381,7 @@ export const FirebaseProvider = ({ children }) => {
 				isLoading,
 				uploading,
 				percent,
+				GetViews,
 				GetData,
 				GetDoc,
 				ConvertUTC,
@@ -347,6 +389,7 @@ export const FirebaseProvider = ({ children }) => {
 				DeleteDoc,
 				setCollectionTotals,
 				setTable,
+				setView,
 				setViewType,
 				setData,
 				setFormData,

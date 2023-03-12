@@ -3,7 +3,7 @@ import Loading from '../Components/Reusable/Loading'
 import Input from '../Components/Reusable/Input'
 import Upload from '../Components/Reusable/Upload'
 import FormSwitch from '../Components/Forms/_FormSwitch'
-import TableSwitch from '../Components/Tables/_TableSwitch'
+import ViewSwitch from '../Components/Admin/ViewSwitch'
 import styles from '../styles/Admin.module.scss'
 import AuthContext from '../Context/AuthContext'
 import FirebaseAPI from '../Context/FirebaseAPI'
@@ -145,7 +145,7 @@ export default function Admin() {
 						<div className={styles.Forms}>
 							{user.isAdmin && (
 								<button
-									className={table === 'Clients' ? styles.selected : ''}
+									className={table === 'Clients' ? styles.selected : undefined}
 									onClick={() => setTable('Clients')}
 								>
 									<GrOrganization />
@@ -155,7 +155,7 @@ export default function Admin() {
 								</button>
 							)}
 							<button
-								className={table === 'Users' ? styles.selected : ''}
+								className={table === 'Users' ? styles.selected : undefined}
 								onClick={() => setTable('Users')}
 							>
 								<FaUsers />
@@ -163,7 +163,7 @@ export default function Admin() {
 							</button>
 							{user.isAdmin && (
 								<button
-									className={table === 'Projects' ? styles.selected : ''}
+									className={table === 'Projects' ? styles.selected : undefined}
 									onClick={() => setTable('Projects')}
 								>
 									<FaCode />
@@ -173,7 +173,9 @@ export default function Admin() {
 								</button>
 							)}
 							<button
-								className={table === 'Communications' ? styles.selected : ''}
+								className={
+									table === 'Communications' ? styles.selected : undefined
+								}
 								onClick={() => setTable('Communications')}
 							>
 								<GoCommentDiscussion />
@@ -182,7 +184,7 @@ export default function Admin() {
 									: collectionTotals.Communications + ` Communications`}
 							</button>
 							<button
-								className={table === 'Invoices' ? styles.selected : ''}
+								className={table === 'Invoices' ? styles.selected : undefined}
 								onClick={() => setTable('Invoices')}
 							>
 								<FaFileInvoiceDollar />
@@ -191,7 +193,7 @@ export default function Admin() {
 									: collectionTotals.Invoices + ` Invoices`}
 							</button>
 						</div>
-						{isLoading ? <Loading /> : <TableSwitch />}
+						{isLoading ? <Loading /> : <ViewSwitch />}
 						{showForm && <FormSwitch />}
 					</main>
 				)}
