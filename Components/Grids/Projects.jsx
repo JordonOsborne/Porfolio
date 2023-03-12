@@ -49,7 +49,7 @@ function Projects() {
 										src={image}
 										alt={`Image ${index}`}
 										width='100px'
-										hieght='75px'
+										height='75px'
 									/>
 								)
 							})}

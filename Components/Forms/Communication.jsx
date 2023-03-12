@@ -10,7 +10,7 @@ function Communication() {
 
 	useEffect(() => {
 		const GetUsers = async () => {
-			const Users = await GetData('Users', true)
+			const Users = await GetData('Users', null, null, true)
 			let usersArray = []
 			Users.map((user) => {
 				usersArray.push({

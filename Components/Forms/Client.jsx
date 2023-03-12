@@ -13,7 +13,7 @@ function Client() {
 
 	useEffect(() => {
 		const GetUsers = async () => {
-			const Users = await GetData('Users', null, true)
+			const Users = await GetData('Users', null, null, true)
 			let usersArray = []
 			Users.map((user) => {
 				usersArray.push({

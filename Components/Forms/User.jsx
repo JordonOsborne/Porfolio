@@ -10,7 +10,7 @@ export default function User() {
 
 	useEffect(() => {
 		const GetClients = async () => {
-			const Clients = await GetData('Clients', null, true)
+			const Clients = await GetData('Clients', null, null, true)
 			let clientsArray = []
 			Clients.map((client) => {
 				clientsArray.push({
