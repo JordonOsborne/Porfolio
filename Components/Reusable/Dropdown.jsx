@@ -7,14 +7,16 @@ import { GrOrganization } from 'react-icons/gr'
 
 function Dropdown({
 	Id,
+	Label,
 	Default,
 	Options,
 	DisplayField,
 	ShowLabel,
 	Icon,
 	Required,
+	ReadOnly,
 }) {
-	const { GetInputData, GetData, table } = useContext(FirebaseAPI)
+	const { GetInputData } = useContext(FirebaseAPI)
 	const [selected, setSelected] = useState(Default)
 	const [isOpen, setIsOpen] = useState(false)
 	const [options, setOptions] = useState([])
@@ -27,7 +29,7 @@ function Dropdown({
 					<div
 						key={option.id}
 						onClick={(e) => ChangeValue(e)}
-						data-id={Id.replace(' ', '')}
+						data-id={Id}
 						data-value={JSON.stringify(option)}
 						className={
 							selected && option.id === selected.id ? styles.selected : ''
@@ -38,9 +40,12 @@ function Dropdown({
 				)
 			})
 			setOptions(options)
+			return true
 		}
-		BuildOptions(Options)
-		setSelected(Default)
+		if (!ReadOnly) {
+			BuildOptions(Options)
+			setSelected(Default)
+		}
 	}, [Options])
 
 	const setIcon = (Icon) => {
@@ -62,24 +67,33 @@ function Dropdown({
 
 	return (
 		<>
-			{Options.length > 0 && (
-				<div className={styles.dropdown}>
-					{ShowLabel && <label htmlFor={Id.replace(' ', '')}>{Id}</label>}
-					<div onClick={() => setIsOpen(!isOpen)}>
-						{setIcon(Icon)}
-						<input
-							id={Id.replace(' ', '')}
-							name={Id.replace(' ', '')}
-							title={Id}
-							value={selected?.[DisplayField]}
-							data-value={JSON.stringify(selected)}
-							required={Required}
-							readOnly
-						/>
-						{isOpen ? <BsChevronDoubleUp /> : <BsChevronDoubleDown />}
-					</div>
-					{isOpen && <div className={styles.options}>{options}</div>}
+			{ReadOnly ? (
+				<div className={styles.viewDiv}>
+					{setIcon(Icon)}
+					<div>{Default?.[DisplayField]}</div>
 				</div>
+			) : (
+				<>
+					{Options.length > 0 && (
+						<div className={styles.dropdown}>
+							{ShowLabel && <label htmlFor={Id}>{Label}</label>}
+							<div onClick={() => setIsOpen(!isOpen)}>
+								{setIcon(Icon)}
+								<input
+									id={Id}
+									name={Id}
+									title={Id}
+									value={selected?.[DisplayField]}
+									data-value={JSON.stringify(selected)}
+									required={Required}
+									readOnly
+								/>
+								{isOpen ? <BsChevronDoubleUp /> : <BsChevronDoubleDown />}
+							</div>
+							{isOpen && <div className={styles.options}>{options}</div>}
+						</div>
+					)}
+				</>
 			)}
 		</>
 	)

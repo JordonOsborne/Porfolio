@@ -72,12 +72,17 @@ function Input({ Id, Label, Placeholder, Default, Icon, ReadOnly, Required }) {
 				}
 		}
 	}
+
 	return (
 		<>
 			{ReadOnly ? (
 				<div className={styles.viewDiv}>
 					{setIcon(Icon)}
-					<div>{Default}</div>
+					<div>
+						{Default && Icon === 'Date'
+							? Default?.toDate().toISOString().split('T')[0]
+							: Default}
+					</div>
 				</div>
 			) : (
 				<div className={styles.labelDiv}>

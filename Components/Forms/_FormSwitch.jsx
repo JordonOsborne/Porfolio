@@ -28,7 +28,11 @@ function FormSwitch() {
 	return (
 		<div
 			id={styles.SidePanel}
-			className={table === 'Projects' ? styles.Lg : undefined}
+			className={
+				table === 'Projects' || table === 'Communications'
+					? styles.Lg
+					: undefined
+			}
 		>
 			<Actions />
 			{ChooseForm()}
