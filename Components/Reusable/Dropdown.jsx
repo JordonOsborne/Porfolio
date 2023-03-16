@@ -16,7 +16,7 @@ function Dropdown({
 	Required,
 	ReadOnly,
 }) {
-	const { GetInputData } = useContext(FirebaseAPI)
+	const { DropdownUpdates } = useContext(FirebaseAPI)
 	const [selected, setSelected] = useState(Default)
 	const [isOpen, setIsOpen] = useState(false)
 	const [options, setOptions] = useState([])
@@ -60,7 +60,7 @@ function Dropdown({
 	}
 
 	const ChangeValue = (e) => {
-		const value = GetInputData(e)[Id]
+		const value = DropdownUpdates(e)[Id]
 		setSelected(value)
 		setIsOpen(false)
 	}

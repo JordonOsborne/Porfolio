@@ -175,13 +175,13 @@ export const FirebaseProvider = ({ children }) => {
 	}
 
 	// GET INPUT DATA
-	const GetInputData = (input) => {
+	const InputUpdates = (input) => {
 		input = input.target
 		let data = {}
 		if (input.id !== 'Id') {
 			const parentDiv = input.parentElement.parentElement
 			// CHECK FOR DROPDOWN
-			if (!input.dataset.value) {
+			if (!parentDiv.classList.value.includes('dropdown')) {
 				switch (input.type) {
 					case 'checkbox':
 						// CHECK FOR MULTI-SELECT
@@ -209,11 +209,17 @@ export const FirebaseProvider = ({ children }) => {
 						data = { [input.id]: input.value }
 						break
 				}
-			} else {
-				const obj = JSON.parse(input.dataset.value)
-				data = { [input.dataset.id]: obj }
+				setFormUpdates({ ...formUpdates, ...data })
+				return data
 			}
 		}
+	}
+
+	// GET DROP DOWN UPDATES
+	const DropdownUpdates = (input) => {
+		input = input.target
+		const obj = JSON.parse(input.dataset.value)
+		data = { [input.dataset.id]: obj }
 		setFormUpdates({ ...formUpdates, ...data })
 		return data
 	}
@@ -230,22 +236,45 @@ export const FirebaseProvider = ({ children }) => {
 		return data
 	}
 
+	// GET AUTO-FILLED DATA
+	const AutoFillUpdates = (Form) => {
+		let AutoFills = {}
+		const isAutoFilled = (el) =>
+			window
+				.getComputedStyle(el)
+				.getPropertyValue('background-color')
+				.toString() !== 'rgb(255, 255, 255)'
+		Array.from(Form).forEach((element) => {
+			if (element.nodeName === 'INPUT' && isAutoFilled(element)) {
+				const update = { [element.name]: element.value }
+				AutoFills = { ...AutoFills, ...update }
+			}
+		})
+		return AutoFills
+	}
+
 	// SUBMIT FORM - VALIDATION INCLUDED
 	const SubmitForm = async () => {
+		const Form = document[table]
 		const requirements = RequiredFields(table)
 		if (FormIsValid(requirements)) {
+			const autoFillUpdates = AutoFillUpdates(Form)
 			const rteUpdates = RichTextUpdates()
 			if (formData?.id) {
 				delete formData.id
 			}
 			const docId = GetFormId()
 			const newDoc = {
+				Created: serverTimestamp(),
+				CreatedBy: user,
 				...formData,
+				...autoFillUpdates,
 				...formUpdates,
 				...rteUpdates,
 				Updated: serverTimestamp(),
-				UpdatedBy: auth.currentUser.uid,
+				UpdatedBy: user,
 			}
+			console.log(newDoc)
 			const newData = await SaveForm(docId, newDoc)
 			const tempData = data.filter((item) => item.id !== docId)
 			const existingItem = data.find((item) => item.id === docId)
@@ -264,9 +293,15 @@ export const FirebaseProvider = ({ children }) => {
 	// SUBMIT FORM DATA TO DATABASE
 	const SaveForm = async (id, data) => {
 		try {
-			const docRef = id ? doc(db, table, id) : await addDoc(db, table)
-			await setDoc(docRef, data)
-			data.id = id
+			if (id) {
+				const docRef = doc(db, table, id)
+				await setDoc(docRef, data)
+				data.id = id
+			} else {
+				const dbRef = collection(db, table)
+				const newDoc = await addDoc(dbRef, data)
+				data.id = newDoc.id
+			}
 			console.log(data)
 			return data
 		} catch (error) {
@@ -394,7 +429,8 @@ export const FirebaseProvider = ({ children }) => {
 				setData,
 				setFormData,
 				setFormUpdates,
-				GetInputData,
+				InputUpdates,
+				DropdownUpdates,
 				RichTextUpdates,
 				setShowForm,
 				setIsLoading,

@@ -14,7 +14,7 @@ import { MdDateRange } from 'react-icons/md'
 import { BiText, BiLink } from 'react-icons/bi'
 
 function Input({ Id, Label, Placeholder, Default, Icon, ReadOnly, Required }) {
-	const { GetInputData } = useContext(FirebaseAPI)
+	const { InputUpdates, formUpdates, setFormUpdates } = useContext(FirebaseAPI)
 	const DatePicker = (e) => {
 		try {
 			e.target.nextSibling.showPicker()
@@ -100,8 +100,9 @@ function Input({ Id, Label, Placeholder, Default, Icon, ReadOnly, Required }) {
 									? Default.toDate().toISOString().split('T')[0]
 									: Default
 							}
+							value={Default}
 							required={Required}
-							onChange={(e) => GetInputData(e)}
+							onChange={(e) => InputUpdates(e)}
 						/>
 					</div>
 				</div>
