@@ -257,6 +257,7 @@ export const FirebaseProvider = ({ children }) => {
 	const SubmitForm = async () => {
 		const Form = document[table]
 		const requirements = RequiredFields(table)
+		console.log(requirements)
 		if (FormIsValid(requirements)) {
 			const autoFillUpdates = AutoFillUpdates(Form)
 			const rteUpdates = RichTextUpdates()
@@ -274,7 +275,6 @@ export const FirebaseProvider = ({ children }) => {
 				Updated: serverTimestamp(),
 				UpdatedBy: user,
 			}
-			console.log(newDoc)
 			const newData = await SaveForm(docId, newDoc)
 			const tempData = data.filter((item) => item.id !== docId)
 			const existingItem = data.find((item) => item.id === docId)

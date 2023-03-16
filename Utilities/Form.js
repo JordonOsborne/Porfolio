@@ -9,6 +9,15 @@ export function RequiredFields(Form) {
 			requirements.push(input)
 		}
 	})
+	// GET REQUIRED RICH TEXT EDITORS
+	const RTEs = document.getElementsByClassName('ql-editor')
+	Array.from(RTEs).forEach((input) => {
+		const rteParent =
+			input.parentElement.parentElement.previousSibling.parentElement
+		if (rteParent.hasAttribute('required')) {
+			requirements.push(input)
+		}
+	})
 	return requirements
 }
 
@@ -31,10 +40,18 @@ export function FormIsValid(requirements) {
 }
 
 export function InputIsValid(input) {
-	if (input.value === '') {
-		const error = {
+	let error
+	if (
+		(input.nodeName === 'INPUT' && input.value === '') ||
+		input.classList[1] === 'ql-blank'
+	) {
+		const rteParent =
+			input.parentElement.parentElement.previousSibling.parentElement
+		const title =
+			input.classList[0] === 'ql-editor' ? rteParent.title : input.title
+		error = {
 			Code: 'Error',
-			Message: input.title + ' is required.',
+			Message: `${title} is required`,
 		}
 		return error
 	}

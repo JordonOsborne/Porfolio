@@ -18,6 +18,7 @@ function RichTextInput({
 			<RichTextEditor
 				id={Id}
 				placeholder={Placeholder}
+				title={Label}
 				value={value}
 				onChange={setValue}
 				controls={[

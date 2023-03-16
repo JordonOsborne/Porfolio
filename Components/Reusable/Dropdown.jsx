@@ -82,7 +82,7 @@ function Dropdown({
 								<input
 									id={Id}
 									name={Id}
-									title={Id}
+									title={Label}
 									value={selected?.[DisplayField]}
 									data-value={JSON.stringify(selected)}
 									required={Required}
