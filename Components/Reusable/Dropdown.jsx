@@ -11,7 +11,6 @@ function Dropdown({
 	Default,
 	Options,
 	DisplayField,
-	ShowLabel,
 	Icon,
 	Required,
 	ReadOnly,
@@ -76,7 +75,7 @@ function Dropdown({
 				<>
 					{Options.length > 0 && (
 						<div className={styles.dropdown}>
-							{ShowLabel && <label htmlFor={Id}>{Label}</label>}
+							{Label && <label htmlFor={Id}>{Label}</label>}
 							<div onClick={() => setIsOpen(!isOpen)}>
 								{setIcon(Icon)}
 								<input

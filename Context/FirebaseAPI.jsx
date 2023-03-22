@@ -257,7 +257,6 @@ export const FirebaseProvider = ({ children }) => {
 	const SubmitForm = async () => {
 		const Form = document[table]
 		const requirements = RequiredFields(table)
-		console.log(requirements)
 		if (FormIsValid(requirements)) {
 			const autoFillUpdates = AutoFillUpdates(Form)
 			const rteUpdates = RichTextUpdates()

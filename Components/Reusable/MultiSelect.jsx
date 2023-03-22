@@ -2,7 +2,7 @@
 import styles from '../../styles/Forms.module.scss'
 import Checkbox from './Checkbox'
 
-function MultiSelect({ Id, Label, Default, Options, Icon, Required }) {
+function MultiSelect({ Id, Label, Default, Options }) {
 	const isSelected = (value) => {
 		return Default.find((item) => item === value) !== undefined
 	}

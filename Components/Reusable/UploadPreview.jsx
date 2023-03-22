@@ -20,7 +20,7 @@ function UploadPreview({ Id, Source, Label, Multiple, RemoveLoader }) {
 					layout='fill'
 				/>
 				<MdDelete
-					onClick={(e) => RemoveImg(e)}
+					onClick={() => RemoveImg(url)}
 					className={styles.DeleteImg}
 				/>
 			</div>
@@ -35,14 +35,11 @@ function UploadPreview({ Id, Source, Label, Multiple, RemoveLoader }) {
 		return path
 	}
 
-	const RemoveImg = async (e) => {
-		const title = e.target.parentElement.firstElementChild.title
-		console.log(Source)
+	const RemoveImg = async (url) => {
 		const savedFiles = Source.filter((item) => {
-			return !GetPath(item).includes(title)
+			item !== url
 		})
 		await AssignURLs(Id, savedFiles)
-		console.log(`${title} Removed`)
 	}
 
 	return Multiple ? (

@@ -13,11 +13,11 @@ import {
 } from 'react-icons/si'
 
 function Checkbox({ Id, Label, Default }) {
-	const { GetInputData } = useContext(FirebaseAPI)
+	const { InputUpdates } = useContext(FirebaseAPI)
 	const [selected, setSelected] = useState(Default)
 
 	const ChangeValue = (e) => {
-		GetInputData(e)[Id]
+		InputUpdates(e)[Id]
 		setSelected(!selected)
 	}
 
@@ -113,21 +113,23 @@ function Checkbox({ Id, Label, Default }) {
 	}
 
 	return (
-		<label
-			key={Id}
-			className={selected ? styles.selected : undefined}
-		>
-			{setIcon(Label)}
-			<input
-				type='checkbox'
-				name={Label}
-				id={Id}
-				value={selected}
-				data-selected={JSON.stringify(Label)}
-				onChange={(e) => ChangeValue(e)}
-				checked={selected}
-			/>
-		</label>
+		<div className={styles.checkbox}>
+			<label
+				key={Id}
+				className={selected ? styles.selected : undefined}
+			>
+				{setIcon(Label)}
+				<input
+					type='checkbox'
+					name={Label}
+					id={Id}
+					value={selected}
+					data-selected={JSON.stringify(Label)}
+					onChange={(e) => ChangeValue(e)}
+					checked={selected}
+				/>
+			</label>
+		</div>
 	)
 }
 

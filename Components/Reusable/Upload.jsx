@@ -53,50 +53,58 @@ function Upload({ Id, Label, Types, Required, Multiple, filePath, Source }) {
 
 	return (
 		<>
-			{Source ? (
-				<div className={Multiple ? styles.MultipleUpload : styles.ImageUpload}>
-					<UploadPreview
-						Id={Id}
-						Source={Source}
-						Label={Label}
-						Multiple={Multiple}
-						RemoveLoader={() => RemoveLoader()}
-					/>
-					{Source.length !== 0 && showLoader && <Loader />}
-					<label
-						className={styles.ImageUpload}
-						htmlFor={Id}
-					>
-						<MdCloudUpload />
-						<input
-							id={Id}
-							name={Id}
-							type='file'
-							accept={Types}
-							required={Required}
-							multiple={Multiple}
-							onChange={handleUpload}
-						/>
-						{uploading ? <Uploading /> : `Upload ${Label}`}
-					</label>
-				</div>
+			{uploading ? (
+				<Uploading />
 			) : (
-				<label
-					htmlFor={Id}
-					className={Multiple ? styles.MultipleUpload : styles.ImageUpload}
-				>
-					<MdCloudUpload />
-					<input
-						id={Id}
-						name={Id}
-						type='file'
-						accept={Types}
-						required={Required}
-						multiple={Multiple}
-						onChange={handleUpload}
-					/>
-					{uploading ? <Uploading /> : `Upload ${Label}`}
-				</label>
+				<>
+					{Source ? (
+						<div
+							className={Multiple ? styles.MultipleUpload : styles.ImageUpload}
+						>
+							<UploadPreview
+								Id={Id}
+								Source={Source}
+								Label={Label}
+								Multiple={Multiple}
+								RemoveLoader={() => RemoveLoader()}
+							/>
+							{Source.length !== 0 && showLoader && <Loader />}
+							<label
+								className={styles.ImageUpload}
+								htmlFor={Id}
+							>
+								<MdCloudUpload />
+								<input
+									id={Id}
+									name={Id}
+									type='file'
+									accept={Types}
+									required={Required}
+									multiple={Multiple}
+									onChange={handleUpload}
+								/>
+								{`Upload ${Label}`}
+							</label>
+						</div>
+					) : (
+						<label
+							htmlFor={Id}
+							className={Multiple ? styles.MultipleUpload : styles.ImageUpload}
+						>
+							<MdCloudUpload />
+							<input
+								id={Id}
+								name={Id}
+								type='file'
+								accept={Types}
+								required={Required}
+								multiple={Multiple}
+								onChange={handleUpload}
+							/>
+							{`Upload ${Label}`}
+						</label>
+					)}
+				</>
 			)}
 		</>
 	)

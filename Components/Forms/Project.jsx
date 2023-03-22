@@ -56,10 +56,10 @@ export default function User() {
 				)}
 				<Dropdown
 					Id='Company'
+					Label='Company'
 					Default={formData?.Company}
 					DisplayField='id'
 					Options={clients}
-					ShowLabel={true}
 					Icon='Client'
 					Required={true}
 				/>
