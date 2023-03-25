@@ -32,6 +32,7 @@ export const AuthProvider = ({ children }) => {
 						uid: auth.currentUser.uid,
 						displayName: auth.currentUser.displayName,
 						PhotoURL: auth.currentUser.photoURL,
+						Company: dbUser.Company,
 						Email: auth.currentUser.email,
 						Phone: dbUser.Phone,
 						FirstName: dbUser.FirstName,
