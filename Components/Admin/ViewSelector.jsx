@@ -3,6 +3,7 @@ import { useContext } from 'react'
 import ViewFilter from '../Reusable/ViewFilter'
 import FirebaseAPI from '../../Context/FirebaseAPI'
 import { AiOutlineUnorderedList, AiOutlineAppstore } from 'react-icons/ai'
+import { BsChatDotsFill } from 'react-icons/bs'
 
 function ViewSelector() {
 	const { table, viewType, setViewType } = useContext(FirebaseAPI)
@@ -16,7 +17,11 @@ function ViewSelector() {
 					className={viewType === 'List' ? styles.Selected : undefined}
 					onClick={() => setViewType('List')}
 				>
-					<AiOutlineUnorderedList />
+					{table === 'Communications' ? (
+						<BsChatDotsFill />
+					) : (
+						<AiOutlineUnorderedList />
+					)}
 				</button>
 				<button
 					title='Grid View'

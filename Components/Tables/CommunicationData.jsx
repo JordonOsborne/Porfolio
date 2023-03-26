@@ -1,12 +1,17 @@
 import styles from '../../styles/Admin.module.scss'
+import Loading from '../Reusable/Loading'
 import FirebaseAPI from '../../Context/FirebaseAPI'
+import AuthContext from '../../Context/AuthContext'
+import Image from 'next/image'
+import { MdAccountCircle } from 'react-icons/md'
 import { useContext } from 'react'
 
 function CommunicationData({ type }) {
 	const { data, setShowForm, GetDoc } = useContext(FirebaseAPI)
+	const { user } = useContext(AuthContext)
 
 	const FilteredData = () => {
-		return data.filter((communication) => communication.Form === type)
+		return data.filter((communication) => communication.Subject === type)
 	}
 
 	const EditForm = async (id) => {
@@ -14,22 +19,66 @@ function CommunicationData({ type }) {
 		setShowForm(true)
 	}
 
+	const SendTime = (time) => {
+		try {
+			time.toDate()
+		} catch (error) {
+			time = new Date()
+		}
+		const TimeStamp = `${time.toDate().toLocaleDateString('en-US', {
+			weekday: 'long',
+			month: 'short',
+			day: 'numeric',
+		})} ${time.toDate().toLocaleTimeString('en-US')}`
+		return TimeStamp
+	}
+
 	return (
-		<div>
+		<div id={styles.Messages}>
 			{FilteredData().map((item) => {
 				return (
 					<div
 						key={item.id}
-						onClick={() => EditForm(item.id)}
+						className={
+							item.CreatedBy?.uid === user.uid ? styles.Me : styles.Reply
+						}
 					>
-						<h5>{item?.Contact?.displayName}</h5>
-						<h5>{item?.Subject}</h5>
+						<div className={styles.SenderImg}>
+							{item?.CreatedBy?.PhotoURL ? (
+								<Image
+									src={item?.CreatedBy?.PhotoURL}
+									alt={item?.CreatedBy?.displayName}
+									title={item?.CreatedBy?.displayName}
+									width='30px'
+									height='30px'
+									fill={true}
+								/>
+							) : (
+								<MdAccountCircle
+									title='You'
+									width='30px'
+									height='30px'
+								/>
+							)}
+						</div>
 						<div
-							className={styles.rteHTML}
+							className={styles.message}
+							onClick={
+								item?.CreatedBy?.uid === user.uid
+									? () => EditForm(item.id)
+									: undefined
+							}
 							dangerouslySetInnerHTML={{
 								__html: item?.Body,
 							}}
 						></div>
+						<div className={styles.TimeSent}>
+							{item?.Created ? (
+								SendTime(item.Created)
+							) : (
+								<Loading size='small' />
+							)}
+						</div>
 					</div>
 				)
 			})}

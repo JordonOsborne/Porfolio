@@ -48,6 +48,7 @@
 					right: 0;
 				}
 			}
+			// PROJECTS FORM
 			.labelDiv {
 				&:has([id='Project']) {
 					grid-column: span 3;
@@ -62,6 +63,35 @@
 					width: 100%;
 					input {
 						width: 100%;
+					}
+				}
+			}
+			// COMMUNICATION FORM
+			&[name='Communications'] {
+				.viewDiv {
+					&:has([id='Company']) {
+						display: none;
+					}
+					&:has([id='Subject']) {
+						grid-column: span 3;
+						svg {
+							display: none;
+						}
+					}
+				}
+				.dropdown {
+					z-index: 1;
+					&:has([id='SendTo']) {
+						grid-column: span 2;
+					}
+				}
+				.labelDiv {
+					&:has([id='Body']) {
+						grid-column: span 5;
+						z-index: 0;
+						.RichText {
+							height: 450px;
+						}
 					}
 				}
 			}
