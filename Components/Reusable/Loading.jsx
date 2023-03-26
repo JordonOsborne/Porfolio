@@ -1,8 +1,11 @@
 import styles from '../../styles/Loaders.module.scss'
-function Loading() {
+function Loading({ size }) {
 	return (
 		<div className={styles.loaderBlock}>
-			<span className={styles.loader}></span>
+			<span
+				className={styles.loader}
+				data-size={size}
+			></span>
 		</div>
 	)
 }

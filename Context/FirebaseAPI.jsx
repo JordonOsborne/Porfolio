@@ -86,7 +86,9 @@ export const FirebaseProvider = ({ children }) => {
 		if (filter) {
 			filter = filter.split(' ')
 			if (filter.at(-1) == 'true' || filter.at(-1) == 'false') {
-				filter[2] = filter.at(-1) == 'true'
+				filter.at(-1) == 'true'
+					? (filter[2] = filter.at(-1) == 'true')
+					: (filter[2] = filter.at(-1) == 'false')
 			}
 			filter = where(filter[0], filter[1], filter[2])
 			q = query(collection(db, table), filter)
@@ -162,13 +164,16 @@ export const FirebaseProvider = ({ children }) => {
 		// CHECK IF NEW FORM OR UPDATE
 		if (document[table].id.includes('New')) {
 			switch (table) {
+				case 'Clients':
+					return document.getElementById('Id').value
 				case 'Projects':
 					return `${formUpdates.Company.id}-${formUpdates.Project.replace(
 						/ /g,
 						'-'
 					)}`
+				default:
+					return null
 			}
-			return null
 		} else {
 			return document[table].id
 		}
@@ -245,7 +250,11 @@ export const FirebaseProvider = ({ children }) => {
 				.getPropertyValue('background-color')
 				.toString() !== 'rgb(255, 255, 255)'
 		Array.from(Form).forEach((element) => {
-			if (element.nodeName === 'INPUT' && isAutoFilled(element)) {
+			if (
+				element.id != 'Id' &&
+				element.nodeName === 'INPUT' &&
+				isAutoFilled(element)
+			) {
 				const update = { [element.name]: element.value }
 				AutoFills = { ...AutoFills, ...update }
 			}
@@ -253,21 +262,43 @@ export const FirebaseProvider = ({ children }) => {
 		return AutoFills
 	}
 
+	// GET READ-ONLY DATA
+	const CalculatedValues = () => {
+		let CalculatedData = {}
+		const Form = document.querySelectorAll('[data-calc]')
+		Array.from(Form).forEach((element) => {
+			if (element.dataset.calc !== undefined) {
+				try {
+					const jsonData = JSON.parse(element.dataset.calc)
+					const update = { [element.id]: jsonData }
+					CalculatedData = { ...CalculatedData, ...update }
+				} catch (error) {
+					const update = { [element.id]: element.dataset.calc }
+					CalculatedData = { ...CalculatedData, ...update }
+				}
+			}
+		})
+		return CalculatedData
+	}
+
 	// SUBMIT FORM - VALIDATION INCLUDED
 	const SubmitForm = async () => {
 		const Form = document[table]
 		const requirements = RequiredFields(table)
 		if (FormIsValid(requirements)) {
+			const calculatedValues = CalculatedValues()
 			const autoFillUpdates = AutoFillUpdates(Form)
 			const rteUpdates = RichTextUpdates()
 			if (formData?.id) {
 				delete formData.id
 			}
 			const docId = GetFormId()
+			user.isAdmin && delete user.Company
 			const newDoc = {
 				Created: serverTimestamp(),
 				CreatedBy: user,
 				...formData,
+				...calculatedValues,
 				...autoFillUpdates,
 				...formUpdates,
 				...rteUpdates,
@@ -279,6 +310,7 @@ export const FirebaseProvider = ({ children }) => {
 			const existingItem = data.find((item) => item.id === docId)
 			setData([...tempData, newData])
 			setFormData(null)
+			setFormUpdates(null)
 			onChange(null)
 			setShowForm(false)
 			!existingItem &&
@@ -410,6 +442,7 @@ export const FirebaseProvider = ({ children }) => {
 				viewType,
 				data,
 				formData,
+				formUpdates,
 				value,
 				showForm,
 				isLoading,

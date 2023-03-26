@@ -31,7 +31,7 @@ function Client() {
 
 	return (
 		<form
-			id={formData ? formData.id : 'NewClientForm'}
+			id={formData ? formData.id : 'NewClient'}
 			name='Clients'
 		>
 			<h2>{formData ? formData.id : `New Client Form`}</h2>

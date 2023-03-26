@@ -13,7 +13,16 @@ import { GrOrganization } from 'react-icons/gr'
 import { MdDateRange } from 'react-icons/md'
 import { BiText, BiLink } from 'react-icons/bi'
 
-function Input({ Id, Label, Placeholder, Default, Icon, ReadOnly, Required }) {
+function Input({
+	Id,
+	Label,
+	Placeholder,
+	Default,
+	Icon,
+	ReadOnly,
+	Calc,
+	Required,
+}) {
 	const { InputUpdates } = useContext(FirebaseAPI)
 	const DatePicker = (e) => {
 		try {
@@ -75,10 +84,13 @@ function Input({ Id, Label, Placeholder, Default, Icon, ReadOnly, Required }) {
 
 	return (
 		<>
-			{ReadOnly ? (
+			{ReadOnly || Calc ? (
 				<div className={styles.viewDiv}>
 					{setIcon(Icon)}
-					<div>
+					<div
+						id={Id}
+						data-calc={Calc}
+					>
 						{Default && Icon === 'Date'
 							? Default?.toDate().toISOString().split('T')[0]
 							: Default}
