@@ -22,6 +22,7 @@ function Input({
 	ReadOnly,
 	Calc,
 	Required,
+	Visible,
 }) {
 	const { InputUpdates } = useContext(FirebaseAPI)
 	const DatePicker = (e) => {
@@ -85,7 +86,7 @@ function Input({
 	return (
 		<>
 			{ReadOnly || Calc ? (
-				<div className={styles.viewDiv}>
+				<div className={!Visible ? styles.hideDiv : styles.viewDiv}>
 					{setIcon(Icon)}
 					<div
 						id={Id}
@@ -105,7 +106,7 @@ function Input({
 							type={setType(Id)}
 							id={Id}
 							name={Label}
-							title={Label}
+							title={Label ? Label : Id}
 							placeholder={Placeholder}
 							defaultValue={
 								Default && Icon === 'Date'

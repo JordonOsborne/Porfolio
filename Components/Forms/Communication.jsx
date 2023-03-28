@@ -8,7 +8,7 @@ import { useState, useEffect, useContext } from 'react'
 
 function Communication() {
 	const { user } = useContext(AuthContext)
-	const { formData, GetData, formUpdates } = useContext(FirebaseAPI)
+	const { data, formData, GetData, formUpdates } = useContext(FirebaseAPI)
 	const [users, setUsers] = useState([])
 	const [admin, setAdmin] = useState([])
 
@@ -33,6 +33,8 @@ function Communication() {
 		GetUsers()
 	}, [])
 
+	const lastSubject = data[data.length - 1].Subject
+
 	return (
 		<form
 			id={formData ? formData.id : 'NewCommunication'}
@@ -55,8 +57,8 @@ function Communication() {
 				<Input
 					Id='Subject'
 					Label='Subject'
-					Default={user.isAdmin ? 'Testing' : formData?.Subject}
-					Calc={user.isAdmin ? 'Testing' : undefined}
+					Default={user.isAdmin ? lastSubject : formData?.Subject}
+					Calc={user.isAdmin ? lastSubject : undefined}
 					Required={true}
 					Icon='Text'
 				/>

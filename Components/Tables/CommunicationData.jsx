@@ -21,15 +21,15 @@ function CommunicationData({ type }) {
 
 	const SendTime = (time) => {
 		try {
-			time.toDate()
+			time = time.toDate()
 		} catch (error) {
 			time = new Date()
 		}
-		const TimeStamp = `${time.toDate().toLocaleDateString('en-US', {
+		const TimeStamp = `${time.toLocaleDateString('en-US', {
 			weekday: 'long',
 			month: 'short',
 			day: 'numeric',
-		})} ${time.toDate().toLocaleTimeString('en-US')}`
+		})} ${time.toLocaleTimeString('en-US')}`
 		return TimeStamp
 	}
 

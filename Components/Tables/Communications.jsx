@@ -1,16 +1,10 @@
-import styles from '../../styles/Admin.module.scss'
 import CommunicationData from './CommunicationData'
-import AuthContext from '../../Context/AuthContext'
+import Messenger from '../Forms/Messenger'
 import FirebaseAPI from '../../Context/FirebaseAPI'
 import { useContext } from 'react'
 
 function Communications() {
 	const { data } = useContext(FirebaseAPI)
-	const { user } = useContext(AuthContext)
-
-	const CompanyFilter = data.filter((communication) => {
-		communication?.Company?.id === user?.Company?.id
-	})
 
 	const Subjects = Array.from(
 		new Set(data.map((communication) => communication.Subject))
@@ -26,6 +20,7 @@ function Communications() {
 					</div>
 				)
 			})}
+			<Messenger />
 		</>
 	)
 }
