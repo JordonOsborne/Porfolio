@@ -10,7 +10,7 @@ function ViewSelector() {
 
 	return (
 		<div className={styles.viewSelector}>
-			{table === 'Clients' && <ViewFilter />}
+			<ViewFilter />
 			<div className={styles.viewType}>
 				<button
 					title='List View'

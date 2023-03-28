@@ -62,9 +62,9 @@ export const FirebaseProvider = ({ children }) => {
 		}
 		setIsLoading(true)
 		if (table !== null) {
-			GetViews()
+			const DefaultView = GetViews()
 			setView('All')
-			GetData(table)
+			GetData(table, DefaultView?.filter, DefaultView?.sort)
 			getCollectionTotals()
 		}
 	}, [table])
@@ -91,19 +91,13 @@ export const FirebaseProvider = ({ children }) => {
 					: (filter[2] = filter.at(-1) == 'false')
 			}
 			filter = where(filter[0], filter[1], filter[2])
-			q = query(collection(db, table), filter)
 		}
-		if (sort) {
-			if (!sort?.field) {
-				q = query(
-					collection(db, table),
-					filter,
-					orderBy(sort[0].field, sort[0].type),
-					orderBy(sort[1].field, sort[1].type)
-				)
-			} else {
-				q = query(collection(db, table), filter, orderBy(sort.field, sort.type))
-			}
+		if (filter && sort) {
+			q = query(collection(db, table), filter, orderBy(sort.field, sort.type))
+		} else if (filter) {
+			q = query(collection(db, table), filter)
+		} else if (sort) {
+			q = query(collection(db, table), orderBy(sort.field, sort.type))
 		}
 		try {
 			const dataRaw = await getDocs(q)
@@ -127,20 +121,41 @@ export const FirebaseProvider = ({ children }) => {
 		switch (table) {
 			case 'Clients':
 				setViews([
-					{ id: 'All', filter: null },
+					{ id: 'All', sort: { field: 'Client', type: 'asc' } },
 					{
 						id: 'Active',
-						filter: 'Active != false',
-						sort: [
-							{ field: 'Active', type: 'asc' },
-							{ field: 'Client', type: 'asc' },
-						],
+						filter: 'Active == true',
+						sort: { field: 'Client', type: 'asc' },
 					},
 				])
-				return
+				return { sort: { field: 'Client', type: 'asc' } }
+			case 'Users':
+				setViews([
+					{
+						id: 'All',
+						filter: user.isAdmin ? null : `Company == ${user?.Company?.id}`,
+						sort: { field: 'LastName', type: 'asc' },
+					},
+				])
+				return {
+					filter: user.isAdmin ? null : `Company == ${user?.Company}`,
+					sort: { field: 'LastName', type: 'asc' },
+				}
+			case 'Communications':
+				setViews([
+					{
+						id: 'All',
+						filter: user.isAdmin ? null : `Company == ${user?.Company?.id}`,
+						sort: { field: 'Created', type: 'asc' },
+					},
+				])
+				return {
+					filter: user.isAdmin ? null : `Company == ${user?.Company?.id}`,
+					sort: { field: 'Created', type: 'asc' },
+				}
 			default:
 				setViews([])
-				return
+				return null
 		}
 	}
 
@@ -278,6 +293,7 @@ export const FirebaseProvider = ({ children }) => {
 				}
 			}
 		})
+		console.log(CalculatedData)
 		return CalculatedData
 	}
 
