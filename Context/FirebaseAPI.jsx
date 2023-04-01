@@ -64,16 +64,34 @@ export const FirebaseProvider = ({ children }) => {
 		if (table !== null) {
 			const DefaultView = GetViews()
 			setView('All')
-			GetData(table, DefaultView?.filter, DefaultView?.sort)
 			getCollectionTotals()
+			GetData(table, DefaultView?.filter, DefaultView?.sort)
 		}
 	}, [table])
 
 	// GET COLLECTION TOTALS
 	const GetCollectionTotal = async (table) => {
 		let count = 0
-		count = await getCountFromServer(collection(db, table))
-		return count.data().count
+		if (user.isAdmin) {
+			count = await getCountFromServer(collection(db, table))
+			return count.data().count
+		} else if (table !== 'Clients' && table !== 'Projects') {
+			try {
+				const ClientFilter = where('Client', '==', user?.Company?.id)
+				const q = query(collection(db, table), ClientFilter)
+				const dataRaw = await getDocs(q)
+				count = dataRaw.docs.length
+			} catch (error) {
+				console.log(
+					'Collection Total Query Failed for ',
+					table,
+					':',
+					error.message
+				)
+				count = NaN
+			}
+			return count
+		}
 	}
 
 	// GET ALL DATA IN COLLECTION
@@ -85,6 +103,7 @@ export const FirebaseProvider = ({ children }) => {
 		}
 		if (filter) {
 			filter = filter.split(' ')
+			// CHECK FOR BOOLEAN FIELD
 			if (filter.at(-1) == 'true' || filter.at(-1) == 'false') {
 				filter.at(-1) == 'true'
 					? (filter[2] = filter.at(-1) == 'true')
@@ -118,6 +137,9 @@ export const FirebaseProvider = ({ children }) => {
 
 	// COLLECTION QUERIES
 	const GetViews = () => {
+		let defaultView = {
+			filter: user.isAdmin ? null : `Client == ${user?.Company?.id}`,
+		}
 		switch (table) {
 			case 'Clients':
 				setViews([
@@ -128,35 +150,43 @@ export const FirebaseProvider = ({ children }) => {
 						sort: { field: 'Client', type: 'asc' },
 					},
 				])
-				return { sort: { field: 'Client', type: 'asc' } }
+				defaultView = { sort: { field: 'Client', type: 'asc' } }
+				break
 			case 'Users':
 				setViews([
 					{
 						id: 'All',
-						filter: user.isAdmin ? null : `Company == ${user?.Company?.id}`,
+						filter: user.isAdmin ? null : `Client == ${user?.Company?.id}`,
 						sort: { field: 'LastName', type: 'asc' },
 					},
 				])
-				return {
-					filter: user.isAdmin ? null : `Company == ${user?.Company}`,
-					sort: { field: 'LastName', type: 'asc' },
-				}
+				defaultView.sort = { field: 'LastName', type: 'asc' }
+				break
 			case 'Communications':
 				setViews([
 					{
 						id: 'All',
-						filter: user.isAdmin ? null : `Company == ${user?.Company?.id}`,
+						filter: user.isAdmin ? null : `Client == ${user?.Company?.id}`,
 						sort: { field: 'Created', type: 'asc' },
 					},
 				])
-				return {
-					filter: user.isAdmin ? null : `Company == ${user?.Company?.id}`,
-					sort: { field: 'Created', type: 'asc' },
-				}
+				defaultView.sort = { field: 'Created', type: 'asc' }
+				break
+			case 'Invoices':
+				setViews([
+					{
+						id: 'All',
+						filter: user.isAdmin ? null : `Client == ${user?.Company?.id}`,
+						sort: { field: 'Created', type: 'asc' },
+					},
+				])
+				defaultView.sort = { field: 'Date', type: 'desc' }
+				break
 			default:
 				setViews([])
-				return null
+				break
 		}
+		return defaultView
 	}
 
 	// GET DOCUMENT DATA

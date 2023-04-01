@@ -37,7 +37,7 @@ function Invoices() {
 								>
 									<FaFileInvoiceDollar />
 								</a>
-								{invoice.Client}
+								{`${invoice.id} Invoice`}
 							</td>
 							<td>{`$` + invoice?.Charge}</td>
 							<td>{invoice.Date?.toDate().toDateString()}</td>

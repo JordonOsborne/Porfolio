@@ -139,7 +139,7 @@ export default function Admin() {
 					<main>
 						<div id='Company'>
 							<h1>
-								{user.isAdmin ? 'Site Administrator' : 'Client Information'}
+								{user.isAdmin ? 'Site Administrator' : user?.Company?.Company}
 							</h1>
 						</div>
 						<div className={styles.Forms}>

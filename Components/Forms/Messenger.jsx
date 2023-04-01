@@ -9,7 +9,7 @@ function Communication() {
 	const { user } = useContext(AuthContext)
 	const { data, formData, formUpdates, SubmitForm } = useContext(FirebaseAPI)
 
-	const lastSubject = data[data.length - 1].Subject
+	const lastSubject = data[data.length - 1]?.Subject
 	const GetLastResponder = () => {
 		const messages = data.filter(
 			(message) => message?.CreatedBy?.uid !== user.uid

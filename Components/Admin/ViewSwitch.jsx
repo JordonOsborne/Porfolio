@@ -17,23 +17,35 @@ function TableSwitch() {
 		setShowForm(true)
 	}
 
+	const TableHeader = () => {
+		if (user.isAdmin && table !== 'Communications') {
+			return (
+				<button
+					onClick={() =>
+						table === 'Users' ? router.push('/SignIn?Register=true') : NewForm()
+					}
+				>
+					<IoMdAddCircle />
+					New
+				</button>
+			)
+		}
+		switch (table) {
+			case 'Users':
+				return <h2>Site Administrators</h2>
+			case 'Communications':
+				return <h2>Site Communication</h2>
+			case 'Invoices':
+				return <h2>Invoices</h2>
+			default:
+				return
+		}
+	}
+
 	return (
 		<>
 			<div className={styles.Menu}>
-				{table === 'Communications' && !user.isAdmin ? (
-					<h2>{`${user.Company?.Company} Communications`}</h2>
-				) : (
-					<button
-						onClick={() =>
-							table === 'Users'
-								? router.push('/SignIn?Register=true')
-								: NewForm()
-						}
-					>
-						<IoMdAddCircle />
-						New
-					</button>
-				)}
+				{TableHeader()}
 				<ViewSelector />
 			</div>
 			<ViewTypeSwitch />
