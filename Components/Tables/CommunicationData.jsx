@@ -48,14 +48,22 @@ function CommunicationData({ type }) {
 								<Image
 									src={item?.CreatedBy?.PhotoURL}
 									alt={item?.CreatedBy?.displayName}
-									title={item?.CreatedBy?.displayName}
+									title={
+										item?.CreatedBy?.uid === user?.uid
+											? 'You'
+											: item?.CreatedBy?.displayName
+									}
 									width='30px'
 									height='30px'
 									fill={true}
 								/>
 							) : (
 								<MdAccountCircle
-									title='You'
+									title={
+										item?.CreatedBy?.uid === user?.uid
+											? 'You'
+											: item?.CreatedBy?.displayName
+									}
 									width='30px'
 									height='30px'
 								/>

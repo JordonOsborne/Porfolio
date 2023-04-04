@@ -1,5 +1,5 @@
 import styles from '../../styles/Forms.module.scss'
-import { useContext } from 'react'
+import { useState, useContext } from 'react'
 import FirebaseAPI from '../../Context/FirebaseAPI'
 import { MdEmail, MdAccountCircle } from 'react-icons/md'
 import { FaKey, FaPhoneAlt, FaCode } from 'react-icons/fa'
@@ -25,6 +25,7 @@ function Input({
 	Visible,
 }) {
 	const { InputUpdates } = useContext(FirebaseAPI)
+	const [value, setValue] = useState(Default)
 	const DatePicker = (e) => {
 		try {
 			e.target.nextSibling.showPicker()
@@ -32,6 +33,11 @@ function Input({
 			e.target.parentElement.nextSibling.showPicker()
 		}
 	}
+	const OnChange = (e) => {
+		const update = InputUpdates(e)[Id]
+		setValue(update)
+	}
+
 	const setIcon = (Icon) => {
 		switch (Icon) {
 			case 'Person':
@@ -108,14 +114,13 @@ function Input({
 							name={Label}
 							title={Label ? Label : Id}
 							placeholder={Placeholder}
-							defaultValue={
-								Default && Icon === 'Date'
-									? Default.toDate().toISOString().split('T')[0]
-									: Default
+							value={
+								Icon === 'Date'
+									? value?.toDate().toISOString().split('T')[0]
+									: value
 							}
-							value={Default}
 							required={Required}
-							onChange={(e) => InputUpdates(e)}
+							onChange={(e) => OnChange(e)}
 						/>
 					</div>
 				</div>

@@ -36,7 +36,7 @@ export default function User() {
 			<div className={styles.Container}>
 				<Dropdown
 					Id='Company'
-					Default={formData ? formData.Company : ''}
+					Default={formData?.Company}
 					DisplayField='Company'
 					Options={clients}
 					ShowLabel={true}
@@ -45,26 +45,26 @@ export default function User() {
 				<Input
 					Id='FirstName'
 					Label='First Name'
-					Default={formData ? formData.FirstName : ''}
+					Default={formData?.FirstName}
 					Icon='Person'
 				/>
 				<Input
 					Id='LastName'
 					Label='Last Name'
-					Default={formData ? formData.LastName : ''}
+					Default={formData?.LastName}
 					Icon='Person'
 				/>
 				<Input
 					Id='Phone'
 					Label='Phone Number'
-					Default={formData ? formData.Phone : ''}
+					Default={formData?.Phone}
 					Icon='Phone'
 				/>
 				<Input
 					Id='Email'
 					Label='Email'
 					Placeholder='Enter e-mail address'
-					Default={formData ? formData.Email : ''}
+					Default={formData?.Email}
 					Icon='Email'
 				/>
 			</div>
