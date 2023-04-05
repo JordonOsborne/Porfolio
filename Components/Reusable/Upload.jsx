@@ -1,6 +1,6 @@
 import styles from '../../styles/Forms.module.scss'
 import FirebaseAPI from '../../Context/FirebaseAPI'
-import FirestoreAPI from '../../Context/FirebaseAPI'
+import FirestoreAPI from '../../Context/FirestoreAPI'
 import Loader from './Loading'
 import { useContext, useState } from 'react'
 import { MdCloudUpload } from 'react-icons/md'
@@ -9,10 +9,12 @@ import UploadPreview from './UploadPreview'
 
 function Upload({ Id, Label, Types, Required, Multiple, filePath, Source }) {
 	const { AssignURLs } = useContext(FirebaseAPI)
-	const { UploadFile, uploading } = useContext(FirestoreAPI)
+	const { UploadFile } = useContext(FirestoreAPI)
 	const [showLoader, setShowLoader] = useState(true)
+	const [uploading, setUploading] = useState(false)
 
 	const RemoveLoader = () => {
+		setUploading(false)
 		setShowLoader(false)
 	}
 
@@ -22,6 +24,7 @@ function Upload({ Id, Label, Types, Required, Multiple, filePath, Source }) {
 			try {
 				const file = e.target.files[0]
 				if (file) {
+					setUploading(true)
 					const url = await UploadFile(file, filePath)
 					AssignURLs(Id, url)
 				}
@@ -35,6 +38,7 @@ function Upload({ Id, Label, Types, Required, Multiple, filePath, Source }) {
 			const savedURLs = []
 			files.forEach((file, index) => {
 				try {
+					setUploading(true)
 					const twoDigitIndex = (index + 1).toLocaleString('en-US', {
 						minimumIntegerDigits: 2,
 						useGrouping: false,

@@ -106,6 +106,15 @@ function UserPanel() {
 						>
 							{editProfile ? 'View Profile' : 'Edit Profile'}
 						</li>
+						<li
+							onClick={() =>
+								user?.isAdmin
+									? router.push('/Clients')
+									: router.push(`/ClientPortal/${user?.Company?.id}`)
+							}
+						>
+							Client Portal
+						</li>
 						<li onClick={() => ResetPassword()}>Reset Password</li>
 						<li onClick={() => LogOut()}>Log Out</li>
 					</menu>

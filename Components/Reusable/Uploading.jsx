@@ -6,7 +6,7 @@ function Uploading(Id) {
 	const { percent } = useContext(FirestoreAPI)
 	return (
 		<div className={styles.loaderBlock}>
-			<span class={styles.loader2}></span>
+			<span className={styles.loader2}></span>
 			<label htmlFor={Id}>{percent}% Complete</label>
 			<progress
 				id={Id}
