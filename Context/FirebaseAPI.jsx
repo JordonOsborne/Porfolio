@@ -1,6 +1,6 @@
-import { db, auth, storage } from '../firebase.config'
+import { db, auth } from '../firebase.config'
+import { useRouter } from 'next/router'
 import { FormIsValid, RequiredFields } from '../Utilities/Form'
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { createContext, useState, useEffect, useContext } from 'react'
 import { updateProfile } from 'firebase/auth'
 import AuthContext from '../Context/AuthContext'
@@ -23,6 +23,7 @@ import {
 const FirebaseAPI = createContext()
 
 export const FirebaseProvider = ({ children }) => {
+	const router = useRouter()
 	const { user, setUser } = useContext(AuthContext)
 	const [collectionTotals, setCollectionTotals] = useState({
 		Clients: 0,
@@ -32,6 +33,7 @@ export const FirebaseProvider = ({ children }) => {
 		Invoices: 0,
 	})
 	const [table, setTable] = useState('Users')
+	const [company, setCompany] = useState(user?.Company)
 	const [views, setViews] = useState('All')
 	const [view, setView] = useState('All')
 	const [viewType, setViewType] = useState('List')
@@ -40,39 +42,41 @@ export const FirebaseProvider = ({ children }) => {
 	const [formUpdates, setFormUpdates] = useState({})
 	const [showForm, setShowForm] = useState(false)
 	const [isLoading, setIsLoading] = useState(false)
-	const [percent, setPercent] = useState(0)
-	const [uploading, setUploading] = useState(false)
 	const [value, onChange] = useState(null)
 
 	useEffect(() => {
-		const getCollectionTotals = async () => {
-			const clientCount = await GetCollectionTotal('Clients')
-			const userCount = await GetCollectionTotal('Users')
-			const projectCount = await GetCollectionTotal('Projects')
-			const communicationCount = await GetCollectionTotal('Communications')
-			const invoiceCount = await GetCollectionTotal('Invoices')
-			setCollectionTotals({
-				Clients: clientCount,
-				Users: userCount,
-				Projects: projectCount,
-				Communications: communicationCount,
-				Invoices: invoiceCount,
-			})
-			setIsLoading(false)
-		}
-		setIsLoading(true)
-		if (table !== null) {
-			const DefaultView = GetViews()
-			setView('All')
-			getCollectionTotals()
-			GetData(table, DefaultView?.filter, DefaultView?.sort)
+		if (router.asPath !== '/Admin') {
+			console.log('Not Admin Page')
+		} else {
+			const getCollectionTotals = async () => {
+				const clientCount = await GetCollectionTotal('Clients')
+				const userCount = await GetCollectionTotal('Users')
+				const projectCount = await GetCollectionTotal('Projects')
+				const communicationCount = await GetCollectionTotal('Communications')
+				const invoiceCount = await GetCollectionTotal('Invoices')
+				setCollectionTotals({
+					Clients: clientCount,
+					Users: userCount,
+					Projects: projectCount,
+					Communications: communicationCount,
+					Invoices: invoiceCount,
+				})
+				setIsLoading(false)
+			}
+			setIsLoading(true)
+			if (table !== null) {
+				const DefaultView = GetViews()
+				setView('All')
+				getCollectionTotals()
+				GetData(table, DefaultView?.filter, DefaultView?.sort)
+			}
 		}
 	}, [table])
 
 	// GET COLLECTION TOTALS
 	const GetCollectionTotal = async (table) => {
 		let count = 0
-		if (user.isAdmin) {
+		if (user?.isAdmin) {
 			count = await getCountFromServer(collection(db, table))
 			return count.data().count
 		} else if (table !== 'Clients' && table !== 'Projects') {
@@ -136,9 +140,12 @@ export const FirebaseProvider = ({ children }) => {
 	}
 
 	// COLLECTION QUERIES
-	const GetViews = () => {
+	const GetViews = (Client) => {
 		let defaultView = {
-			filter: user.isAdmin ? null : `Client == ${user?.Company?.id}`,
+			filter: user?.isAdmin ? null : `Client == ${user?.Company?.id}`,
+		}
+		if (Client) {
+			defaultView = { filter: `Client == ${Client}` }
 		}
 		switch (table) {
 			case 'Clients':
@@ -156,7 +163,7 @@ export const FirebaseProvider = ({ children }) => {
 				setViews([
 					{
 						id: 'All',
-						filter: user.isAdmin ? null : `Client == ${user?.Company?.id}`,
+						filter: user?.isAdmin ? null : `Client == ${user?.Company?.id}`,
 						sort: { field: 'LastName', type: 'asc' },
 					},
 				])
@@ -166,7 +173,7 @@ export const FirebaseProvider = ({ children }) => {
 				setViews([
 					{
 						id: 'All',
-						filter: user.isAdmin ? null : `Client == ${user?.Company?.id}`,
+						filter: user?.isAdmin ? null : `Client == ${user?.Company?.id}`,
 						sort: { field: 'Created', type: 'asc' },
 					},
 				])
@@ -176,7 +183,7 @@ export const FirebaseProvider = ({ children }) => {
 				setViews([
 					{
 						id: 'All',
-						filter: user.isAdmin ? null : `Client == ${user?.Company?.id}`,
+						filter: user?.isAdmin ? null : `Client == ${user?.Company?.id}`,
 						sort: { field: 'Created', type: 'asc' },
 					},
 				])
@@ -202,6 +209,19 @@ export const FirebaseProvider = ({ children }) => {
 			setFormData(null)
 		}
 		setIsLoading(false)
+		return data
+	}
+
+	// GET COMPANY INFORMATION
+	const GetCompany = async (client) => {
+		try {
+			const docRef = doc(db, 'Clients', client)
+			const dataRaw = await getDoc(docRef)
+			const CompanyInfo = dataRaw.data()
+			setCompany(CompanyInfo)
+		} catch (error) {
+			console.log('Failed to get Company Info: ', error.message)
+		}
 	}
 
 	// GET FORM ID
@@ -414,46 +434,6 @@ export const FirebaseProvider = ({ children }) => {
 		}
 	}
 
-	// UPLOAD FILE TO STORAGE
-	const UploadFile = async (file, filePath) => {
-		setUploading(true)
-		const fileRef = ref(storage, filePath ? filePath : file.name)
-		// UPLOAD TO FIRE STORAGE
-		const uploadTask = uploadBytesResumable(fileRef, file)
-		uploadTask.on(
-			'state_changed',
-			// DURING UPLOAD
-			(snapshot) => {
-				const percent = Math.round(
-					(snapshot.bytesTransferred / snapshot.totalBytes) * 100
-				)
-				setPercent(percent)
-				percent === 100
-			},
-			// ON UPLOAD ERROR
-			(error) => {
-				setUploading(false)
-				switch (error.code) {
-					case 'storage/unauthorized':
-						console.log('User does not have permission to access the object')
-						break
-					case 'storage/canceled':
-						console.log('User canceled the upload')
-						break
-					default:
-						console.log('Unknown Error:', error.message)
-				}
-			},
-			// ON SUCCESSFUL UPLOAD
-			() => {
-				console.log('File Saved!')
-			}
-		)
-		const completedTask = await uploadTask
-		const url = await getDownloadURL(completedTask.ref)
-		return url
-	}
-
 	// ASSIGN FILE URL TO DOCUMENT
 	const AssignURLs = async (Id, urls) => {
 		try {
@@ -470,7 +450,6 @@ export const FirebaseProvider = ({ children }) => {
 				const newData = await SaveForm(formData.id, newDoc)
 				setFormData(newData)
 			}
-			setUploading(false)
 			return urls
 		} catch (error) {
 			console.log(error.message)
@@ -483,6 +462,7 @@ export const FirebaseProvider = ({ children }) => {
 			value={{
 				collectionTotals,
 				table,
+				company,
 				views,
 				view,
 				viewType,
@@ -492,8 +472,7 @@ export const FirebaseProvider = ({ children }) => {
 				value,
 				showForm,
 				isLoading,
-				uploading,
-				percent,
+				GetCompany,
 				GetViews,
 				GetData,
 				GetDoc,
@@ -512,7 +491,6 @@ export const FirebaseProvider = ({ children }) => {
 				RichTextUpdates,
 				setShowForm,
 				setIsLoading,
-				UploadFile,
 				AssignURLs,
 			}}
 		>

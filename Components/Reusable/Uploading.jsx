@@ -1,9 +1,9 @@
 import styles from '../../styles/Loaders.module.scss'
-import FirebaseAPI from '../../Context/FirebaseAPI'
+import FirestoreAPI from '../../Context/FirestoreAPI'
 import { useContext } from 'react'
 
 function Uploading(Id) {
-	const { percent } = useContext(FirebaseAPI)
+	const { percent } = useContext(FirestoreAPI)
 	return (
 		<div className={styles.loaderBlock}>
 			<span class={styles.loader2}></span>

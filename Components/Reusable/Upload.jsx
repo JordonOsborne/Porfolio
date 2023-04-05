@@ -1,5 +1,6 @@
 import styles from '../../styles/Forms.module.scss'
 import FirebaseAPI from '../../Context/FirebaseAPI'
+import FirestoreAPI from '../../Context/FirebaseAPI'
 import Loader from './Loading'
 import { useContext, useState } from 'react'
 import { MdCloudUpload } from 'react-icons/md'
@@ -7,7 +8,8 @@ import Uploading from './Uploading'
 import UploadPreview from './UploadPreview'
 
 function Upload({ Id, Label, Types, Required, Multiple, filePath, Source }) {
-	const { UploadFile, uploading, AssignURLs } = useContext(FirebaseAPI)
+	const { AssignURLs } = useContext(FirebaseAPI)
+	const { UploadFile, uploading } = useContext(FirestoreAPI)
 	const [showLoader, setShowLoader] = useState(true)
 
 	const RemoveLoader = () => {
