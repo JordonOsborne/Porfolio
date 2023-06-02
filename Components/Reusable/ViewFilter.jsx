@@ -1,4 +1,4 @@
-import styles from '../../styles/Forms.module.scss'
+import styles from '../../styles/Admin.module.scss'
 import FirebaseAPI from '../../Context/FirebaseAPI'
 import { useState, useContext } from 'react'
 import { BsChevronDoubleDown, BsChevronDoubleUp } from 'react-icons/bs'

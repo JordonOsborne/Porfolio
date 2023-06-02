@@ -34,6 +34,7 @@ export const FirebaseProvider = ({ children }) => {
 	})
 	const [table, setTable] = useState('Users')
 	const [company, setCompany] = useState(user?.Company)
+	const [project, setProject] = useState()
 	const [views, setViews] = useState('All')
 	const [view, setView] = useState('All')
 	const [viewType, setViewType] = useState('List')
@@ -45,9 +46,7 @@ export const FirebaseProvider = ({ children }) => {
 	const [value, onChange] = useState(null)
 
 	useEffect(() => {
-		if (router.asPath !== '/Admin') {
-			console.log('Not Admin Page')
-		} else {
+		if (router.asPath === '/Admin') {
 			const getCollectionTotals = async () => {
 				const clientCount = await GetCollectionTotal('Clients')
 				const userCount = await GetCollectionTotal('Users')
@@ -223,6 +222,17 @@ export const FirebaseProvider = ({ children }) => {
 			console.log('Failed to get Company Info: ', error.message)
 		}
 	}
+	// GET PROJECT INFORMATION
+	const GetProject = async (project) => {
+		try {
+			const docRef = doc(db, 'Projects', project)
+			const dataRaw = await getDoc(docRef)
+			const ProjectInfo = dataRaw.data()
+			setProject(ProjectInfo)
+		} catch (error) {
+			console.log('Failed to get Project Info: ', error.message)
+		}
+	}
 
 	// GET FORM ID
 	const GetFormId = () => {
@@ -249,7 +259,7 @@ export const FirebaseProvider = ({ children }) => {
 		input = input.target
 		let data = {}
 		if (input.id !== 'Id') {
-			const parentDiv = input.parentElement.parentElement
+			const parentDiv = input.parentElement.parentElement.parentElement
 			// CHECK FOR DROPDOWN
 			if (!parentDiv.classList.value.includes('dropdown')) {
 				switch (input.type) {
@@ -318,6 +328,7 @@ export const FirebaseProvider = ({ children }) => {
 			if (
 				element.id != 'Id' &&
 				element.nodeName === 'INPUT' &&
+				element.type !== 'checkbox' &&
 				isAutoFilled(element)
 			) {
 				const update = { [element.name]: element.value }
@@ -343,7 +354,6 @@ export const FirebaseProvider = ({ children }) => {
 				}
 			}
 		})
-		console.log(CalculatedData)
 		return CalculatedData
 	}
 
@@ -437,16 +447,19 @@ export const FirebaseProvider = ({ children }) => {
 	// ASSIGN FILE URL TO DOCUMENT
 	const AssignURLs = async (Id, urls) => {
 		try {
-			const update = { [Id]: urls }
-			const newDoc = { ...formData, ...update }
-			delete newDoc.id
-			if (Id === 'PhotoURL') {
+			const userPanelActive = document.querySelector('[id*=UserPanel]').open
+			if (userPanelActive && Id === 'PhotoURL') {
 				const docRef = doc(db, 'Users', user.uid)
 				const data = { PhotoURL: urls }
 				await updateProfile(auth.currentUser, { photoURL: urls })
-				await setDoc(docRef, { ...user, ...data })
+				await setDoc(docRef, { ...formData, ...data })
 				setUser({ ...user, ...data })
+				console.log('User updated Profile Image')
+				setShowForm(false)
 			} else {
+				const update = { [Id]: urls }
+				const newDoc = { ...formData, ...update }
+				delete newDoc.id
 				const newData = await SaveForm(formData.id, newDoc)
 				setFormData(newData)
 			}
@@ -463,6 +476,7 @@ export const FirebaseProvider = ({ children }) => {
 				collectionTotals,
 				table,
 				company,
+				project,
 				views,
 				view,
 				viewType,
@@ -473,6 +487,7 @@ export const FirebaseProvider = ({ children }) => {
 				showForm,
 				isLoading,
 				GetCompany,
+				GetProject,
 				GetViews,
 				GetData,
 				GetDoc,

@@ -1,15 +1,22 @@
-import { auth, storage } from '../firebase.config'
-import { useRouter } from 'next/router'
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
+import { storage } from '../firebase.config'
+import {
+	ref,
+	uploadBytesResumable,
+	getDownloadURL,
+	getMetadata,
+	listAll,
+} from 'firebase/storage'
 import { createContext, useState, useContext } from 'react'
-import AuthContext from '../Context/AuthContext'
+import FirebaseAPI from './FirebaseAPI'
 
 const FirestoreAPI = createContext()
 
 export const FirestoreProvider = ({ children }) => {
-	const router = useRouter()
-	const { user, setUser } = useContext(AuthContext)
+	const { setIsLoading } = useContext(FirebaseAPI)
+	const [container, setContainer] = useState()
 	const [file, setFile] = useState(null)
+	// const [files, setFiles] = useState([])
+	// const [folders, setFolders] = useState([])
 	const [percent, setPercent] = useState(0)
 	const [uploading, setUploading] = useState(false)
 
@@ -54,8 +61,55 @@ export const FirestoreProvider = ({ children }) => {
 		return url
 	}
 
+	const GetClientFiles = async (path) => {
+		setIsLoading(true)
+		const folderRef = ref(storage, path)
+		try {
+			const allItems = await listAll(folderRef)
+			const files = []
+			allItems.items.map((item) => {
+				const file = {
+					fullPath: item?.fullPath,
+					name: item?.name,
+				}
+				files.push(file)
+			})
+			const folders = []
+			allItems.prefixes.map(async (item) => {
+				const folder = {
+					fullPath: item?.fullPath,
+					name: item?.name,
+					parent: item.parent._location.path,
+				}
+				folders.push(folder)
+			})
+			const storage = await Promise.all([files, folders])
+			setIsLoading(false)
+			return storage
+		} catch (error) {
+			console.log('File Retrieval Failed: ', error.message)
+		}
+	}
+
+	const GetFileProperties = async (file) => {
+		const fileRef = ref(storage, file.fullPath)
+		const meta = await getMetadata(fileRef)
+		return meta
+	}
+
 	return (
-		<FirestoreAPI.Provider value={{ file, percent, UploadFile, setUploading }}>
+		<FirestoreAPI.Provider
+			value={{
+				container,
+				file,
+				percent,
+				setContainer,
+				UploadFile,
+				GetClientFiles,
+				GetFileProperties,
+				setUploading,
+			}}
+		>
 			{children}
 		</FirestoreAPI.Provider>
 	)

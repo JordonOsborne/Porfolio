@@ -27,6 +27,7 @@ function Upload({ Id, Label, Types, Required, Multiple, filePath, Source }) {
 					setUploading(true)
 					const url = await UploadFile(file, filePath)
 					AssignURLs(Id, url)
+					RemoveLoader()
 				}
 			} catch (error) {
 				console.log(`${Id} Failed: ${error.message}`)
@@ -54,6 +55,7 @@ function Upload({ Id, Label, Types, Required, Multiple, filePath, Source }) {
 			const urls = await Promise.all(promises)
 			Source ? (savedURLs = [...Source, ...urls]) : (savedURLs = urls)
 			AssignURLs(Id, savedURLs)
+			RemoveLoader()
 		}
 	}
 

@@ -1,7 +1,7 @@
 import styles from '../../styles/Forms.module.scss'
 import Image from 'next/image'
 import FirebaseAPI from '../../Context/FirebaseAPI'
-import { MdDelete } from 'react-icons/md'
+import { MdDelete, MdCloudUpload } from 'react-icons/md'
 import { useContext } from 'react'
 
 function UploadPreview({ Id, Source, Label, Multiple, RemoveLoader }) {

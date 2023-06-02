@@ -1,16 +1,21 @@
 import styles from '../../styles/Forms.module.scss'
 import { useState, useContext } from 'react'
 import FirebaseAPI from '../../Context/FirebaseAPI'
-import { MdEmail, MdAccountCircle } from 'react-icons/md'
+import {
+	MdEmail,
+	MdAccountCircle,
+	MdNumbers,
+	MdDateRange,
+} from 'react-icons/md'
 import { FaKey, FaPhoneAlt, FaCode } from 'react-icons/fa'
 import {
 	AiOutlineEye,
 	AiOutlineEyeInvisible,
 	AiFillDollarCircle,
+	AiFillStar,
 } from 'react-icons/ai'
 import { BsShieldLockFill } from 'react-icons/bs'
 import { GrOrganization } from 'react-icons/gr'
-import { MdDateRange } from 'react-icons/md'
 import { BiText, BiLink } from 'react-icons/bi'
 
 function Input({
@@ -26,6 +31,7 @@ function Input({
 }) {
 	const { InputUpdates } = useContext(FirebaseAPI)
 	const [value, setValue] = useState(Default)
+	const [showPassword, setShowPassword] = useState(false)
 	const DatePicker = (e) => {
 		try {
 			e.target.nextSibling.showPicker()
@@ -56,6 +62,8 @@ function Input({
 				return <BiLink className={styles.Icon} />
 			case 'Key':
 				return <FaKey className={styles.Icon} />
+			case 'Password':
+				return <FaKey className={styles.Icon} />
 			case 'Date':
 				return (
 					<MdDateRange
@@ -65,6 +73,10 @@ function Input({
 				)
 			case 'Dollar':
 				return <AiFillDollarCircle className={styles.Icon} />
+			case 'Number':
+				return <MdNumbers className={styles.Icon} />
+			case 'Rating':
+				return <AiFillStar className={styles.Icon} />
 			default:
 				return <BiText className={styles.Icon} />
 		}
@@ -83,6 +95,12 @@ function Input({
 						return 'date'
 					case 'Dollar':
 						return 'number'
+					case 'Number':
+						return 'number'
+					case 'Rating':
+						return 'number'
+					case 'Password':
+						return showPassword ? 'text' : 'password'
 					default:
 						return 'text'
 				}
@@ -122,6 +140,24 @@ function Input({
 							required={Required}
 							onChange={(e) => OnChange(e)}
 						/>
+						{Icon === 'Password' &&
+							(showPassword ? (
+								<AiOutlineEyeInvisible
+									className={styles.ShowPassword}
+									title='Hide Password'
+									onClick={() => {
+										setShowPassword(!showPassword)
+									}}
+								/>
+							) : (
+								<AiOutlineEye
+									className={styles.ShowPassword}
+									title='Show Password'
+									onClick={() => {
+										setShowPassword(!showPassword)
+									}}
+								/>
+							))}
 					</div>
 				</div>
 			)}

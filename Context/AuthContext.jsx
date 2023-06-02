@@ -13,6 +13,7 @@ import {
 	signInWithEmailAndPassword,
 	updateEmail,
 	updateProfile,
+	updatePassword,
 	sendPasswordResetEmail,
 } from 'firebase/auth'
 
@@ -113,6 +114,23 @@ export const AuthProvider = ({ children }) => {
 		}
 	}
 
+	// RE-AUTHENTICATE USER
+	const ReAuthenticateWithPassword = async (Password) => {
+		const { Email } = user
+		try {
+			const userCredential = await signInWithEmailAndPassword(
+				auth,
+				Email,
+				Password
+			)
+			ToastSuccess('Re-Authentication Successful!')
+			return true
+		} catch (error) {
+			ToastError(error.code)
+			return false
+		}
+	}
+
 	// REGISTRATION SUCCESS - SAVE TO DATABASE
 	const RegistrationSuccess = async (
 		user,
@@ -169,6 +187,30 @@ export const AuthProvider = ({ children }) => {
 				console.log(error.message)
 			}
 		}
+	}
+
+	// UPDATE PASSWORD (ALREADY LOGGED IN)
+	const UpdatePassword = async (NewPassword) => {
+		let isUpdated = false
+		let Reason
+		if (NewPassword.length < 8 || NewPassword.length > 25) {
+			ToastError('Password must be between 8-25 characters')
+			return { isUpdated: false, Reason: 'Bad Password' }
+		}
+		try {
+			await updatePassword(auth.currentUser, NewPassword)
+			ToastSuccess('Password Successfully Changed')
+			isUpdated = true
+		} catch (error) {
+			if (error.code.includes('requires-recent-login')) {
+				ToastError('Re-Authentication Required')
+				Reason = 'Re-Authentication'
+			} else {
+				Reason = error.code
+				console.log(error.code)
+			}
+		}
+		return { isUpdated, Reason }
 	}
 
 	// SEND PASSWORD RESET
@@ -232,7 +274,9 @@ export const AuthProvider = ({ children }) => {
 				NewUserIsValid,
 				RegisterWithEmail,
 				SignInWithEmail,
+				ReAuthenticateWithPassword,
 				UpdateProfile,
+				UpdatePassword,
 				ResetPassword,
 			}}
 		>
