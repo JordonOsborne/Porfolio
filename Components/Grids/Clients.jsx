@@ -26,8 +26,10 @@ function Clients() {
 						height='100px'
 					/>
 					<h3>{client.Client}</h3>
-					<p>{`Client Since ${client?.Since?.toDate().toDateString()}`}</p>
-					<p>{client?.Contact?.displayName}</p>
+					<div>
+						<p>{`Client Since ${client?.Since?.toDate().toDateString()}`}</p>
+						<p>{client?.Contact?.displayName}</p>
+					</div>
 				</div>
 			))}
 		</div>

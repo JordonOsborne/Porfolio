@@ -3,11 +3,11 @@ import ViewSelector from './ViewSelector'
 import ViewTypeSwitch from './ViewTypeSwitch'
 import AuthContext from '../../Context/AuthContext'
 import FirebaseAPI from '../../Context/FirebaseAPI'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { useRouter } from 'next/router'
 import { IoMdAddCircle } from 'react-icons/io'
 
-function TableSwitch() {
+function TableSwitch({ Client }) {
 	const router = useRouter()
 	const { table, setShowForm, setFormData } = useContext(FirebaseAPI)
 	const { user } = useContext(AuthContext)
@@ -18,7 +18,7 @@ function TableSwitch() {
 	}
 
 	const TableHeader = () => {
-		if (user.isAdmin && table !== 'Communications') {
+		if (!Client && user.isAdmin && table !== 'Communications') {
 			return (
 				<button
 					onClick={() =>

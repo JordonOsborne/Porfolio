@@ -1,3 +1,4 @@
+import styles from '../../styles/Admin.module.scss'
 import CommunicationData from './CommunicationData'
 import Messenger from '../Forms/Messenger'
 import FirebaseAPI from '../../Context/FirebaseAPI'
@@ -11,17 +12,19 @@ function Communications() {
 	)
 
 	return (
-		<>
-			{Subjects.map((type) => {
-				return (
-					<div key={type}>
-						<h3>{type}</h3>
-						<CommunicationData type={type} />
-					</div>
-				)
-			})}
+		<div className={styles.Communication}>
+			<div>
+				{Subjects.map((type) => {
+					return (
+						<div key={type}>
+							<h3>{type}</h3>
+							<CommunicationData type={type} />
+						</div>
+					)
+				})}
+			</div>
 			<Messenger />
-		</>
+		</div>
 	)
 }
 export default Communications

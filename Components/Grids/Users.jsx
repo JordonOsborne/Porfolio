@@ -36,7 +36,7 @@ function Users() {
 						<h3>{user.FirstName + ' ' + user.LastName}</h3>
 						<p>
 							<GrOrganization />
-							{user?.Company?.displayName}
+							{user?.isAdmin ? 'JOsborne.dev' : user?.Company?.Company}
 						</p>
 						<p>
 							<MdEmail />

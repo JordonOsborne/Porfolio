@@ -9,6 +9,7 @@ function Projects() {
 		await GetDoc('Projects', id)
 		setShowForm(true)
 	}
+	console.log('Data: ', data)
 	return (
 		<div
 			id={styles.Projects}
@@ -34,15 +35,25 @@ function Projects() {
 								<span>{project.Company?.id}</span>
 							)}
 						</div>
-						<Image
-							className={styles.MockUp}
-							src={project.MockUpImg}
-							alt={`${project.Project} Image`}
-							width='300px'
-							height='225px'
-						/>
-						<div className={styles.Images}>
-							{project?.Images?.map((image, index) => {
+						{project?.MockUpImg ? (
+							<Image
+								className={styles.MockUp}
+								src={project?.MockUpImg}
+								alt={`${project.Project} Image`}
+								width='300px'
+								height='225px'
+							/>
+						) : (
+							<Image
+								className={styles.MockUp}
+								src='/img/Websites.svg'
+								alt={`${project.Project} Image`}
+								width='300px'
+								height='225px'
+							/>
+						)}
+						{/* <div className={styles.Images}>
+							{project?.Images.map((image, index) => {
 								return (
 									<Image
 										key={image}
@@ -53,7 +64,7 @@ function Projects() {
 									/>
 								)
 							})}
-						</div>
+						</div> */}
 					</div>
 					<div className={styles.Info}>
 						<a
@@ -76,12 +87,7 @@ function Projects() {
 								)
 							})}
 						</div>
-						<div
-							className={styles.rteHTML}
-							dangerouslySetInnerHTML={{
-								__html: project?.Description,
-							}}
-						></div>
+						<div className={styles.rteHTML}>{project?.Description}</div>
 					</div>
 				</div>
 			))}

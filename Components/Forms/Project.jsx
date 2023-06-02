@@ -1,8 +1,7 @@
 import styles from '../../styles/Forms.module.scss'
 import Input from '../Reusable/Input'
 import Dropdown from '../Reusable/Dropdown'
-import Upload from '../Reusable/Upload'
-import RichTextInput from '../Reusable/RichTextInput'
+import MultiLine from '../Reusable/MultiLine'
 import FirebaseAPI from '../../Context/FirebaseAPI'
 import { useState, useEffect, useContext } from 'react'
 import MultiSelect from '../Reusable/MultiSelect'
@@ -35,30 +34,11 @@ export default function User() {
 		>
 			<h2>{formData ? formData.Project : `New Project Form`}</h2>
 			<div className={styles.Container}>
-				{formData?.Project && formData?.Company && (
-					<>
-						<Upload
-							Id='MockUpImg'
-							Label='Mock-Up Image'
-							Types={allowedTypes}
-							Source={formData?.MockUpImg}
-							filePath={`${formData.Company.id}/${formData.Project}/Mock-Up.png`}
-						/>
-						<Upload
-							Id='Images'
-							Label='Images'
-							Types={allowedTypes}
-							Source={formData?.Images}
-							filePath={`${formData.Company.id}/Images`}
-							Multiple={true}
-						/>
-					</>
-				)}
 				<Dropdown
 					Id='Company'
 					Label='Company'
 					Default={formData?.Company}
-					DisplayField='id'
+					DisplayField='Company'
 					Options={clients}
 					Icon='Client'
 					Required={true}
@@ -84,6 +64,12 @@ export default function User() {
 					Default={formData?.URL}
 					Icon='URL'
 				/>
+				<MultiLine
+					Id='Description'
+					Label='Description'
+					Placeholder='Short description of project . . .'
+					Default={formData?.Description}
+				/>
 				<MultiSelect
 					Id='Technology'
 					Label='Technology Used'
@@ -103,10 +89,42 @@ export default function User() {
 						'Power BI',
 					]}
 				/>
-				<RichTextInput
-					Id='Description'
-					Label='Project Details'
-					Default={formData?.Description}
+				<div className={styles.split}>
+					<Input
+						Id='Users'
+						Label='Users'
+						Placeholder='# of Users'
+						Default={formData?.Users}
+						Icon='Person'
+					/>
+					<Input
+						Id='Forms'
+						Label='Forms'
+						Placeholder='# of Forms'
+						Default={formData?.Forms}
+						Icon='Number'
+					/>
+					<Input
+						Id='Automations'
+						Label='Automations'
+						Placeholder='# of Automations'
+						Default={formData?.Automations}
+						Icon='Number'
+					/>
+					<Input
+						Id='Reports'
+						Label='Reports'
+						Placeholder='# of Reports'
+						Default={formData?.Reports}
+						Icon='Number'
+					/>
+				</div>
+				<Input
+					Id='Rating'
+					Label='Rating'
+					Placeholder='Average Rating'
+					Default={formData?.Rating}
+					Icon='Rating'
 				/>
 			</div>
 		</form>

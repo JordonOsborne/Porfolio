@@ -1,4 +1,4 @@
-import styles from '../../styles/Forms.module.scss'
+import styles from '../../styles/Panel.module.scss'
 import FirebaseAPI from '../../Context/FirebaseAPI'
 import { MdSave, MdDelete, MdOutlineExitToApp } from 'react-icons/md'
 import { useContext } from 'react'
@@ -17,17 +17,25 @@ function Actions() {
 		<div className={styles.ActionMenu}>
 			<div>
 				<MdSave
-					onClick={() => SubmitForm()}
+					className={styles.Save}
 					title='Save Form'
+					onClick={() => SubmitForm()}
 				/>
-				{formData && <MdDelete onClick={() => DeleteDoc(table, formData.id)} />}{' '}
+				{formData && (
+					<MdDelete
+						className={styles.Delete}
+						title='Delete Item'
+						onClick={() => DeleteDoc(table, formData.id)}
+					/>
+				)}{' '}
 			</div>
 			<MdOutlineExitToApp
+				className={styles.Close}
+				title='Close Form'
 				onClick={() => {
 					setShowForm(false)
 					setFormUpdates({})
 				}}
-				title='Close Form'
 			/>
 		</div>
 	)

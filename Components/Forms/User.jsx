@@ -1,4 +1,5 @@
 import styles from '../../styles/Forms.module.scss'
+import Upload from '../Reusable/Upload'
 import Input from '../Reusable/Input'
 import Dropdown from '../Reusable/Dropdown'
 import FirebaseAPI from '../../Context/FirebaseAPI'
@@ -34,6 +35,13 @@ export default function User() {
 					: `New User Form`}
 			</h2>
 			<div className={styles.Container}>
+				<Upload
+					Id='PhotoURL'
+					Label='Profile Image'
+					Types={['image/png, image/jpeg, image/svg']}
+					filePath={`Users/${formData?.id}.jpg`}
+					Source={formData?.PhotoURL}
+				/>
 				<Dropdown
 					Id='Company'
 					Default={formData?.Company}

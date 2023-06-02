@@ -6,12 +6,12 @@ import { GrOrganization } from 'react-icons/gr'
 import { GoCommentDiscussion } from 'react-icons/go'
 import { useContext, useEffect } from 'react'
 
-function TableSelector() {
+function TableSelector({ Client }) {
 	const { user } = useContext(AuthContext)
 	const { table, collectionTotals, setTable } = useContext(FirebaseAPI)
 
 	useEffect(() => {
-		if (user?.isAdmin) {
+		if (!Client) {
 			setTable('Clients')
 		} else {
 			setTable('Users')
@@ -20,7 +20,7 @@ function TableSelector() {
 
 	return (
 		<div className={styles.Forms}>
-			{user.isAdmin && (
+			{!Client && (
 				<button
 					className={table === 'Clients' ? styles.selected : undefined}
 					onClick={() => setTable('Clients')}
@@ -38,7 +38,7 @@ function TableSelector() {
 				<FaUsers />
 				{collectionTotals.Users} Users
 			</button>
-			{user.isAdmin && (
+			{collectionTotals.Projects > 1 && (
 				<button
 					className={table === 'Projects' ? styles.selected : undefined}
 					onClick={() => setTable('Projects')}
