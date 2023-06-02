@@ -10,12 +10,19 @@ function Projects() {
 	}
 
 	return (
-		<table className={styles.Collection}>
+		<table
+			className={styles.Collection}
+			data-table='Projects'
+		>
 			<thead>
 				<tr>
 					<th>Project</th>
 					<th>Date</th>
-					<th>Description</th>
+					<th>Users</th>
+					<th>Forms</th>
+					<th>Automations</th>
+					<th>Reports</th>
+					<th>Rating</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -27,12 +34,11 @@ function Projects() {
 						>
 							<td onClick={() => EditForm(project.id)}>{project?.Project}</td>
 							<td>{project?.Date?.toDate().toDateString()}</td>
-							<td
-								className={styles.rteHTML}
-								dangerouslySetInnerHTML={{
-									__html: project.Description,
-								}}
-							></td>
+							<td>{project?.Users}</td>
+							<td>{project?.Forms}</td>
+							<td>{project?.Automations}</td>
+							<td>{project?.Reports}</td>
+							<td>{project?.Rating}</td>
 						</tr>
 					)
 				})}

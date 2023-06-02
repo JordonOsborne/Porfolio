@@ -1,4 +1,4 @@
-import styles from '../../styles/Forms.module.scss'
+import styles from '../../styles/Panel.module.scss'
 import Input from '../../Components/Reusable/Input'
 import Dropdown from '../../Components/Reusable/Dropdown'
 import Checkbox from '../../Components/Reusable/Checkbox'
@@ -32,6 +32,7 @@ function Client() {
 	return (
 		<form
 			id={formData ? formData.id : 'NewClient'}
+			className={styles.container}
 			name='Clients'
 		>
 			<h2>{formData ? formData.id : `New Client Form`}</h2>
