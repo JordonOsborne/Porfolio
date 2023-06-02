@@ -98,21 +98,6 @@
 			}
 		}
 	}
-	.ActionMenu {
-		padding: 0.5rem 1rem;
-		padding-left: 2rem;
-		margin-top: 0.5rem;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		border-bottom: 1px solid white;
-		width: 100%;
-		svg {
-			font-size: 1.5rem;
-			cursor: pointer;
-			margin-right: 1rem;
-		}
-	}
 	h2 {
 		margin: 0;
 		margin-top: 1rem;
@@ -276,9 +261,13 @@ label.ImageUpload {
 // CLIENT LOGOS
 label.ImageUpload[for='Logo'],
 div.ImageUpload:has(label[for='Logo']) {
-	width: 250px;
-	height: 100px;
+	width: 350px;
+	height: 150px;
 	margin-bottom: 1rem;
+	img {
+		object-fit: contain;
+		object-position: center;
+	}
 }
 
 // PROFILE IMAGE SIZING
@@ -286,6 +275,12 @@ label.ImageUpload[for='PhotoURL'],
 div.ImageUpload:has(label[for='PhotoURL']) {
 	width: 250px;
 	height: 250px;
+	margin-bottom: 1rem;
+	img {
+		object-fit: cover;
+		object-position: center;
+		aspect-ratio: 1/1;
+	}
 }
 // MOCK-UP IMAGE SIZING
 label.ImageUpload[for='MockUpImg'],
@@ -295,7 +290,8 @@ div.ImageUpload:has(label[for='MockUpImg']) {
 	justify-content: center;
 	width: 300px;
 	height: 225px;
-	margin: 0;
+	margin: 0 auto;
+	margin-bottom: 0.5rem;
 	Img {
 		object-fit: cover;
 		object-position: center;
@@ -311,6 +307,7 @@ div.ImageUpload:has(label[for='MockUpImg']) {
 		width: 100%;
 		height: 100%;
 		margin: 0;
+		margin-bottom: 0.5rem;
 	}
 	&:has([id='Images']) {
 		grid-column: span 3;
@@ -335,6 +332,10 @@ div.ImageUpload:has(label[for='MockUpImg']) {
 // DROPDOWN MENUS
 .dropdown {
 	position: relative;
+	label {
+		padding: 0.25rem 1rem;
+		font-size: 1rem;
+	}
 	div {
 		font-size: inherit;
 		border: 1px solid var(--light-color);
@@ -343,35 +344,51 @@ div.ImageUpload:has(label[for='MockUpImg']) {
 		cursor: pointer;
 		input {
 			padding: 0.5rem;
+			padding-left: 2.5rem;
 			outline: none;
 			border: none;
-			background: inherit;
-			color: inherit;
+			border-radius: 5px;
+			background: white;
+			color: black;
 			font-size: inherit;
-			width: 125px;
+			min-width: 250px;
+			width: 100%;
 			cursor: pointer;
 		}
 		svg {
 			position: absolute;
 			right: 1rem;
-			font-size: 1rem;
+			fill: var(--light-color);
+			cursor: pointer;
+		}
+		.Icon {
+			position: absolute;
+			left: 5px;
+			font-size: 1.75rem;
+			fill: var(--light-faded);
 		}
 	}
 	.options {
 		position: absolute;
+		padding-bottom: 0.5rem;
 		top: 100%;
 		right: 0%;
-		background: black;
+		background: var(--light-color);
 		display: block;
 		width: 100%;
 		border: 1px solid var(--light-color);
+		z-index: 2;
 		div {
 			display: block;
 			width: 100%;
 			border: none;
 			font-size: inherit;
 			padding: 0.5rem;
+			padding-left: 2.5rem;
+			white-space: nowrap;
+			overflow: hidden;
 			cursor: pointer;
+			text-overflow: ellipsis;
 			&.selected {
 				background: var(--light-color);
 			}
@@ -391,6 +408,9 @@ div.ImageUpload:has(label[for='MockUpImg']) {
 	border-radius: 5px;
 	font-size: 0.8rem;
 	&[name='Technology'] {
+		.checkbox {
+			padding: 0;
+		}
 		input[type='checkbox'] {
 			display: none;
 		}
@@ -424,16 +444,15 @@ div.ImageUpload:has(label[for='MockUpImg']) {
 	}
 }
 
-// EDIT MODE FOR  INPUTS
+// EDIT MODE FOR INPUTS
 .labelDiv {
 	display: flex;
-	align-items: center;
+	flex-direction: column;
 	flex-wrap: wrap;
 	margin-bottom: 0.5rem;
 	label {
 		padding: 0.25rem 1rem;
-		font-size: 1.25rem;
-		text-align: right;
+		font-size: 1rem;
 	}
 	.inputDiv {
 		position: relative;
@@ -457,18 +476,34 @@ div.ImageUpload:has(label[for='MockUpImg']) {
 			cursor: pointer;
 			fill: var(--primary-faded);
 		}
-		input {
+		input,
+		textarea {
 			padding: 0.5rem 1rem;
 			padding-left: 2.25rem;
 			font-weight: 200;
 			font-size: 1rem;
 			border-radius: 5px;
-			width: 250px;
+			min-width: 250px;
 			outline: none;
 			border: none;
 			background: white;
 			color: var(--light-color);
+			width: 100%;
 		}
+		textarea {
+			padding: 0.5rem;
+			font-size: 0.85rem;
+			resize: none;
+		}
+	}
+}
+
+.split {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 0.5rem;
+	.inputDiv input {
+		min-width: 100%;
 	}
 }
 
@@ -476,6 +511,9 @@ div.ImageUpload:has(label[for='MockUpImg']) {
 .viewDiv {
 	display: flex;
 	align-items: center;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 	.Icon {
 		font-size: inherit;
 		fill: white;

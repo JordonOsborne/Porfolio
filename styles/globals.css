@@ -39,10 +39,9 @@ header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	margin: 1rem 0;
 }
 header img {
-	height: 1.5rem;
-	margin: 1rem 0;
 	cursor: pointer;
 }
 header nav {
@@ -93,9 +92,9 @@ header nav .Login a:hover {
 	cursor: pointer;
 }
 #UserMenu .ProfileImg {
-	width: 2rem;
-	height: 2rem;
-	border-radius: 2rem;
+	width: 1.5rem;
+	height: 1.5rem;
+	border-radius: 1.5rem;
 	object-fit: cover;
 	object-position: center;
 	cursor: pointer;

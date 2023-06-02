@@ -1,47 +1,4 @@
 #Admin {
-	display: grid;
-	grid-template-columns: 1fr 4fr;
-	aside {
-		grid-column: 1;
-		form {
-			margin: 0.25rem;
-			img {
-				object-fit: cover;
-			}
-			h1 {
-				margin: 0;
-				padding: 0.5rem;
-			}
-			button {
-				margin-top: 1rem;
-				padding: 0.75rem;
-				text-align: center;
-				font-size: 1.25rem;
-				background: transparent;
-				border: 1px solid white;
-				border-radius: 5px;
-				width: 250px;
-				cursor: pointer;
-			}
-		}
-		hr {
-			margin-top: 2rem;
-			margin-bottom: 1rem;
-		}
-		menu {
-			margin-block-start: 0.5rem;
-			padding-inline-start: 0;
-			h3 {
-				margin: 0;
-				padding: 0.5rem;
-			}
-			li {
-				list-style: none;
-				padding: 0.25rem 1rem;
-				cursor: pointer;
-			}
-		}
-	}
 	main {
 		padding: 0 1rem;
 		h1 {
@@ -107,6 +64,67 @@
 				display: flex;
 				align-items: center;
 				justify-content: space-between;
+				.dropdown {
+					position: relative;
+					label {
+						padding: 0.25rem 1rem;
+						font-size: 1rem;
+					}
+					div {
+						font-size: inherit;
+						border: 1px solid var(--light-color);
+						display: flex;
+						align-items: center;
+						cursor: pointer;
+						input {
+							padding: 0.5rem;
+							padding-left: 1rem;
+							outline: none;
+							border: none;
+							border-radius: 5px;
+							background: inherit;
+							color: inherit;
+							font-size: inherit;
+							width: 150px;
+							cursor: pointer;
+						}
+						svg {
+							position: absolute;
+							right: 1rem;
+							fill: white;
+							cursor: pointer;
+						}
+					}
+					.options {
+						position: absolute;
+						padding-bottom: 0.5rem;
+						top: 100%;
+						right: 0%;
+						background: black;
+						display: block;
+						width: 100%;
+						border: 1px solid var(--light-color);
+						z-index: 2;
+						div {
+							display: block;
+							width: 100%;
+							border: none;
+							font-size: inherit;
+							padding: 0.5rem;
+							padding-left: 1rem;
+							white-space: nowrap;
+							overflow: hidden;
+							cursor: pointer;
+							text-overflow: ellipsis;
+							&.selected {
+								background: var(--light-color);
+							}
+							&:hover {
+								background: var(--light-faded);
+							}
+						}
+					}
+				}
 				.viewType {
 					display: flex;
 					align-items: center;
@@ -138,6 +156,14 @@
 			table-layout: fixed;
 			margin-top: 1rem;
 			border-collapse: collapse;
+			&[data-table='Projects'] {
+				table-layout: auto;
+				th:first-child,
+				td:first-child {
+					min-width: 200px;
+					max-width: 350px;
+				}
+			}
 			thead {
 				border-bottom: 2px solid white;
 			}
@@ -168,6 +194,18 @@
 			}
 		}
 
+		// COMMUNICATION LAYOUT
+		.Communication {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			height: calc(100% - 3rem);
+			div:first-child {
+				max-height: 40vh;
+				overflow-y: scroll;
+			}
+		}
+
 		// GRID STYLING
 		.Grid {
 			display: grid;
@@ -183,29 +221,40 @@
 			}
 		}
 		#Clients.Grid {
-			grid-template-columns: repeat(3, 1fr);
-			img {
-				object-fit: contain;
-				padding: 1rem 2rem;
-				width: 100%;
-			}
-			h3 {
-				margin: 0;
-				padding: 0.5rem 1rem;
-				padding-top: 0;
-				text-align: center;
-				font-weight: 600;
-			}
-			p {
-				padding: 0 0.5rem;
-				text-align: center;
+			grid-template-columns: repeat(auto-fill, 350px);
+			.Card {
+				padding: 1rem;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				align-items: center;
+				img {
+					object-fit: contain;
+					padding: 1rem 2rem;
+					width: 100%;
+				}
+				h3 {
+					margin: 0;
+					padding: 0.5rem 1rem;
+					padding-top: 0;
+					text-align: center;
+					font-weight: 600;
+				}
+				div {
+					p {
+						padding: 0 0.5rem;
+						margin: 0;
+						text-align: center;
+					}
+				}
 			}
 		}
 		#Users.Grid {
-			grid-template-columns: repeat(3, 1fr);
+			grid-template-columns: repeat(auto-fill, 350px);
 			.Card {
+				padding: 0.5rem;
 				display: grid;
-				grid-template-columns: 1fr 3fr;
+				grid-template-columns: 1fr minmax(225px, 3fr);
 				justify-content: center;
 				img,
 				svg {
@@ -217,8 +266,8 @@
 					height: 75px;
 					border-radius: 75px;
 				}
-				div * {
-					padding: 0 0.5rem;
+				div > * {
+					padding: 0.5rem;
 					overflow: hidden;
 					white-space: nowrap;
 					text-overflow: ellipsis;
@@ -230,10 +279,10 @@
 				}
 				p {
 					font-style: italic;
-					display: flex;
-					align-items: center;
 					font-size: 0.9rem;
 					font-weight: 400;
+					padding: 0.25rem;
+					margin: 0;
 					svg {
 						border-radius: 0;
 						padding: 0;

@@ -1,0 +1,52 @@
+.Header {
+	display: flex;
+	gap: 0.5rem;
+	border-bottom: 1px solid var(--light-color);
+	.Container {
+		width: 60%;
+		padding: 0.5rem;
+		margin: 0.5rem;
+		span:hover {
+			text-decoration: underline;
+			cursor: pointer;
+		}
+	}
+	p {
+		font-size: 1rem;
+		margin: 0;
+		padding: 0.5rem;
+		flex: auto;
+		text-align: right;
+		align-self: flex-end;
+		font-style: italic;
+	}
+}
+.Folder,
+.File {
+	display: flex;
+	align-items: center;
+	padding: 0.5rem;
+	gap: 0.5rem;
+	&:hover {
+		background: var(--light-color);
+	}
+	cursor: pointer;
+	.icon {
+		font-size: 1.5rem;
+	}
+	h4 {
+		font-size: 1rem;
+		font-weight: 600;
+		margin: 0;
+		padding: 0;
+		width: 60%;
+	}
+	.props {
+		font-size: 1rem;
+		font-style: italic;
+		margin: 0;
+		padding: 0;
+		text-align: right;
+		flex: auto;
+	}
+}
