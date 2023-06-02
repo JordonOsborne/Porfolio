@@ -17,14 +17,13 @@ export default function Navigation() {
 			<div className={router.asPath == '/About' ? 'active' : ''}>
 				<Link href='/ComingSoon'>About</Link>
 			</div>
-			<div className={router.asPath == '/Projects' ? 'active' : ''}>
-				<Link href='/ComingSoon'>Projects</Link>
+			<div className={router.asPath.includes('/Projects') ? 'active' : ''}>
+				<Link href='/Projects'>Projects</Link>
 			</div>
 			<div className={router.asPath == '/Contact' ? 'active' : ''}>
 				<Link href='/ComingSoon'>Contact</Link>
 			</div>
 			{router.asPath != '/SignIn' &&
-				router.asPath != '/Admin' &&
 				(!user ? (
 					<div className='Login'>
 						<RiLoginCircleFill className='Login' />
