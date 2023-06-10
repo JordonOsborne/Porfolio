@@ -331,16 +331,17 @@
 					}
 					.Technology {
 						padding: 0.5rem 0;
-						display: grid;
+						display: flex;
 						gap: 0.5rem;
-						grid-template-columns: repeat(6, 1fr);
+						// grid-template-columns: repeat(6, 1fr);
 						img {
 							object-fit: contain;
 						}
 					}
 					.rteHTML {
-						font-size: 0.75rem;
+						font-size: 0.8rem;
 						display: -webkit-box;
+						line-height: 1.6;
 						-webkit-line-clamp: 8;
 						-webkit-box-orient: vertical;
 						overflow: hidden;

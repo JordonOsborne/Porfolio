@@ -1,0 +1,70 @@
+#Project {
+	margin: 0 auto;
+	width: 80%;
+	.Heading {
+		h1 {
+			margin: 0;
+			padding-bottom: 1rem;
+			font-weight: 400;
+			text-align: center;
+		}
+		.Stats {
+			display: flex;
+			justify-content: space-evenly;
+			gap: 1rem;
+			font-size: 1.1rem;
+			span {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				svg {
+					font-size: 3rem;
+				}
+				h3 {
+					margin: 0.5rem;
+				}
+			}
+		}
+		p {
+			font-size: 1.2rem;
+			text-align: center;
+			line-height: 1.9;
+			font-weight: 200;
+			padding-bottom: 1rem;
+		}
+		.Images {
+			image {
+				object-fit: contain;
+			}
+			position: relative;
+			.MockUp {
+				display: flex;
+				gap: 0.5rem;
+				position: absolute;
+				top: 0;
+				h4 {
+					font-weight: 400;
+					margin: 0.25rem;
+				}
+			}
+		}
+		.Technology {
+			padding: 0.5rem 0;
+			display: flex;
+			gap: 1rem;
+			flex-wrap: wrap;
+			h3 {
+				margin: 0.5rem;
+			}
+			img {
+				object-fit: contain;
+			}
+		}
+	}
+	.Details {
+		h3 {
+			text-align: center;
+			margin: 0.5rem;
+		}
+	}
+}
