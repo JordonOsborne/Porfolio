@@ -8,7 +8,7 @@ import ContactForm from '../Components/ContactForm'
 
 export default function Home() {
 	return (
-		<div id='Page'>
+		<div id='Home'>
 			<Head>
 				<title>Jordon Osborne | Home</title>
 				<meta

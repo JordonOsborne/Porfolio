@@ -30,18 +30,23 @@ a {
 }
 
 /* PAGE CONTAINER */
-#Page {
+#Page,
+#Home {
 	padding: 0 2rem;
 }
 
 /* HEADER STYLING */
-header {
+header[role='navigation'] {
 	display: flex;
+	background: #121212;
 	justify-content: space-between;
 	align-items: center;
-	margin: 1rem 0;
+	padding: 1rem 0;
 }
-header img {
+#Home header {
+	background: transparent;
+}
+header[role='navigation'] img {
 	cursor: pointer;
 }
 header nav {
@@ -161,6 +166,16 @@ header nav .Login a:hover {
 	}
 	body {
 		color: white;
-		background: black;
+		background: #121212;
+	}
+}
+
+@media (max-width: 900px) {
+	header[role='navigation'] {
+		position: sticky;
+		top: 0;
+		background: #121212;
+		padding: 0.5rem 0;
+		z-index: 2;
 	}
 }

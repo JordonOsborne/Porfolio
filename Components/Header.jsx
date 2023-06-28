@@ -4,7 +4,10 @@ import Image from 'next/image'
 
 export default function Header() {
 	return (
-		<header>
+		<header
+			role='navigation'
+			aria-label='Main'
+		>
 			<Link href='/'>
 				<Image
 					src='/img/Logo_white.svg'
