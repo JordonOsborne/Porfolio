@@ -9,13 +9,15 @@ export default function Header() {
 			aria-label='Main'
 		>
 			<Link href='/'>
-				<Image
-					src='/img/Logo_white.svg'
-					alt='JordonOsborne.dev Logo'
-					title='JOsborne.dev'
-					height='25px'
-					width='225px'
-				/>
+				<div>
+					<Image
+						src='/img/Logo_white.svg'
+						alt='JordonOsborne.dev Logo'
+						title='JOsborne.dev'
+						height='25px'
+						width='225px'
+					/>
+				</div>
 			</Link>
 			<Navigation />
 		</header>

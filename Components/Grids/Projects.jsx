@@ -9,7 +9,6 @@ function Projects() {
 		await GetDoc('Projects', id)
 		setShowForm(true)
 	}
-	console.log('Data: ', data)
 	return (
 		<div
 			id={styles.Projects}
@@ -52,19 +51,6 @@ function Projects() {
 								height='225px'
 							/>
 						)}
-						{/* <div className={styles.Images}>
-							{project?.Images.map((image, index) => {
-								return (
-									<Image
-										key={image}
-										src={image}
-										alt={`Image ${index}`}
-										width='100px'
-										height='75px'
-									/>
-								)
-							})}
-						</div> */}
 					</div>
 					<div className={styles.Info}>
 						<a

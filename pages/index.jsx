@@ -8,7 +8,7 @@ import ContactForm from '../Components/ContactForm'
 
 export default function Home() {
 	return (
-		<div id='Home'>
+		<div id={styles.Home}>
 			<Head>
 				<title>Jordon Osborne | Home</title>
 				<meta
@@ -37,14 +37,14 @@ export default function Home() {
 						the web and give your clients the best experience possible.
 					</p>
 					<div className={styles.action}>
-						<Link href='/ComingSoon'>
+						<Link href='/Projects'>
 							<a className={styles.primary}>View my Work</a>
 						</Link>
 						<Link href='/Resume'>
 							<a className={styles.secondary}>Resume</a>
 						</Link>
 					</div>
-					<div>
+					<div className={styles.RecentWork}>
 						<h3 className={styles.title}>My Recent Work</h3>
 						<hr className={styles.divider} />
 						<RecentWork />
@@ -118,7 +118,7 @@ export default function Home() {
 				<table className={styles.table}>
 					<thead>
 						<tr className={styles.tableHeader}>
-							<th></th>
+							<th>Services</th>
 							<th>JOsborne.dev</th>
 							<th>
 								<a
@@ -227,22 +227,6 @@ export default function Home() {
 						will get back with you within 24 hours.
 					</p>
 					<ContactForm />
-				</div>
-			</section>
-			<section className={styles.Clients}>
-				<h3 className={styles.title}>Satisfied Clients</h3>
-				<hr className={styles.divider} />
-				<div className={styles.flex}>
-					<img
-						src='/Logos/Eastman.svg'
-						alt='Eastman Logo'
-						className={styles.Client}
-					/>
-					<img
-						src='/Logos/ChurchHillFUMC.svg'
-						alt='Church Hill FUMC Logo'
-						className={styles.Client}
-					/>
 				</div>
 			</section>
 			<footer className={styles.footer}></footer>

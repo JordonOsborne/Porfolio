@@ -171,11 +171,36 @@ header nav .Login a:hover {
 }
 
 @media (max-width: 900px) {
+	#Page {
+		padding: 0 1rem;
+	}
 	header[role='navigation'] {
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		width: 100%;
 		position: sticky;
 		top: 0;
 		background: #121212;
 		padding: 0.5rem 0;
 		z-index: 2;
+	}
+	header > *:first-child {
+		padding: 0 3rem;
+	}
+	header nav {
+		justify-content: space-between;
+		width: 100%;
+	}
+	header nav #UserMenu {
+		position: absolute;
+		right: 0;
+		top: 0.5rem;
+	}
+}
+
+@media (max-width: 600px) {
+	header nav a {
+		font-size: 1rem;
 	}
 }
