@@ -168,6 +168,15 @@ export const FirebaseProvider = ({ children }) => {
 				])
 				defaultView.sort = { field: 'LastName', type: 'asc' }
 				break
+			case 'Projects':
+				setViews([
+					{
+						id: 'All',
+						sort: { field: 'Date', type: 'desc' },
+					},
+				])
+				defaultView.sort = { field: 'Date', type: 'desc' }
+				break
 			case 'Communications':
 				setViews([
 					{
