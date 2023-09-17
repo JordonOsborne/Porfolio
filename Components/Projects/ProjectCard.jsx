@@ -21,7 +21,7 @@ export default function ProjectCard({ Info }) {
 					) : (
 						<Image
 							className={styles.MockUp}
-							src='/img/MockUp.png'
+							src='/img/CardMockUp.png'
 							alt={`${Info.Project} Image`}
 							width='400'
 							height='300'
