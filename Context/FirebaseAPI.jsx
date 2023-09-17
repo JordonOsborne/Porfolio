@@ -244,7 +244,15 @@ export const FirebaseProvider = ({ children }) => {
 	}
 
 	// GET FORM ID
-	const GetFormId = () => {
+	const GetFormId = (Table) => {
+		// FORM DOESN'T HAVE ID USE THE ROUTER ID PARAMETER
+		if (!document[table]?.id) {
+			return router.query.Id
+		}
+		// PROJECT TABLE SPECIFIED
+		if (Table) {
+			return router.query.Id
+		}
 		// CHECK IF NEW FORM OR UPDATE
 		if (document[table].id.includes('New')) {
 			switch (table) {
@@ -338,6 +346,7 @@ export const FirebaseProvider = ({ children }) => {
 				element.id != 'Id' &&
 				element.nodeName === 'INPUT' &&
 				element.type !== 'checkbox' &&
+				element.type !== 'file' &&
 				isAutoFilled(element)
 			) {
 				const update = { [element.name]: element.value }
@@ -367,9 +376,12 @@ export const FirebaseProvider = ({ children }) => {
 	}
 
 	// SUBMIT FORM - VALIDATION INCLUDED
-	const SubmitForm = async () => {
-		const Form = document[table]
-		const requirements = RequiredFields(table)
+	const SubmitForm = async (Name) => {
+		if (!Name) {
+			Name = table
+		}
+		const Form = document[Name]
+		const requirements = RequiredFields(Name)
 		if (FormIsValid(requirements)) {
 			const calculatedValues = CalculatedValues()
 			const autoFillUpdates = AutoFillUpdates(Form)
@@ -390,7 +402,10 @@ export const FirebaseProvider = ({ children }) => {
 				Updated: serverTimestamp(),
 				UpdatedBy: user,
 			}
-			const newData = await SaveForm(docId, newDoc)
+			// REMOVE EMPTY KEYS VALUE PAIRS
+			delete newDoc['']
+			console.log(newDoc)
+			const newData = await SaveForm(docId, newDoc, Name)
 			const tempData = data.filter((item) => item.id !== docId)
 			const existingItem = data.find((item) => item.id === docId)
 			setData([...tempData, newData])
@@ -407,20 +422,27 @@ export const FirebaseProvider = ({ children }) => {
 	}
 
 	// SUBMIT FORM DATA TO DATABASE
-	const SaveForm = async (id, data) => {
+	const SaveForm = async (id, data, Table) => {
+		if (!Table) {
+			if (id == 'MockUpImg') {
+				Table = 'Projects'
+			} else {
+				Table = table
+			}
+		}
 		try {
 			if (id) {
-				const docRef = doc(db, table, id)
+				const docRef = doc(db, Table, id)
 				await setDoc(docRef, data)
 				data.id = id
 			} else {
-				const dbRef = collection(db, table)
+				const dbRef = collection(db, Table)
 				const newDoc = await addDoc(dbRef, data)
 				data.id = newDoc.id
 			}
-			console.log(data)
 			return data
 		} catch (error) {
+			console.log(data)
 			console.log('Save Form Failed: ', error.message)
 			return false
 		}
@@ -467,10 +489,12 @@ export const FirebaseProvider = ({ children }) => {
 				setShowForm(false)
 			} else {
 				const update = { [Id]: urls }
-				const newDoc = { ...formData, ...update }
-				delete newDoc.id
-				const newData = await SaveForm(formData.id, newDoc)
+				const newData = { ...formData, ...formUpdates, ...update }
+				delete newData.id
+				const projectID = GetFormId('Projects')
+				newData = await SaveForm(projectID, newData, 'Projects')
 				setFormData(newData)
+				setFormUpdates(null)
 			}
 			return urls
 		} catch (error) {

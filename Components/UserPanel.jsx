@@ -14,8 +14,9 @@ import { useRouter } from 'next/router'
 function UserPanel({ isOpen, setIsOpen }) {
 	const { user, UpdateProfile, UpdatePassword, ReAuthenticateWithPassword } =
 		useContext(AuthContext)
-	const { formUpdates } = useContext(FirebaseAPI)
+	const { formUpdates, setFormUpdates, SubmitForm } = useContext(FirebaseAPI)
 	const router = useRouter()
+	const { Edit } = router.query
 	const [editProfile, setEditProfile] = useState(false)
 	const [changePassword, setChangePassword] = useState(false)
 	const [authenticate, setAuthenticate] = useState(false)
@@ -85,6 +86,19 @@ function UserPanel({ isOpen, setIsOpen }) {
 			setAuthenticate(false)
 			setChangePassword(true)
 		}
+	}
+
+	const PageModeChanged = async () => {
+		if (Edit) {
+			await SubmitForm('Projects')
+			router.push('/Projects/' + router.query.Id)
+		} else {
+			setFormUpdates(null)
+			router.replace({
+				query: { ...router.query, Edit: true },
+			})
+		}
+		CloseMenu()
 	}
 
 	return (
@@ -225,6 +239,15 @@ function UserPanel({ isOpen, setIsOpen }) {
 								</Link>
 							)}
 						</li>
+						{user?.isAdmin && router.pathname === '/Projects/[Id]' && (
+							<li
+								onClick={() => {
+									PageModeChanged()
+								}}
+							>
+								{Edit ? 'Save ' : 'Edit '} Project Info
+							</li>
+						)}
 						{!editProfile && (
 							<li
 								onClick={() => {

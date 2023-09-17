@@ -199,6 +199,8 @@ div.ImageUpload {
 		opacity: 0;
 		right: 0;
 		top: 0;
+		width: 100%;
+		height: 100%;
 		text-align: center;
 		justify-content: center;
 		align-items: center;
@@ -237,8 +239,8 @@ label.ImageUpload {
 	font-size: 0.9rem;
 	padding: 0.5rem;
 	cursor: pointer;
-	width: 250px;
-	height: 100px;
+	min-width: 200px;
+	min-height: 113px;
 	&:not(:has(img)) {
 		border: 1px solid white;
 		color: white;
@@ -284,11 +286,13 @@ div.ImageUpload:has(label[for='PhotoURL']) {
 }
 // MOCK-UP IMAGE SIZING
 label.ImageUpload[for='MockUpImg'],
-div.ImageUpload:has(label[for='MockUpImg']) {
+label.ImageUpload[for='CardMockUpImg'],
+div.ImageUpload:has(label[for='MockUpImg']),
+div.ImageUpload:has(label[for='CardMockUpImg']) {
 	grid-column: span 2;
 	display: flex;
 	justify-content: center;
-	width: 300px;
+	min-width: 300px;
 	height: 225px;
 	margin: 0 auto;
 	margin-bottom: 0.5rem;
@@ -525,4 +529,32 @@ div.ImageUpload:has(label[for='MockUpImg']) {
 }
 .hideDiv {
 	display: none;
+}
+
+// EDIT MODE FOR PROJECT PAGES
+*[data-edit='true'] {
+	.labelDiv {
+		margin: inherit;
+		padding: inherit;
+		text-align: inherit;
+		label {
+			display: none;
+		}
+		.inputDiv {
+			svg {
+				display: none;
+			}
+			input {
+				padding: inherit;
+				margin: inherit;
+				text-align: center;
+				font-size: inherit;
+				color: inherit;
+				background: inherit;
+				&:hover {
+					border: 1px solid var(--light-faded);
+				}
+			}
+		}
+	}
 }

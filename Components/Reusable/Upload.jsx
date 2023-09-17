@@ -26,7 +26,7 @@ function Upload({ Id, Label, Types, Required, Multiple, filePath, Source }) {
 				if (file) {
 					setUploading(true)
 					const url = await UploadFile(file, filePath)
-					AssignURLs(Id, url)
+					await AssignURLs(Id, url)
 					RemoveLoader()
 				}
 			} catch (error) {
@@ -37,14 +37,10 @@ function Upload({ Id, Label, Types, Required, Multiple, filePath, Source }) {
 			const files = Array.from(e.target.files)
 			const promises = []
 			const savedURLs = []
-			files.forEach((file, index) => {
+			files.forEach((file) => {
 				try {
 					setUploading(true)
-					const twoDigitIndex = (index + 1).toLocaleString('en-US', {
-						minimumIntegerDigits: 2,
-						useGrouping: false,
-					})
-					const path = `${filePath}/${twoDigitIndex}-${file.name}`
+					const path = `${filePath}/${file.name}`
 					const upload = UploadFile(file, path)
 					promises.push(upload)
 				} catch (error) {
@@ -54,7 +50,7 @@ function Upload({ Id, Label, Types, Required, Multiple, filePath, Source }) {
 			})
 			const urls = await Promise.all(promises)
 			Source ? (savedURLs = [...Source, ...urls]) : (savedURLs = urls)
-			AssignURLs(Id, savedURLs)
+			await AssignURLs(Id, savedURLs)
 			RemoveLoader()
 		}
 	}
@@ -65,7 +61,7 @@ function Upload({ Id, Label, Types, Required, Multiple, filePath, Source }) {
 				<Uploading />
 			) : (
 				<>
-					{Source ? (
+					{Source && !Multiple ? (
 						<div
 							className={Multiple ? styles.MultipleUpload : styles.ImageUpload}
 						>

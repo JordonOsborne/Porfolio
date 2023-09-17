@@ -14,15 +14,10 @@ const FirestoreAPI = createContext()
 export const FirestoreProvider = ({ children }) => {
 	const { setIsLoading } = useContext(FirebaseAPI)
 	const [container, setContainer] = useState()
-	const [file, setFile] = useState(null)
-	// const [files, setFiles] = useState([])
-	// const [folders, setFolders] = useState([])
 	const [percent, setPercent] = useState(0)
-	const [uploading, setUploading] = useState(false)
 
 	// UPLOAD FILE TO STORAGE
 	const UploadFile = async (file, filePath) => {
-		setUploading(true)
 		const fileRef = ref(storage, filePath ? filePath : file.name)
 		// UPLOAD TO FIRE STORAGE
 		const uploadTask = uploadBytesResumable(fileRef, file)
@@ -38,7 +33,6 @@ export const FirestoreProvider = ({ children }) => {
 			},
 			// ON UPLOAD ERROR
 			(error) => {
-				setUploading(false)
 				switch (error.code) {
 					case 'storage/unauthorized':
 						console.log('User does not have permission to access the object')
@@ -57,7 +51,6 @@ export const FirestoreProvider = ({ children }) => {
 		)
 		const completedTask = await uploadTask
 		const url = await getDownloadURL(completedTask.ref)
-		setUploading(false)
 		return url
 	}
 
@@ -101,13 +94,11 @@ export const FirestoreProvider = ({ children }) => {
 		<FirestoreAPI.Provider
 			value={{
 				container,
-				file,
 				percent,
 				setContainer,
 				UploadFile,
 				GetClientFiles,
 				GetFileProperties,
-				setUploading,
 			}}
 		>
 			{children}

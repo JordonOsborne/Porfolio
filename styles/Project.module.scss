@@ -18,11 +18,25 @@
 				display: flex;
 				align-items: center;
 				gap: 0.5rem;
+				&:has(input) {
+					gap: 0;
+				}
 				svg {
-					font-size: 3rem;
+					font-size: 2rem;
 				}
 				h3 {
 					margin: 0.5rem;
+					> div {
+						display: flex;
+						div[class*='labelDiv'] {
+							width: 50px;
+							margin-right: 10px;
+							div,
+							input {
+								min-width: 50px;
+							}
+						}
+					}
 				}
 			}
 		}
@@ -32,20 +46,68 @@
 			line-height: 1.9;
 			font-weight: 200;
 			padding-bottom: 1rem;
+			div[class*='labelDiv'] {
+				margin: 0;
+				padding: 0;
+				textarea {
+					text-align: center;
+					line-height: inherit;
+					font-weight: inherit;
+					font-size: inherit;
+					background: inherit;
+					color: inherit;
+				}
+			}
 		}
 		.Images {
-			image {
-				object-fit: contain;
-			}
-			position: relative;
-			.MockUp {
+			display: flex;
+			gap: 1rem;
+			.MockUpSelector {
 				display: flex;
+				justify-content: center;
+				text-align: center;
+				border-bottom: 1px solid white;
+				div {
+					width: 100%;
+					cursor: pointer;
+					border-radius: 5px 5px 0 0;
+					&[aria-selected='true'] {
+						background: var(--JOsborne-blue);
+					}
+				}
+			}
+			// MOCK-UP IMAGES
+			> *:has(.MockUp) {
+				min-width: 350px;
+				align-self: flex-start;
+			}
+			div[class*='ImageUpload'] {
+				margin: 0;
+				min-width: 350px;
+				aspect-ratio: 16/9;
+				div,
+				input {
+					min-width: 50px;
+				}
+			}
+			.MockUp {
+				object-fit: contain;
+				aspect-ratio: 16/9;
+			}
+			.Gallery {
+				display: flex;
+				flex-wrap: wrap;
 				gap: 0.5rem;
-				position: absolute;
-				top: 0;
-				h4 {
-					font-weight: 400;
-					margin: 0.25rem;
+				> * {
+					max-width: 200px;
+					max-height: 113px;
+					aspect-ratio: 16/9;
+					width: auto;
+					height: auto;
+				}
+				img {
+					aspect-ratio: 16/9;
+					object-fit: contain;
 				}
 			}
 		}
@@ -60,12 +122,43 @@
 			img {
 				object-fit: contain;
 			}
+			fieldset {
+				width: 100%;
+				display: flex;
+				gap: 2.5rem;
+				font-size: 1.5rem;
+				.Icon {
+					font-size: 2.5rem;
+				}
+			}
 		}
 	}
 	.Details {
-		h3 {
+		h4 {
+			font-size: 1.25rem;
 			text-align: center;
 			margin: 0.5rem;
+		}
+		.Center {
+			display: flex;
+			justify-content: center;
+		}
+		.Grid2 {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 1rem;
+			padding: 0 1rem;
+			min-width: 800px;
+			.Tech {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				h5 {
+					font-size: 1rem;
+					font-weight: 600;
+					margin: 0;
+				}
+			}
 		}
 	}
 }

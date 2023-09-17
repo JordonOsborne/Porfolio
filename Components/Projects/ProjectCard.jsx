@@ -13,18 +13,18 @@ export default function ProjectCard({ Info }) {
 					{Info?.MockUpImg ? (
 						<Image
 							className={styles.MockUp}
-							src={Info?.MockUpImg}
+							src={Info?.CardMockUpImg}
 							alt={`${Info.Project} Image`}
-							width='350'
-							height='197'
+							width='400'
+							height='300'
 						/>
 					) : (
 						<Image
 							className={styles.MockUp}
 							src='/img/MockUp.png'
 							alt={`${Info.Project} Image`}
-							width='350'
-							height='197'
+							width='400'
+							height='300'
 						/>
 					)}
 					<div className={styles.Data}>
