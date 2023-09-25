@@ -5,7 +5,17 @@ import { SiPowerapps, SiPowerautomate, SiPowerbi } from 'react-icons/si'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function Main({ project, edit }) {
+export default function Main({ project, edit, setImgModal, setImages }) {
+	const SetImagesArray = (images) => {
+		images = []
+		project?.Images.forEach((image, index) => {
+			const item = { Title: `Image ${index + 1}`, image }
+			images.push(item)
+		})
+		console.log(images)
+		setImages(images)
+	}
+
 	if (edit) {
 		return <EditMode project={project} />
 	} else {
@@ -60,6 +70,10 @@ export default function Main({ project, edit }) {
 										alt={`Image ${index}`}
 										width='200px'
 										height='113px'
+										onClick={() => {
+											setImgModal({ Title: `Image ${index + 1}`, image })
+											SetImagesArray()
+										}}
 									/>
 								)
 							})}

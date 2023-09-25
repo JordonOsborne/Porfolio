@@ -98,7 +98,18 @@
 				display: flex;
 				flex-wrap: wrap;
 				gap: 0.5rem;
+				height: calc((113px * 2) + 0.5rem);
+				overflow: scroll;
+				overscroll-behavior: contain;
+				scroll-snap-type: y mandatory;
+				--scrollbar-width: none;
+				-ms-overflow-style: none;
+				&::-webkit-scrollbar {
+					display: none;
+				}
 				> * {
+					cursor: pointer;
+					scroll-snap-align: start;
 					max-width: 200px;
 					max-height: 113px;
 					aspect-ratio: 16/9;
@@ -134,19 +145,55 @@
 		}
 	}
 	.Details {
+		hr {
+			margin: 2rem auto;
+			color: var(--JOsborne-blue);
+			width: 80%;
+		}
 		h4 {
 			font-size: 1.25rem;
-			text-align: center;
 			margin: 0.5rem;
+		}
+		p {
+			margin: 0;
+			padding-top: 1rem;
+			font-size: 0.9rem;
+			font-weight: 200;
+			line-height: 1.8;
+		}
+		a {
+			color: var(--JOsborne-blue);
+			font-style: italic;
 		}
 		.Center {
 			display: flex;
 			justify-content: center;
 		}
+		div[class*='Grid'] {
+			div:has(h4, p) > p {
+				padding-top: 0;
+			}
+			div:has(img) {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				&:not(:has(h4)) {
+					margin-top: 4rem;
+				}
+				h4 {
+					margin-bottom: 1rem;
+				}
+				img {
+					cursor: pointer;
+					aspect-ratio: 16/9;
+					min-width: 100px;
+				}
+			}
+		}
 		.Grid2 {
 			display: grid;
 			grid-template-columns: repeat(2, 1fr);
-			gap: 1rem;
+			gap: 2rem;
 			padding: 0 1rem;
 			min-width: 800px;
 			.Tech {
@@ -157,6 +204,73 @@
 					font-size: 1rem;
 					font-weight: 600;
 					margin: 0;
+				}
+			}
+		}
+		.Grid3 {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 2rem;
+			padding: 0 1rem;
+			min-width: 800px;
+		}
+		.Span2 {
+			grid-column: span 2;
+			-ms-grid-column-span: 2;
+		}
+	}
+	.ImgModal {
+		width: 100vw;
+		height: 100vh;
+		max-width: 100vw;
+		max-height: 100vh;
+		position: relative;
+		border: none !important;
+		padding-top: 1rem;
+		outline: none;
+		&::backdrop {
+			background: var(--light-color);
+		}
+		.Close {
+			position: absolute;
+			cursor: pointer;
+			right: 1rem;
+			top: 1rem;
+			font-size: 2rem;
+			color: white;
+			fill: white;
+		}
+		h3 {
+			text-align: center;
+		}
+		.ImgViewer {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.ImgGallery {
+			display: grid;
+			gap: 2rem;
+			margin: 0 auto;
+			margin-top: 1rem;
+			max-width: 1100px;
+			overflow: hidden;
+			overflow-x: scroll;
+			overscroll-behavior-inline: contain;
+			grid-auto-flow: column;
+			grid-auto-columns: 178px;
+			grid-template-rows: min-content;
+			scroll-snap-type: inline mandatory;
+			--scrollbar-width: none;
+			-ms-overflow-style: none;
+			&::-webkit-scrollbar {
+				display: none;
+			}
+			div {
+				scroll-snap-align: start;
+				cursor: pointer;
+				&[aria-selected='true'] {
+					border: 5px solid var(--primary-color);
 				}
 			}
 		}
