@@ -40,6 +40,9 @@
 			p {
 				margin: 0;
 				padding: 0;
+				-webkit-line-clamp: 7;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
 			}
 		}
 	}
@@ -219,6 +222,10 @@
 					font-weight: 200;
 					line-height: 1.4rem;
 					text-align: left;
+					display: -webkit-box;
+					-webkit-line-clamp: 4;
+					-webkit-box-orient: vertical;
+					overflow: hidden;
 				}
 			}
 		}
@@ -243,6 +250,7 @@
 	}
 }
 
+// MOBILE VIEW
 @media (max-width: 900px) {
 	.RecentWork {
 		width: 80%;
@@ -250,7 +258,6 @@
 		.Cards {
 			height: 20rem;
 			margin-right: 0;
-			margin-top: -2rem;
 			.Card {
 				display: flex;
 				flex-direction: column;
@@ -291,6 +298,8 @@
 					}
 					p {
 						text-align: center;
+						-webkit-line-clamp: 3;
+						max-height: 6rem;
 					}
 				}
 			}

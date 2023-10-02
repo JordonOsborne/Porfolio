@@ -14,6 +14,7 @@
 			justify-content: space-evenly;
 			gap: 1rem;
 			font-size: 1.1rem;
+			flex-wrap: wrap;
 			span {
 				display: flex;
 				align-items: center;
@@ -113,8 +114,8 @@
 					max-width: 200px;
 					max-height: 113px;
 					aspect-ratio: 16/9;
-					width: auto;
-					height: auto;
+					// width: auto;
+					// height: auto;
 				}
 				img {
 					aspect-ratio: 16/9;
@@ -153,10 +154,12 @@
 		h4 {
 			font-size: 1.25rem;
 			margin: 0.5rem;
+			padding-bottom: 0.5rem;
+			clear: both;
 		}
 		p {
 			margin: 0;
-			padding-top: 1rem;
+			padding-bottom: 1rem;
 			font-size: 0.9rem;
 			font-weight: 200;
 			line-height: 1.8;
@@ -165,60 +168,24 @@
 			color: var(--JOsborne-blue);
 			font-style: italic;
 		}
-		.Center {
-			display: flex;
-			justify-content: center;
-		}
-		div[class*='Grid'] {
-			div:has(h4, p) > p {
-				padding-top: 0;
-			}
-			div:has(img) {
-				display: flex;
-				flex-direction: column;
-				align-items: flex-start;
-				&:not(:has(h4)) {
-					margin-top: 4rem;
-				}
-				h4 {
-					margin-bottom: 1rem;
-				}
-				img {
-					cursor: pointer;
-					aspect-ratio: 16/9;
-					min-width: 100px;
-				}
+		.ImgBlock {
+			float: left;
+			margin-right: 1rem;
+			margin-bottom: 1rem;
+			&Right {
+				float: right;
+				margin-left: 1rem;
+				margin-right: 0;
+				margin-bottom: 1rem;
 			}
 		}
-		.Grid2 {
-			display: grid;
-			grid-template-columns: repeat(2, 1fr);
-			gap: 2rem;
-			padding: 0 1rem;
-			min-width: 800px;
-			.Tech {
-				display: flex;
-				align-items: center;
-				gap: 0.5rem;
-				h5 {
-					font-size: 1rem;
-					font-weight: 600;
-					margin: 0;
-				}
-			}
-		}
-		.Grid3 {
-			display: grid;
-			grid-template-columns: repeat(3, 1fr);
-			gap: 2rem;
-			padding: 0 1rem;
-			min-width: 800px;
-		}
-		.Span2 {
-			grid-column: span 2;
-			-ms-grid-column-span: 2;
+		img {
+			cursor: pointer;
+			aspect-ratio: 16/9;
+			min-width: 100px;
 		}
 	}
+
 	.ImgModal {
 		width: 100vw;
 		height: 100vh;
@@ -272,6 +239,117 @@
 				&[aria-selected='true'] {
 					border: 5px solid var(--primary-color);
 				}
+			}
+		}
+	}
+}
+
+// MOBILE VIEW
+@media (max-width: 600px) {
+	#Project {
+		width: 90%;
+		.Heading {
+			h1 {
+				font-size: 1.4rem;
+				margin-top: 0.5rem;
+			}
+			.Stats {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				justify-content: center;
+				font-size: 0.8rem;
+				gap: 0.5rem;
+				span {
+					svg {
+						font-size: 1.25rem;
+					}
+					h3 {
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+					}
+				}
+			}
+			p {
+				font-size: 0.9rem;
+				line-height: 1.4rem;
+			}
+			.Images {
+				flex-wrap: wrap;
+				.Gallery {
+					height: auto;
+					width: 100%;
+					justify-content: center;
+					> * {
+						max-height: 50px;
+					}
+				}
+			}
+			.Technology {
+				justify-content: center;
+				margin-bottom: 1rem;
+				h3 {
+					width: 100%;
+					margin-top: 1rem;
+					text-align: center;
+				}
+			}
+		}
+		.Details {
+			h4 {
+				font-size: 1.1rem;
+			}
+			p {
+				text-align: center;
+				font-size: 0.8rem;
+			}
+			hr {
+				margin: 1rem auto;
+			}
+		}
+		.ImgModal {
+			h3 {
+				margin-top: 2rem;
+			}
+		}
+	}
+}
+
+@media (max-height: 400px) {
+	#Project {
+		.ImgModal {
+			max-height: 100vh;
+			display: flex;
+			flex-wrap: wrap;
+			padding-top: 0.5rem;
+			h3 {
+				margin-top: 0;
+				width: 100%;
+			}
+			.Close {
+				top: 0.5rem;
+				right: 0.5rem;
+			}
+			.ImgViewer {
+				align-items: flex-start;
+				justify-content: flex-start;
+				max-height: calc(100vh - 3rem);
+				width: 75%;
+				margin-bottom: 0.25rem;
+				> * {
+					max-height: 100%;
+					img {
+						object-fit: contain;
+					}
+				}
+			}
+			.ImgGallery {
+				max-height: calc(100vh - 3rem);
+				width: 25%;
+				grid-auto-flow: row;
+				gap: 1rem;
+				overflow: scroll;
+				margin-top: 0;
 			}
 		}
 	}
