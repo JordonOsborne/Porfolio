@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import styles from '../../../styles/Project.module.scss'
 import Header from '../../../Components/Header'
 import Main from '../../../Components/Projects/Main'
@@ -50,6 +51,17 @@ function Project() {
 
 	return (
 		<div id='Page'>
+			<Head>
+				<title>{`Porfolio | ${project?.Project}`}</title>
+				<meta
+					name='description'
+					content={project?.Description}
+				/>
+				<link
+					rel='icon'
+					href='/favicon.ico'
+				/>
+			</Head>
 			<ToastContainer />
 			<Header />
 			{isLoading || !project ? (
