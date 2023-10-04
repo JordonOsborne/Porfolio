@@ -1,7 +1,9 @@
 import styles from '../../styles/Projects.module.scss'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
-export default function TechStack({ data, selected, setTech }) {
+export default function TechStack({ data, selected }) {
+	const router = useRouter()
 	let techStack = []
 	data.map((project) => {
 		techStack = [...new Set([...techStack, ...project.Technology])]
@@ -14,6 +16,12 @@ export default function TechStack({ data, selected, setTech }) {
 		return count
 	}
 
+	const setQuery = (tech) => {
+		tech == selected
+			? router.push({ pathname: '/Projects' })
+			: router.push({ pathname: '/Projects', query: { Tech: tech } })
+	}
+
 	return (
 		<div className={styles.TechStack}>
 			{techStack.map((tech) => {
@@ -21,7 +29,7 @@ export default function TechStack({ data, selected, setTech }) {
 					<div
 						key={tech}
 						className={styles.tech}
-						onClick={() => setTech(tech)}
+						onClick={() => setQuery(tech)}
 						aria-selected={tech === selected}
 					>
 						<Image

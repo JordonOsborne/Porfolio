@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import Header from '../Components/Header'
 import UserPanel from '../Components/UserPanel'
 import TechStack from '../Components/Projects/TechStack'
@@ -8,8 +9,10 @@ import Image from 'next/image'
 import styles from '../styles/Projects.module.scss'
 import FirebaseAPI from '../Context/FirebaseAPI'
 import { useEffect, useContext, useState } from 'react'
+import { useRouter } from 'next/router'
 
 export default function Projects() {
+	const router = useRouter()
 	const { GetData, data } = useContext(FirebaseAPI)
 	const [projects, setProjects] = useState(data)
 	const [tech, setTech] = useState()
@@ -20,12 +23,27 @@ export default function Projects() {
 		Reports: 0,
 	})
 
+	useEffect(() => {
+		if (router.isReady) {
+			setTech(router.query?.Tech)
+		}
+		const GetProjectData = async (tech) => {
+			const sortBy = { field: 'Date', type: 'desc' }
+			const data = await GetData('Projects', null, sortBy)
+			if (!tech) {
+				setProjects(data)
+				SetStats(data)
+			} else {
+				const dataFiltered = data.filter(HasTechnology)
+				setProjects(dataFiltered)
+				SetStats(dataFiltered)
+			}
+		}
+		GetProjectData(tech)
+	}, [router.query, tech])
+
 	const HasTechnology = (project) => {
 		return project.Technology.includes(tech)
-	}
-
-	const SetSelected = (selected) => {
-		selected !== tech ? setTech(selected) : setTech()
 	}
 
 	const SetStats = (projects) => {
@@ -51,24 +69,19 @@ export default function Projects() {
 		}
 	}
 
-	useEffect(() => {
-		const GetProjectData = async (tech) => {
-			const sortBy = { field: 'Date', type: 'desc' }
-			const data = await GetData('Projects', null, sortBy)
-			if (!tech) {
-				setProjects(data)
-				SetStats(data)
-			} else {
-				const dataFiltered = data.filter(HasTechnology)
-				setProjects(dataFiltered)
-				SetStats(dataFiltered)
-			}
-		}
-		GetProjectData(tech)
-	}, [tech])
-
 	return (
 		<div id='Page'>
+			<Head>
+				<title>Jordon Osborne | Porfolio</title>
+				<meta
+					name='description'
+					content='I have worked in SharePoint and Power Apps for several years. During this time I have completed a variety of different projects, many of which can be viewed on my porfolio.'
+				/>
+				<link
+					rel='icon'
+					href='/favicon.ico'
+				/>
+			</Head>
 			<Header />
 			<div id={styles.Admin}>
 				<UserPanel />
@@ -106,7 +119,6 @@ export default function Projects() {
 				<TechStack
 					data={projects}
 					selected={tech}
-					setTech={SetSelected}
 				/>
 				<main>
 					<div className={styles.TechFilter}></div>
