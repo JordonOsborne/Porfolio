@@ -15,7 +15,7 @@ export default function Navigation() {
 				<Link href='/'>Home</Link>
 			</div>
 			<div className={router.asPath == '/About' ? 'active' : ''}>
-				<Link href='/ComingSoon'>About</Link>
+				<Link href='/About'>About</Link>
 			</div>
 			<div className={router.asPath.includes('/Projects') ? 'active' : ''}>
 				<Link href='/Projects'>Projects</Link>
