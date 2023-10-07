@@ -5,6 +5,7 @@ import Link from 'next/link'
 import RecentWork from '../Components/RecentWork'
 import CodeBackground from '../Components/CodeRain'
 import ContactForm from '../Components/ContactForm'
+import InteractiveForms from '../Components/InteractiveForms'
 
 export default function Home() {
 	return (
@@ -220,14 +221,17 @@ export default function Home() {
 				</table>
 			</section>
 			<section className={styles.section}>
-				<div className={styles.ContactForm}>
+				<h3 className={styles.title}>Get the Answers You Need</h3>
+				<hr className={styles.divider} />
+				{/* <div className={styles.ContactForm}>
 					<h3 className={styles.title}>Contact Me</h3>
 					<p className={styles.lead}>
 						Have questions or like what you see? Please send me message and I
 						will get back with you within 24 hours.
 					</p>
 					<ContactForm />
-				</div>
+				</div> */}
+				<InteractiveForms />
 			</section>
 			<footer className={styles.footer}></footer>
 		</div>

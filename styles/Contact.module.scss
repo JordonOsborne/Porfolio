@@ -1,0 +1,141 @@
+#Contact {
+	--background-blue: rgba(37, 86, 178, 1);
+	--background-fade: rgba(2, 0, 36, 1);
+	padding: 2rem;
+	padding-top: 0;
+	margin: auto;
+	max-width: 1400px;
+	.Lead {
+		margin: 1rem auto;
+		font-size: 1.2rem;
+		font-weight: 200;
+		text-align: center;
+		line-height: 1.8;
+		max-width: 1000px;
+	}
+	form {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1rem;
+		align-items: center;
+		font-size: 1rem;
+		padding: 2rem 3rem;
+		padding-bottom: 1rem;
+		.ContactImg {
+			grid-row: span 3;
+			img {
+				aspect-ratio: 4/3;
+				object-fit: contain;
+			}
+		}
+		div {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			label {
+				padding: 0 1rem;
+				width: 135px;
+				text-align: right;
+			}
+			input {
+				padding: 0.5rem 1rem;
+				font-weight: 200;
+				font-size: 1rem;
+				border-radius: 5px;
+				outline: none;
+				border: none;
+				width: calc(100% - 135px);
+				min-width: 150px;
+				background: white;
+				color: var(--light-color);
+			}
+		}
+		.subject {
+			grid-column: 2 / span 2;
+			input {
+				width: calc(100% - 135px);
+			}
+		}
+		.socials {
+			flex-direction: column;
+			align-items: flex-start;
+			align-self: flex-start;
+			margin-left: 2rem;
+			svg {
+				font-size: 1.25rem;
+				margin: 0.5rem;
+			}
+		}
+		.body {
+			grid-column: 2 / span 2;
+		}
+		.textarea {
+			padding: 0.5rem 1rem;
+			font-size: 1rem;
+			font-weight: 200;
+			background: white;
+			color: var(--light-color);
+			width: 100%;
+			border-radius: 5px;
+			resize: none;
+			outline: none;
+			border: none;
+		}
+		button {
+			grid-column: span 3;
+			width: 200px;
+			padding: 0.5rem 1.5rem;
+			background: var(--JOsborne-blue);
+			color: white;
+			font-size: 1.25rem;
+			text-align: center;
+			cursor: pointer;
+			justify-self: center;
+			&:hover {
+				background: var(--primary-dark);
+			}
+		}
+	}
+}
+
+.InteractiveForms {
+	display: flex;
+	justify-content: center;
+	gap: 2rem;
+	flex-wrap: wrap;
+	padding: 2rem 0;
+	div {
+		max-width: 400px;
+		box-shadow: 10px 10px var(--background-blue);
+		position: relative;
+		border: 1px solid var(--light-faded);
+		padding: 0.5rem 1rem;
+		h3 {
+			text-align: left;
+			font-size: 1.1rem;
+			margin-bottom: 0;
+			padding-bottom: 0.5rem;
+		}
+		p {
+			font-size: 0.8rem;
+			font-weight: 200;
+			margin-top: 0;
+			padding-bottom: 2rem;
+			text-align: left;
+		}
+		button {
+			position: absolute;
+			right: 1rem;
+			bottom: 1rem;
+			padding: 0.5rem;
+			background-color: var(--JOsborne-blue);
+			border: none;
+			outline: none;
+			cursor: pointer;
+			font-weight: 400;
+			&:hover {
+				background-color: var(--primary-dark);
+			}
+		}
+	}
+}

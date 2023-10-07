@@ -21,7 +21,7 @@ export default function Navigation() {
 				<Link href='/Projects'>Projects</Link>
 			</div>
 			<div className={router.asPath == '/Contact' ? 'active' : ''}>
-				<Link href='/ComingSoon'>Contact</Link>
+				<Link href='/Contact'>Contact</Link>
 			</div>
 			{router.asPath != '/SignIn' &&
 				(!user ? (
