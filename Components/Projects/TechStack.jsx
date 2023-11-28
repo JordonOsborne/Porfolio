@@ -38,8 +38,8 @@ export default function TechStack({ data, selected }) {
 							width='30'
 							height='30'
 						/>
-						<span className={styles.Count}>{getCount(tech)}</span>
 						<h3>{tech}</h3>
+						<span className={styles.Count}>{getCount(tech)}</span>
 					</div>
 				)
 			})}

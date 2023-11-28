@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import styles from '../../styles/ProjectCard.module.scss'
 import { MdAccountCircle } from 'react-icons/md'
 import { SiPowerapps, SiPowerautomate, SiPowerbi } from 'react-icons/si'
-import styles from '../../styles/ProjectCard.module.scss'
 
 export default function ProjectCard({ Info }) {
 	return (

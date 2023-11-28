@@ -1,8 +1,9 @@
 import Head from 'next/head'
 import Header from '../Components/Header'
 import UserPanel from '../Components/UserPanel'
+import Stats from '../Components/Projects/Stats'
 import TechStack from '../Components/Projects/TechStack'
-import ProjectCard from '../Components/Projects/ProjectCard'
+import ProjectCard from '../Components/Projects/ProjectCard2'
 import { MdAccountCircle } from 'react-icons/md'
 import { SiPowerapps, SiPowerautomate, SiPowerbi } from 'react-icons/si'
 import Image from 'next/image'
@@ -58,19 +59,8 @@ export default function Projects() {
 		setStats(stats)
 	}
 
-	const RoundValues = (value) => {
-		if (value > 1000) {
-			return '1000+'
-		}
-		if (value > 500) {
-			return '500+'
-		} else {
-			return value
-		}
-	}
-
 	return (
-		<div id='Page'>
+		<div id={styles.Projects}>
 			<Head>
 				<title>Jordon Osborne | Porfolio</title>
 				<meta
@@ -86,40 +76,34 @@ export default function Projects() {
 			<div id={styles.Admin}>
 				<UserPanel />
 				<div className={styles.TechSelected}>
-					<div>
+					<div className={styles.Title}>
 						{tech && (
 							<Image
 								src={tech ? `/Icons/${tech}.png` : `/Icons/All.png`}
 								alt={tech ? tech : 'All Projects'}
-								width='40'
-								height='40'
+								width='50'
+								height='50'
 							/>
 						)}
 						<h1>{tech ? `${tech} Projects` : 'My Porfolio'}</h1>
 					</div>
-					<div className={styles.Data}>
-						<div data-stats={stats.Users}>
-							<MdAccountCircle />
-							<p>{`${RoundValues(stats.Users)} Users`}</p>
-						</div>
-						<div data-stats={stats.Forms}>
-							<SiPowerapps />
-							<p>{`${RoundValues(stats.Forms)} Forms`}</p>
-						</div>
-						<div data-stats={stats.Automations}>
-							<SiPowerautomate />
-							<p>{`${RoundValues(stats.Automations)} Flows`}</p>
-						</div>
-						<div data-stats={stats.Reports}>
-							<SiPowerbi />
-							<p>{`${RoundValues(stats.Reports)} Reports`}</p>
-						</div>
+					<Stats data={stats} />
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia
+						beatae cumque provident consequuntur alias, fuga quibusdam
+						accusantium rerum quae harum facilis dignissimos placeat. Possimus
+						neque cumque quae inventore debitis natus porro quidem cupiditate
+						fugit repellat exercitationem necessitatibus quis, praesentium
+						magnam nisi ab saepe, perspiciatis incidunt obcaecati libero
+						voluptas quod aliquid explicabo? Iste, fugiat.
+					</p>
+					<div className={styles.TechSlider}>
+						<TechStack
+							data={projects}
+							selected={tech}
+						/>
 					</div>
 				</div>
-				<TechStack
-					data={projects}
-					selected={tech}
-				/>
 				<main>
 					<div className={styles.TechFilter}></div>
 					<div className={styles.Projects}>
