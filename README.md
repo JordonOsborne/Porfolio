@@ -42,13 +42,6 @@ npm install firebase
 <tr><td><img alt='React Icons' src='img/ReactIcons.png' width=30px height=30px /></td><td>
 
 ```bash
-npm install react-icons
-```
-
-</td><td>Free icons library with variety of options</td></tr>
-<tr><td><img alt='React Aria' src='img/ReactAria.png' width=30px height=30px /></td><td>
-
-```bash
 npm install react-aria
 ```
 
@@ -239,7 +232,7 @@ The building blocks to this project have been documented below for use in future
 
 #### App Design and Development
 
-- [ ] Create and style the [Header](src/app/header.jsx) component
+- [x] Create and style the [Header](src/app/header.jsx) component
 
 First, run the development server:
 

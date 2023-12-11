@@ -6,6 +6,9 @@
 	html {
 		@apply font-mono;
 	}
+	header {
+		@apply h-12 sticky flex justify-between items-center dark:bg-dark;
+	}
 	h1 {
 		@apply text-5xl;
 	}
@@ -20,5 +23,86 @@
 	}
 	h5 {
 		@apply text-xl font-bold;
+	}
+	h6 {
+		@apply text-lg;
+	}
+}
+
+@layer components {
+	/* HEADER NAVIGATION STYLING */
+	.navigation {
+		@apply flex justify-end align-middle gap-4;
+	}
+	.navigation [role='tab'] {
+		@apply cursor-pointer p-1 hover:border-b-2 hover:border-b-primary-500 focus:outline-none focus-visible:outline-none;
+	}
+	.navigation [role='tab']:has([aria-expanded='true']) {
+		@apply border-b-2 border-b-primary-500;
+	}
+	.navigation [aria-selected='true'] {
+		@apply border-b-2 border-b-primary;
+	}
+	/* MENU ITEM STYLING */
+	.menu {
+		@apply mt-2 mr-4 p-4 border-[1px] border-neutral-700 grid grid-cols-7 gap-4 rounded shadow-md shadow-gradient;
+		background: conic-gradient(
+			from 169deg at 45% 100%,
+			#0a1a3a 49deg,
+			#0c0c0c 241deg
+		);
+	}
+	.menu * {
+		@apply focus-within:outline-none;
+	}
+	.visual {
+		@apply flex flex-col justify-center col-span-3 min-w-[300px] border-r-2 border-r-dark dark:border-r-light;
+	}
+	.visual .container {
+		@apply flex justify-center items-center pb-4;
+	}
+	.menu [role='menu'] {
+		@apply col-span-4;
+	}
+	.menu header {
+		@apply h-auto;
+	}
+	.menu [role='menu'] .links[role='group'] {
+		@apply py-2 grid grid-cols-3 gap-2 justify-items-center;
+	}
+	.menu [role='menuitem'] {
+		@apply flex items-center text-sm font-light italic;
+	}
+	.menu a[role='menuitem'] {
+		@apply hover:text-primary-700;
+	}
+	.menu [role='meter progressbar'] {
+		@apply mb-2 flex gap-2 w-full items-center;
+	}
+	.menu .react-aria-Label {
+		@apply flex gap-2 items-center truncate;
+	}
+	.menu [role='separator'] {
+		@apply mx-2 my-2 h-[1px] bg-dark dark:bg-light;
+	}
+	.subtitle {
+		@apply text-xs text-dark dark:text-light font-thin italic;
+	}
+	/* ABOUT MENU CLASSES */
+	.menu .bar-group {
+		@apply grid grid-cols-6 gap-2 w-[60%] items-center;
+	}
+	.menu .bar {
+		@apply h-2 col-span-4 overflow-hidden rounded-full bg-neutral-600;
+	}
+	.menu .fill {
+		@apply h-full bg-primary;
+	}
+	.menu .bar-group span {
+		@apply text-xs col-span-2;
+	}
+	/* CONATACT MENU CLASSES */
+	.menu .company-info {
+		@apply col-span-3 block justify-self-start;
 	}
 }

@@ -7,8 +7,8 @@ module.exports = {
 		'./src/components/**/*.{js,ts,jsx,tsx,mdx}',
 		'./src/app/**/*.{js,ts,jsx,tsx,mdx}',
 	],
+	darkMode: ['class', '[data-mode="dark"]'],
 	theme: {
-		darkMode: ['class', '[data-mode:"dark"]'],
 		screens: {
 			xs: '320px',
 			sm: '480px',
@@ -47,9 +47,7 @@ module.exports = {
 				700: '#9D9D9D',
 				600: '#CECECE',
 			},
-		},
-		padding: {
-			gutter: '30px',
+			gradient: '#0A1A3A',
 		},
 		extend: {
 			backgroundImage: {
@@ -63,6 +61,9 @@ module.exports = {
 			fontSize: {
 				xl: ['1.5rem', { lineHeight: '2rem' }],
 				lg: ['1.25rem', { lineHeight: '1.75rem' }],
+			},
+			padding: {
+				gutter: '30px',
 			},
 		},
 	},

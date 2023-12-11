@@ -1,5 +1,5 @@
 import { Roboto_Mono } from 'next/font/google';
-import Header from './header';
+import Header from './header/layout';
 import './globals.css';
 
 const RobotoMono = Roboto_Mono({ subsets: ['latin'] });
@@ -13,7 +13,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
 	return (
 		<html lang='en' data-mode='dark' className={RobotoMono.className}>
-			<body className='dark:bg-dark dark:text-light px-gutter'>
+			<body className='px-gutter dark:bg-dark dark:text-light'>
 				<Header />
 				{children}
 			</body>
