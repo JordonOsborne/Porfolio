@@ -7,6 +7,10 @@ export default function layout({
 	reviewCount,
 	commentCount,
 }) {
+	if (!rating) {
+		rating = 0;
+	}
+
 	const starType = (star) => {
 		if (rating - star >= 0.5) {
 			return 'full';

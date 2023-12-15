@@ -18,7 +18,6 @@ The header is visible on all pages of the website and inherits its styling from 
   <ol>
     <li><a href="#conceptual-design">Conceptual Design</a></li>
     <li><a href="#anatomy">Anatomy</a></li>
-    <li><a href="#data-structure">Data Structure</a></li>
     <li><a href="#getting-started">Getting Started</a></li>
   </ol>
 </details>
@@ -93,7 +92,7 @@ The header is visible on all pages of the website and inherits its styling from 
 
 ## Anatomy
 
-The header element of this website consist of three sections: Logo, Developer Status/Searchbar, and Navigation Menu. The center portion of the header is reserved for searchbar when applicable, but will display 'Site Administrator' when the user signed in is a site admin. The navigation element utilizes [React Aria Menu](https://react-spectrum.adobe.com/react-aria/Menu.html) components. Each navigation menu item has its own popover with another three section layout defined below.
+The header element of this website consist of three parts: Logo, Developer Status/Searchbar, and Navigation Menu. The center portion of the header is reserved for searchbar when applicable, but will display 'Site Administrator' when the user signed in is a site admin. The navigation element utilizes [React Aria Menu](https://react-spectrum.adobe.com/react-aria/Menu.html) components. Each navigation menu item has its own popover with another three section layout defined below.
 
 <table>
 <tr><td>
