@@ -17,6 +17,8 @@ module.exports = {
 			xl: '1440px',
 		},
 		colors: {
+			transparent: 'transparent',
+			current: 'currentColor',
 			primary: {
 				DEFAULT: '#367CFF',
 				900: '#1B3E7F',

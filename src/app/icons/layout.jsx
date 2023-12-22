@@ -1,5 +1,5 @@
 // PERSON ICONS SVG LIBRARY TO USE AS APPOSED TO INSTALING THE REACT ICONS
-const layout = ({ icon, size, className }) => {
+const layout = ({ icon, size, className, onClick }) => {
 	// DETERMINE ICON SIZE
 	size = getPxSize(size);
 
@@ -15,6 +15,8 @@ const layout = ({ icon, size, className }) => {
 			viewBox='0 0 40 40'
 			fill='none'
 			xmlns='http://www.w3.org/2000/svg'
+			onClick={onClick}
+			title={icon}
 		>
 			{getPath(icon, className)}
 		</svg>

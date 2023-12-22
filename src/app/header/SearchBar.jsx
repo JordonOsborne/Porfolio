@@ -1,8 +1,8 @@
 import Icon from '../icons/layout';
 
-export default function SearchBar() {
+export default function searchBar() {
 	return (
-		<div className='relative'>
+		<div className='relative hidden lg:block'>
 			<span className='absolute bottom-[2px] left-2'>
 				<Icon
 					icon='search'

@@ -1,15 +1,12 @@
 'use client';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Tabs, TabList, Tab } from 'react-aria-components';
+import useIsMobile from '../../../utilities/useIsMobile';
 import Logo from './Logo';
 import SearchBar from './SearchBar';
-import AboutMenu from './aboutMenu';
-import ProjectsMenu from './projectsMenu';
-import ContactMenu from './contactMenu';
+import Menu from './menu';
 
 export default function header() {
-	const pathname = usePathname().replace('/', '');
+	const isMobile = useIsMobile();
 
 	return (
 		<header>
@@ -17,22 +14,7 @@ export default function header() {
 				<Logo size={30} />
 			</Link>
 			<SearchBar />
-			<Tabs defaultSelectedKey={pathname}>
-				<TabList aria-label='Navigation' className='navigation'>
-					<Tab id='Home'>
-						<Link href='/'>Home</Link>
-					</Tab>
-					<Tab id='About'>
-						<AboutMenu />
-					</Tab>
-					<Tab id='Projects'>
-						<ProjectsMenu />
-					</Tab>
-					<Tab id='Contact'>
-						<ContactMenu />
-					</Tab>
-				</TabList>
-			</Tabs>
+			<Menu isMobile={isMobile} />
 		</header>
 	);
 }

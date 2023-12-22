@@ -1,14 +1,14 @@
 # Header
 
-The header is visible on all pages of the website and inherits its styling from the [global CSS](../globals.css) and [Tailwind Config Theme](/tailwind.config.js). The component structure can be found in the [layout.jsx](./layout.jsx) while the popover components can be found their respective files.
+The header is visible on all pages of the website and inherits its styling from the [global CSS](../globals.css) and [Tailwind Config Theme](/tailwind.config.js). The component structure can be found in the [layout.jsx](./layout.jsx) while the popover components can be found their respective folder. There are two distinct navigation menu components (i.e. [Menu](./menu.jsx) and [Mobile menu](./mobileMenu.jsx)) which will be dependent on the page width.
 
 <details>
 <summary>Navigation Menus</summary>
 
-- [About Menu](./aboutMenu.jsx)
-- [Projects Menu](./projectsMenu.jsx)
-- [Contact Menu](./contactMenu.jsx)
-- [User Menu](./userMenu.jsx)
+- [About Menu](./about/popover.jsx)
+- [Projects Menu](./projects/popover.jsx)
+- [Contact Menu](./contact/popover.jsx)
+- [User Menu](./user/popover.jsx)
 
 </details>
 
@@ -111,6 +111,28 @@ The header element of this website consist of three parts: Logo, Developer Statu
 
 </td></tr>
 </table>
+
+<details>
+<summary>Mobile Menu</summary>
+
+The mobile header element of this website eliminates the search bar and replaces the navigation with a hamburger menu with expandable menus for more options. Each expandable menu can be found in the respective folder under the **details** file. For the most part the **details** component breaks down into two parts: top and bottom layers.
+
+<table>
+<tr><td>
+
+![Navigation Menu Anatomy](/img/NavigationMobileMenuAnatomy.png)
+
+</td><td>
+
+| Menu Section | Panel  | Details                                                      |
+| ------------ | :----: | ------------------------------------------------------------ |
+| Menu Header  |  Top   | Description or instructions for Top Links                    |
+| Top Links    |  Top   | Summary information or filters for menu (i.e. Technology)    |
+| Bottom Links | Bottom | Large link icons that navigate to site pages (i.e. Projects) |
+
+</td></tr>
+</table>
+</details>
 
 ## Components & Properties
 
@@ -227,9 +249,9 @@ The company information component provides a visual of the company logo, name, a
 
 ### Mobile Platform
 
-- [ ] Implement CSS for mobile platforms
-- [ ] Develop mobile component menu
-- [ ] Implement logic to render correct menu based on screen width
+- [x] Implement CSS for mobile platforms
+- [x] Develop mobile component menu
+- [x] Implement logic to render correct menu based on screen width
 
 ### Authentication
 

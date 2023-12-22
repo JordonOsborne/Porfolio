@@ -21,9 +21,9 @@ export default function layout({
 		}
 	};
 	return (
-		<div>
+		<div className='rating'>
 			<div className='flex items-center'>
-				<span>Rating:</span>
+				<label>Rating:</label>
 				<Star className={className} size={size} type={starType(1)} />
 				<Star className={className} size={size} type={starType(2)} />
 				<Star className={className} size={size} type={starType(3)} />
