@@ -1,4 +1,4 @@
-import Icon from '../icons/layout';
+import Icon from '../Icons/icon'
 
 export default function searchBar() {
 	return (
@@ -17,5 +17,5 @@ export default function searchBar() {
 				className='p-[2px] pl-9 text-sm font-extralight rounded-full w-[300px] border-[1px] border-neutral-700 dark:border-neutral-800 focus:outline-none bg-neutral-600 dark:bg-neutral-900'
 			/>
 		</div>
-	);
+	)
 }

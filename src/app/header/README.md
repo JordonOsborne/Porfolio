@@ -255,4 +255,9 @@ The company information component provides a visual of the company logo, name, a
 
 ### Authentication
 
-- [ ] Install Authentication using documented practice ([Firebase Documentation](https://firebase.google.com/docs/auth/web/start))
+- [x] Install Authentication using documented practice ([Firebase Documentation](https://firebase.google.com/docs/auth/web/start))
+- [ ] Add required contexts for reading and updating user information.
+  - [x] Email & Password
+  - [ ] Google
+  - [ ] Windows
+  - [ ] Apple

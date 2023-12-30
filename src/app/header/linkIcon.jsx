@@ -1,7 +1,7 @@
-import { MenuItem, Label, Link } from 'react-aria-components';
-import Image from 'next/image';
-import Icon from '../icons/layout';
-import { getPxSize } from '../icons/layout';
+import { MenuItem, Label, Button } from 'react-aria-components'
+import Image from 'next/image'
+import Icon from '../Icons/icon'
+import { getPxSize } from '../Icons/icon'
 
 export default function linkIcon({
 	action,
@@ -12,19 +12,19 @@ export default function linkIcon({
 	icon,
 	target,
 }) {
-	size = getPxSize(size);
+	size = getPxSize(size)
 	if (!target) {
-		target = '_self';
+		target = '_self'
 	}
 	if (action) {
 		return (
 			<MenuItem>
-				<div
-					onClick={() => action()}
+				<Button
+					onPressStart={() => action()}
 					className={
 						size < 30
 							? 'link-icon flex-row gap-2'
-							: 'link-icon flex-col justify-center max-w-[90px]'
+							: 'link-icon flex-col max-w-[125px]'
 					}
 				>
 					{src ? (
@@ -41,9 +41,9 @@ export default function linkIcon({
 					>
 						{label}
 					</Label>
-				</div>
+				</Button>
 			</MenuItem>
-		);
+		)
 	} else {
 		return (
 			<MenuItem
@@ -52,7 +52,7 @@ export default function linkIcon({
 				className={
 					size < 30
 						? 'link-icon flex-row gap-2'
-						: 'link-icon flex-col justify-center max-w-[90px]'
+						: 'link-icon flex-col max-w-[125px]'
 				}
 			>
 				{src ? (
@@ -70,6 +70,6 @@ export default function linkIcon({
 					{label}
 				</Label>
 			</MenuItem>
-		);
+		)
 	}
 }

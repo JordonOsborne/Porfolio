@@ -1,6 +1,8 @@
-# Rating
+# Ratings
 
-The component is utilized in the [Projects Menu](../header/projectsMenu.jsxMenu.jsx) and on the [Projects Page](../projects/page.jsx). The rating component is used to show the average rating and summarize quantity of reviews and comments.
+This page shows a summary of all project ratings with a highlight on the logged in user's reviews. This folder contains a variety smaller re-usable components. These components are described below.
+
+- **[Average Rating](./avgRating.jsx)** - Utilized in the [Projects Menu](../header/projectsMenu.jsxMenu.jsx) and on the [Projects Page](../projects/page.jsx). The rating component is used to show the average rating and summarize quantity of reviews and comments.
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -15,9 +17,19 @@ The component is utilized in the [Projects Menu](../header/projectsMenu.jsxMenu.
 
 ## Conceptual Design
 
+<details>
+<summary>Average Rating</summary>
+
 ![Rating](/img/Rating.png)
 
+</details>
+
 ## Anatomy
+
+<details>
+<summary>Average Rating</summary>
+
+### Average Rating
 
 The anatomy of this component can be broken down into two three parts: Rating, Reviews, Comments. The **Raating** portion is required and contains the stars. The **Reviews** and **Comments** portion are both optional and will not display if left _null_.
 
@@ -37,8 +49,14 @@ The anatomy of this component can be broken down into two three parts: Rating, R
 
 </td></tr>
 </table>
+</details>
 
 ## Properties
+
+<details>
+<summary>Average Rating</summary>
+
+### Average Rating
 
 All rating, reviewCount, and commentCount properties shoud be calculated by the parent element and passed to the component as the type specified.
 
@@ -50,7 +68,14 @@ All rating, reviewCount, and commentCount properties shoud be calculated by the 
 | reviewCount  | integer | Total count of reviews. _(Optional)_                                    |
 | commentCount | integer | Total count of comments included in the reviews. _(Optional)_           |
 
+</details>
+
 ## Getting Started
+
+<details>
+<summary>Average Rating</summary>
+
+### Average Rating
 
 To use this component throughout the application follow these simple steps:
 
@@ -58,9 +83,11 @@ To use this component throughout the application follow these simple steps:
 - Use the React component format and include the required **_rating_** property
 
 ```jsx
-import Rating from '../rating/layout';
+import Rating from '../Ratings/avgRating'
 
 export default function MyComponent() {
-	return <Rating size='small' rating={3.6} reviewCount={3} commentCount={2} />;
+	return <Rating size='small' rating={3.6} reviewCount={3} commentCount={2} />
 }
 ```
+
+</details>

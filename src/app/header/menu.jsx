@@ -1,14 +1,15 @@
-import { Tabs, TabList, Tab, Link } from 'react-aria-components';
-import { usePathname } from 'next/navigation';
-import AboutMenu from './about/menu';
-import ProjectsMenu from './projects/menu';
-import ContactMenu from './contact/menu';
-import MobileMenu from './mobileMenu';
+import { Tabs, TabList, Tab, Link } from 'react-aria-components'
+import { usePathname } from 'next/navigation'
+import AboutMenu from './about/menu'
+import ProjectsMenu from './projects/menu'
+import ContactMenu from './contact/menu'
+import UserMenu from './user/menu'
+import MobileMenu from './mobileMenu'
 
 function menu({ isMobile }) {
-	const pathname = usePathname().replace('/', '');
+	const pathname = usePathname().replace('/', '')
 	if (isMobile) {
-		return <MobileMenu />;
+		return <MobileMenu />
 	} else {
 		return (
 			<Tabs selectedKeys={pathname}>
@@ -25,10 +26,16 @@ function menu({ isMobile }) {
 					<Tab id='Contact'>
 						<ContactMenu />
 					</Tab>
+					<Tab
+						id='User'
+						className='hover:border-none focus-visible:outline-none'
+					>
+						<UserMenu />
+					</Tab>
 				</TabList>
 			</Tabs>
-		);
+		)
 	}
 }
 
-export default menu;
+export default menu

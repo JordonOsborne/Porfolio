@@ -5,42 +5,37 @@ import {
 	DialogTrigger,
 	Popover,
 	Link,
-} from 'react-aria-components';
-import Icon from '../icons/layout';
-import AboutDetails from '../header/about/details';
-import ProjectsDetails from '../header/projects/details';
-import ContactDetails from '../header/contact/details';
-import UserDetails from '../header/user/details';
-import Image from 'next/image';
-import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+} from 'react-aria-components'
+import AboutDetails from '../header/about/details'
+import ProjectsDetails from '../header/projects/details'
+import ContactDetails from '../header/contact/details'
+import UserDetails from '../header/user/details'
+import Image from 'next/image'
+import Icon from '../Icons/icon'
+import { usePathname } from 'next/navigation'
+import { useState, useContext } from 'react'
+import AuthContext from '../../../context/auth'
 
 function mobileMenu() {
-	const pathname = usePathname().replace('/', '');
-	const [expanded, setExpanded] = useState(pathname);
-	const [user, setUser] = useState({
-		name: 'John Doe',
-		phone: '(423) 276-1041',
-		email: 'JohnDoe@outlook.com',
-		imageUrl: '/img/User.png',
-		theme: 'Dark',
-	});
+	const pathname = usePathname().replace('/', '')
+	const [expanded, setExpanded] = useState(pathname)
+	const { user } = useContext(AuthContext)
 	const toggleMenu = (selected) => {
 		if (selected == expanded) {
-			setExpanded(null);
+			setExpanded(null)
 		} else {
-			setExpanded(selected);
+			setExpanded(selected)
 		}
-	};
+	}
 	const isActive = (id) => {
 		if (pathname == id) {
-			return ' bg-primary text-light';
+			return ' bg-primary text-light'
 		} else if (id == expanded) {
-			return 'expanded';
+			return 'expanded'
 		} else {
-			return undefined;
+			return undefined
 		}
-	};
+	}
 	return (
 		<DialogTrigger className='align-items-start'>
 			<Button aria-label='Menu'>
@@ -93,27 +88,34 @@ function mobileMenu() {
 					</MenuItem>
 					{expanded == 'Contact' && <ContactDetails />}
 					<MenuItem id='User' className={isActive('User')}>
-						<div>
-							<Image
-								src={user?.imageUrl}
-								alt={user?.name}
-								className='p-1'
-								width='40'
-								height='40'
-							/>
-							<span>User</span>
-						</div>
+						{user ? (
+							<Link href='/User'>
+								<Image
+									src={user?.imageUrl ? user?.imageUrl : '/img/Avatar.png'}
+									alt={user?.name}
+									className='p-1 rounded-full'
+									width='40'
+									height='40'
+								/>
+								<span>{user?.firstName ? user.firstName : 'User Menu'}</span>
+							</Link>
+						) : (
+							<Link href='/Login'>
+								<Icon icon='login' />
+								<span>Login</span>
+							</Link>
+						)}
 						<Icon
 							icon='ChevronUp'
 							className='fill-current'
 							onClick={() => toggleMenu('User')}
 						/>
 					</MenuItem>
-					{expanded == 'User' && <UserDetails user={user} setUser={setUser} />}
+					{expanded == 'User' && <UserDetails />}
 				</Menu>
 			</Popover>
 		</DialogTrigger>
-	);
+	)
 }
 
-export default mobileMenu;
+export default mobileMenu

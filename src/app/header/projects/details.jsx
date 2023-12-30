@@ -4,13 +4,13 @@ import {
 	Header,
 	Separator,
 	Link,
-} from 'react-aria-components';
-import { useRouter } from 'next/navigation';
-import LinkIcon from '../linkIcon';
-import Icon from '../../icons/layout';
+} from 'react-aria-components'
+import { useRouter } from 'next/navigation'
+import LinkIcon from '../linkIcon'
+import Icon from '../../Icons/icon'
 
 export default function details() {
-	const router = useRouter();
+	const router = useRouter()
 	const technology = [
 		{ id: 1, icon: 'SharePoint', name: 'SharePoint', years: 9 },
 		{ id: 2, icon: 'Power Apps', name: 'Power Apps', years: 7 },
@@ -24,12 +24,12 @@ export default function details() {
 		{ id: 10, icon: 'SQL', name: 'SQL', years: 7 },
 		{ id: 11, icon: 'WIX', name: 'WIX', years: 7 },
 		{ id: 12, icon: 'Tailwind', name: 'Tailwind', years: 7 },
-	];
-	const projects = [];
+	]
+	const projects = []
 
 	const FilterProjects = (tech) => {
-		router.push('/Projects?tech=' + tech);
-	};
+		router.push('/Projects?tech=' + tech)
+	}
 	return (
 		<>
 			<Section className='pb-2 grid grid-cols-2 projects'>
@@ -45,7 +45,7 @@ export default function details() {
 							size='small'
 							label={item.name}
 						/>
-					);
+					)
 				})}
 			</Section>
 			<Separator className='mt-2' />
@@ -61,5 +61,5 @@ export default function details() {
 				</MenuItem>
 			</Section>
 		</>
-	);
+	)
 }

@@ -1,6 +1,6 @@
-import { Section, Separator, Header } from 'react-aria-components';
-import LinkIcon from '../linkIcon';
-import Icon from '../../icons/layout';
+import { Section, Separator, Header } from 'react-aria-components'
+import LinkIcon from '../linkIcon'
+import Icon from '../../Icons/icon'
 
 export default function details() {
 	return (
@@ -29,5 +29,5 @@ export default function details() {
 				<LinkIcon href='Reviews' label='Leave Review' icon='Reviews' />
 			</Section>
 		</>
-	);
+	)
 }

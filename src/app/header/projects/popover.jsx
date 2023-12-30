@@ -6,10 +6,10 @@ import {
 	Section,
 	Header,
 	Separator,
-} from 'react-aria-components';
-import LinkIcon from '../linkIcon';
-import Rating from '../../rating/layout';
-import Image from 'next/image';
+} from 'react-aria-components'
+import LinkIcon from '../linkIcon'
+import Rating from '../../Ratings/avgRating'
+import Image from 'next/image'
 
 export default function projectPopover({ projects, technology }) {
 	return (
@@ -42,7 +42,7 @@ export default function projectPopover({ projects, technology }) {
 								size='small'
 								label={item.name}
 							/>
-						);
+						)
 					})}
 				</Section>
 				<Separator className='mt-2' />
@@ -55,7 +55,9 @@ export default function projectPopover({ projects, technology }) {
 								width='40'
 								height='40'
 							/>
-							<Label className='text-neutral-600'>## Projects</Label>
+							<Label className='text-neutral-900 dark:text-neutral-600'>
+								## Projects
+							</Label>
 						</div>
 						<div>
 							<Header className='text-base not-italic font-semibold pb-2'>
@@ -72,5 +74,5 @@ export default function projectPopover({ projects, technology }) {
 				</Section>
 			</Menu>
 		</Popover>
-	);
+	)
 }

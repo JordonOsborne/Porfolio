@@ -1,4 +1,4 @@
-import Star from './star';
+import Star from './star'
 
 export default function layout({
 	className,
@@ -8,18 +8,18 @@ export default function layout({
 	commentCount,
 }) {
 	if (!rating) {
-		rating = 0;
+		rating = 0
 	}
 
 	const starType = (star) => {
 		if (rating - star >= 0.5) {
-			return 'full';
+			return 'full'
 		} else if (rating - star >= 0) {
-			return 'half';
+			return 'half'
 		} else {
-			return 'empty';
+			return 'empty'
 		}
-	};
+	}
 	return (
 		<div className='rating'>
 			<div className='flex items-center'>
@@ -30,12 +30,12 @@ export default function layout({
 				<Star className={className} size={size} type={starType(4)} />
 				<Star className={className} size={size} type={starType(5)} />
 				{rating && (
-					<span className='pl-2 text-xs text-neutral-600'>
+					<span className='pl-2 text-xs text-neutral-900 dark:text-neutral-600'>
 						{`(${reviewCount} Reviews)`}
 					</span>
 				)}
 			</div>
-			<div className='py-1 text-xs text-neutral-600'>{`${commentCount} Comments`}</div>
+			<div className='py-1 text-xs text-neutral-900 dark:text-neutral-600'>{`${commentCount} Comments`}</div>
 		</div>
-	);
+	)
 }
