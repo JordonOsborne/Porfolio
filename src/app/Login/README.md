@@ -58,4 +58,4 @@
 
 ### Authentication
 
-- [ ] Install Authentication using documented practice ([Firebase Documentation](https://firebase.google.com/docs/auth/web/start))
+- [x] Install Authentication using documented practice ([Firebase Documentation](https://firebase.google.com/docs/auth/web/start))

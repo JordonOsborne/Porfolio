@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const defaultTheme = require('tailwindcss/defaultTheme');
+const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
 	content: [
@@ -61,6 +61,7 @@ module.exports = {
 				mono: ['"Roboto Mono"', ...defaultTheme.fontFamily.mono],
 			},
 			fontSize: {
+				xxl: ['6rem', { lineHeight: '6.5rem' }],
 				xl: ['1.5rem', { lineHeight: '2rem' }],
 				lg: ['1.25rem', { lineHeight: '1.75rem' }],
 			},
@@ -70,4 +71,4 @@ module.exports = {
 		},
 	},
 	plugins: [],
-};
+}

@@ -159,7 +159,7 @@ Site anatomy refers to the layout and grid system for each device type. The grid
 <table>
 <tr><td>
 
-![#0C0C0C](/img/Anatomy.png)
+![Anatomy](/img/Anatomy.png)
 
 </td><td>
 
@@ -233,6 +233,9 @@ The building blocks to this project have been documented below for use in future
 #### App Design and Development
 
 - [x] Create and style the [Header](src/app/header.jsx) component
+- [x] Create Login page
+- [x] Create Icons page
+- [ ] Create _404 - Not Found_ Error page
 
 First, run the development server:
 
