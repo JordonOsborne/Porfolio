@@ -49,12 +49,21 @@ export const AuthProvider = ({ children }) => {
 	const LoginUser = async (credentials) => {
 		const { email, password } = credentials
 		const userAuth = await signInWithEmailAndPassword(auth, email, password)
-		const user = await getUserData(userAuth.currentUser.uid)
-		if (!user?.theme) {
-			setUser({ ...user, theme: 'Dark' })
-		} else {
-			setUser(user)
+		const dbUser = await getUserData(userAuth.user.uid)
+		const data = {
+			uid: userAuth.user.uid,
+			name: userAuth.user.displayName,
+			imageURL: userAuth.user.photoURL,
+			company: dbUser.company,
+			email: userAuth.user.email,
+			phone: dbUser.Phone,
+			firstName: dbUser.firstName,
+			lastName: dbUser.lastName,
+			theme: dbUser?.theme ? dbUser.theme : 'Dark',
+			created: dbUser.created,
+			isAdmin: dbUser?.isAdmin,
 		}
+		setUser(data)
 	}
 
 	// SWITCH USER'S THEME
@@ -112,7 +121,6 @@ export const AuthProvider = ({ children }) => {
 		try {
 			await signOut(auth)
 			setUser(null)
-			console.log('Successful Logout')
 		} catch (error) {
 			console.log('Error:', error.message)
 		}

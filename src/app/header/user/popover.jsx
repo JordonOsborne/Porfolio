@@ -14,7 +14,7 @@ import AuthContext from '../../../../context/auth'
 import { useContext } from 'react'
 
 export default function projectPopover() {
-	const { user, SwitchTheme } = useContext(AuthContext)
+	const { user, SwitchTheme, LogOut } = useContext(AuthContext)
 
 	return (
 		<Popover className='menu'>
@@ -41,16 +41,16 @@ export default function projectPopover() {
 				</div>
 			</Link>
 			<Menu>
-				<Section className='pl-2 grid grid-cols-2 gap-2'>
-					<Header className='col-span-2'>User Information</Header>
+				<Section className='pl-2 grid grid-cols-3 gap-2'>
+					<Header className='col-span-3'>User Information</Header>
 					<CompanyInfo />
-					<LinkIcon icon='edit profile' label='Edit Profile' />
 					<LinkIcon icon='change password' label='Change Password' />
 					<LinkIcon
 						action={SwitchTheme}
 						label={`Theme Preference (${user.theme})`}
 						icon='theme'
 					/>
+					<LinkIcon action={LogOut} label='Logout' icon='logout' />
 				</Section>
 				<Separator className='mt-2' />
 				<Section className='pl-2 grid grid-cols-3 gap-2'>

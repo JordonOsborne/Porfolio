@@ -24,7 +24,7 @@ export default function linkIcon({
 					className={
 						size < 30
 							? 'link-icon flex-row gap-2'
-							: 'link-icon flex-col max-w-[125px]'
+							: 'link-icon flex-col w-[125px]'
 					}
 				>
 					{src ? (
@@ -35,7 +35,7 @@ export default function linkIcon({
 					<Label
 						className={
 							size < 30
-								? 'pr-2 max-w-full truncate text-sm italic text-neutral-900 dark:text-neutral-600'
+								? 'pr-2 max-w-full truncate text-sm italic text-neutral-900 dark:text-neutral-600 flex-1'
 								: 'pt-2 text-center text-xs'
 						}
 					>
@@ -52,7 +52,7 @@ export default function linkIcon({
 				className={
 					size < 30
 						? 'link-icon flex-row gap-2'
-						: 'link-icon flex-col max-w-[125px]'
+						: 'link-icon flex-col w-[125px]'
 				}
 			>
 				{src ? (

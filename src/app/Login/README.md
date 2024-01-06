@@ -1,5 +1,7 @@
 # Login
 
+The login page is used primarily for clients and project reviewers. The base login option is **Email and Password** however three other options will be provided to the user _(Google, Windows, and Apple)._
+
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -12,6 +14,20 @@
 
 ## Conceptual Design
 
+<details>
+<summary>Desktop</summary>
+
+![Login](/img/Login.png)
+
+</details>
+
+<details>
+<summary>Mobile</summary>
+
+![Mobile Login](/img/LoginMobile.png)
+
+</details>
+
 ## Anatomy
 
 <table>
@@ -21,19 +37,20 @@
 
 </td><td>
 
-| Menu Section   | Panel | Details                                                      |
-| -------------- | :---: | ------------------------------------------------------------ |
-| Image          | Left  | Large visual representation of menu (i.e. Project Mock-up)   |
-| Visual Details | Left  | Title for visual image (i.e. Project Title or User Name)     |
-| Menu Header    | Right | Description or instructions for Top Links                    |
-| Top Links      | Right | Summary information or filters for menu (i.e. Technology)    |
-| Bottom Links   | Right | Large link icons that navigate to site pages (i.e. Projects) |
+| Section       | Panel  | Details                                                            |
+| ------------- | :----: | ------------------------------------------------------------------ |
+| Welcome       |  Top   | Welocme message that displays the user's name if logged in.        |
+| Email Form    |  Left  | Form for email and password login.                                 |
+| Separator     | Middle | Separator with 'OR' text.                                          |
+| Auth Provider | Right  | Three different options for authenticating using another provider. |
 
 </td></tr>
 </table>
 
 <details>
 <summary>Mobile Login</summary>
+
+The mobile login re-uses the same components as the desktop but lays them out vertically and removes the _separator_ section.
 
 <table>
 <tr><td>
@@ -42,20 +59,22 @@
 
 </td><td>
 
-| Menu Section | Panel  | Details                                                      |
-| ------------ | :----: | ------------------------------------------------------------ |
-| Menu Header  |  Top   | Description or instructions for Top Links                    |
-| Top Links    |  Top   | Summary information or filters for menu (i.e. Technology)    |
-| Bottom Links | Bottom | Large link icons that navigate to site pages (i.e. Projects) |
+| Section        | Panel  | Details                                                            |
+| -------------- | :----: | ------------------------------------------------------------------ |
+| Welcome        |  Top   | Welcome message that displays the user's name if logged in.        |
+| Email Form     |  Top   | Form for email and password login.                                 |
+| Auth Providers | Bottom | Three different options for authenticating using another provider. |
 
 </td></tr>
 </table>
 </details>
-
-## Properties
 
 ## Getting Started
 
 ### Authentication
 
 - [x] Install Authentication using documented practice ([Firebase Documentation](https://firebase.google.com/docs/auth/web/start))
+- [ ] Install other Authentication providers
+  - [ ] Google
+  - [ ] Windows
+  - [ ] Apple
