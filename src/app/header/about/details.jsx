@@ -1,6 +1,6 @@
-import { Section, Header, Separator } from 'react-aria-components';
-import LinkIcon from '../linkIcon';
-import ExperienceMeter from '../../experienceMeter/layout';
+import { Section, Header, Separator } from 'react-aria-components'
+import LinkIcon from '../linkIcon'
+import ExperienceMeter from '../../experienceMeter/layout'
 
 export default function details() {
 	const experience = [
@@ -34,13 +34,13 @@ export default function details() {
 			years: 1,
 			startDate: Date.parse('01/01/2023'),
 		},
-	];
+	]
 	return (
 		<>
 			<Section>
 				<Header className='px-4 pb-2'>Experience</Header>
 				{experience.map((item) => {
-					return <ExperienceMeter key={item.id} tech={item} />;
+					return <ExperienceMeter key={item.id} tech={item} />
 				})}
 			</Section>
 			<Separator className='mt-2' />
@@ -51,9 +51,9 @@ export default function details() {
 					href='https://www.linkedin.com/in/jordon-osborne/'
 					target='_blank'
 					label='LinkedIn'
-					icon='LinkedIn'
+					icon='linkedIn'
 				/>
 			</Section>
 		</>
-	);
+	)
 }

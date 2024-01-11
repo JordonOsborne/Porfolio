@@ -20,7 +20,7 @@ export default function userMenu() {
 					href='/Login'
 					className='border-l-2 pl-2 flex gap-1 items-center text-xs font-light'
 				>
-					<Icon icon='Login' size={30} />
+					<Icon name='login' size={30} />
 					Login
 				</Link>
 			</MenuTrigger>

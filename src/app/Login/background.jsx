@@ -9,7 +9,7 @@ export default function background() {
 				width='200'
 				height='200'
 				priority
-				className='opacity-0 md:opacity-20 transition-opacity duration-1000 rotate-45 absolute -left-12 top-1/3'
+				className='opacity-0 size-0 md:size-full md:opacity-20 transition duration-1000 rotate-45 absolute -left-12 top-1/3'
 			/>
 			<Image
 				src='/img/PowerAutomate.png'
@@ -17,7 +17,7 @@ export default function background() {
 				width='250'
 				height='250'
 				priority
-				className='opacity-0 md:opacity-20 transition-opacity duration-1000 -rotate-12 absolute left-1/3 bottom-24'
+				className='opacity-0 size-0 md:size-full md:opacity-20 transition duration-1000 -rotate-12 absolute left-1/3 bottom-24'
 			/>
 			<Image
 				src='/img/PowerApps.png'
@@ -25,7 +25,7 @@ export default function background() {
 				width='200'
 				height='200'
 				priority
-				className='opacity-0 lg:opacity-20 transition-opacity duration-1000 rotate-12 absolute left-2/3 bottom-64 lg:bottom-48'
+				className='opacity-0 size-0 lg:size-full lg:opacity-20 transition duration-1000 rotate-12 absolute left-2/3 bottom-64 lg:bottom-48'
 			/>
 			<Image
 				src='/img/SharePoint.png'

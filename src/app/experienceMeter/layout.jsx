@@ -38,7 +38,7 @@ export default function layout({ tech }) {
 				{({ percentage, valueText }) => (
 					<>
 						<Label className='meter-label'>
-							<Icon icon={tech.name} size='small' />
+							<Icon name={tech.icon} size='small' />
 							<span className='truncate'>{tech.name}</span>
 						</Label>
 						<div className='bar-group'>

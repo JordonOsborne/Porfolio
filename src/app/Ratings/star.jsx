@@ -6,10 +6,10 @@ export default function star({ className, size, type }) {
 	}
 	switch (type) {
 		case 'full':
-			return <Icon icon='star' size={size} className={className} />
+			return <Icon name='star' size={size} className={className} />
 		case 'half':
-			return <Icon icon='half-star' size={size} className={className} />
+			return <Icon name='half-star' size={size} className={className} />
 		default:
-			return <Icon icon='star' size={size} />
+			return <Icon name='star' size={size} className='fill-neutral-800' />
 	}
 }

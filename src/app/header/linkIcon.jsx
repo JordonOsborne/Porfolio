@@ -30,7 +30,7 @@ export default function linkIcon({
 					{src ? (
 						<Image src={src} alt={label} width={size} height={size} />
 					) : (
-						<Icon icon={icon} size={size} className='fill-current' />
+						<Icon name={icon} size={size} className='fill-current' />
 					)}
 					<Label
 						className={
@@ -58,7 +58,7 @@ export default function linkIcon({
 				{src ? (
 					<Image src={src} alt={label} width={size} height={size} />
 				) : (
-					<Icon icon={icon} size={size} className='fill-current' />
+					<Icon name={icon} size={size} className='fill-current' />
 				)}
 				<Label
 					className={

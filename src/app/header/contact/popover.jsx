@@ -27,11 +27,11 @@ export default function contactPopover() {
 				<Link href='/Contact'>
 					<h6>Jordon Osborne</h6>
 					<Link className='subtitle flex gap-2 pt-1'>
-						<Icon icon='phone' size='small' />
+						<Icon name='phone' size='small' />
 						<span>(423) 276-1041</span>
 					</Link>
 					<Link className='subtitle flex gap-2 pt-1'>
-						<Icon icon='email' size='small' />
+						<Icon name='email' size='small' />
 						<span>JordonOsborne@outlook.com</span>
 					</Link>
 				</Link>
@@ -52,9 +52,9 @@ export default function contactPopover() {
 					<LinkIcon
 						href='/Qualifications'
 						label='Skills Check'
-						icon='checklist'
+						icon='skillCheck'
 					/>
-					<LinkIcon href='Reviews' label='Leave Review' icon='Reviews' />
+					<LinkIcon href='Reviews' label='Leave Review' icon='reviews' />
 				</Section>
 			</Menu>
 		</Popover>

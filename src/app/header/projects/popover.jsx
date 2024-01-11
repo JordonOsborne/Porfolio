@@ -25,8 +25,8 @@ export default function projectPopover({ projects, technology }) {
 				</div>
 				<div>
 					<h6>JOsborne.dev Porfolio</h6>
-					<p className='subtitle'>Tech Stack: </p>
-					<p className='subtitle'>Date Completed: </p>
+					<p className='subtitle pt-1'>Tech Stack: </p>
+					<p className='subtitle pt-1'>Date Completed: </p>
 				</div>
 			</div>
 			<Menu>
@@ -38,7 +38,7 @@ export default function projectPopover({ projects, technology }) {
 						return (
 							<LinkIcon
 								key={item.id}
-								icon={item.name}
+								icon={item.icon}
 								size='small'
 								label={item.name}
 							/>

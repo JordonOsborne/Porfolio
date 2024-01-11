@@ -31,20 +31,20 @@ export default function projectPopover() {
 				<div>
 					<h6>{user.name}</h6>
 					<div className='subtitle flex gap-2 pt-1'>
-						<Icon icon='phone' size='small' />
+						<Icon name='phone' size='small' />
 						<span>{user?.phone}</span>
 					</div>
 					<div className='subtitle flex gap-2 pt-1'>
-						<Icon icon='email' size='small' />
+						<Icon name='email' size='small' />
 						<span>{user?.email}</span>
 					</div>
 				</div>
 			</Link>
-			<Menu>
+			<Menu className='flex flex-col justify-between'>
 				<Section className='pl-2 grid grid-cols-3 gap-2'>
 					<Header className='col-span-3'>User Information</Header>
 					<CompanyInfo />
-					<LinkIcon icon='change password' label='Change Password' />
+					<LinkIcon icon='password' label='Change Password' />
 					<LinkIcon
 						action={SwitchTheme}
 						label={`Theme Preference (${user.theme})`}
@@ -54,8 +54,8 @@ export default function projectPopover() {
 				</Section>
 				<Separator className='mt-2' />
 				<Section className='pl-2 grid grid-cols-3 gap-2'>
-					<LinkIcon icon='quotes' label='Requested Quotes' />
-					<LinkIcon icon='skill check' label='Skills Check' />
+					<LinkIcon icon='quote' label='Requested Quotes' />
+					<LinkIcon icon='skillCheck' label='Skills Check' />
 					<LinkIcon icon='reviews' label='My Reviews' />
 				</Section>
 			</Menu>

@@ -5,10 +5,10 @@ import {
 	Header,
 	Link,
 	Separator,
-} from 'react-aria-components';
-import LinkIcon from '../linkIcon';
-import ExperienceMeter from '../../experienceMeter/layout';
-import Image from 'next/image';
+} from 'react-aria-components'
+import LinkIcon from '../linkIcon'
+import ExperienceMeter from '../../experienceMeter/layout'
+import Image from 'next/image'
 
 export default function aboutPopover({ experience }) {
 	return (
@@ -25,29 +25,29 @@ export default function aboutPopover({ experience }) {
 				</div>
 				<Link href='/about'>
 					<h6>Jordon Osborne</h6>
-					<p className='subtitle'>SharePoint/Power Apps Developer</p>
-					<p className='subtitle'>Eastman Chemical Company</p>
+					<p className='subtitle pt-1'>SharePoint/Power Apps Developer</p>
+					<p className='subtitle pt-1'>Eastman Chemical Company</p>
 				</Link>
 			</div>
 			<Menu>
 				<Section className='pl-2'>
 					<Header className='pb-2'>Experience</Header>
 					{experience.map((item) => {
-						return <ExperienceMeter key={item.id} tech={item} />;
+						return <ExperienceMeter key={item.id} tech={item} />
 					})}
 				</Section>
 				<Separator className='mt-2' />
 				<Section className='links'>
-					<LinkIcon href='/About' label='Online Resume' icon='Resume' />
-					<LinkIcon href='/About' label='Resume PDF' icon='PDF' />
+					<LinkIcon href='/About' label='Online Resume' icon='resume' />
+					<LinkIcon href='/About' label='Resume PDF' icon='pdf' />
 					<LinkIcon
 						href='https://www.linkedin.com/in/jordon-osborne/'
 						label='LinkedIn'
-						icon='LinkedIn'
+						icon='linkedIn'
 						target='_blank'
 					/>
 				</Section>
 			</Menu>
 		</Popover>
-	);
+	)
 }

@@ -20,13 +20,13 @@ export default function details() {
 			</Section>
 			<Separator className='mt-2' />
 			<Section className='links'>
-				<LinkIcon href='/Quote' label='Online Quotes' icon='quote' />
+				<LinkIcon href='/Quote' label='Quotes' icon='quote' />
 				<LinkIcon
 					href='/Qualifications'
-					label='Check Qualifications'
-					icon='checklist'
+					label='Skills Check'
+					icon='skillCheck'
 				/>
-				<LinkIcon href='Reviews' label='Leave Review' icon='Reviews' />
+				<LinkIcon href='Reviews' label='Reviews' icon='reviews' />
 			</Section>
 		</>
 	)
