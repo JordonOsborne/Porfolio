@@ -27,11 +27,11 @@ export default function contactPopover() {
 				<Link href='/Contact'>
 					<h6>Jordon Osborne</h6>
 					<Link className='subtitle flex gap-2 pt-1'>
-						<Icon name='phone' size='small' />
+						<Icon name='phone' size='sm' />
 						<span>(423) 276-1041</span>
 					</Link>
 					<Link className='subtitle flex gap-2 pt-1'>
-						<Icon name='email' size='small' />
+						<Icon name='email' size='sm' />
 						<span>JordonOsborne@outlook.com</span>
 					</Link>
 				</Link>

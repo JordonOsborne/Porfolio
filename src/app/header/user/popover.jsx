@@ -31,11 +31,11 @@ export default function projectPopover() {
 				<div>
 					<h6>{user.name}</h6>
 					<div className='subtitle flex gap-2 pt-1'>
-						<Icon name='phone' size='small' />
+						<Icon name='phone' size='sm' />
 						<span>{user?.phone}</span>
 					</div>
 					<div className='subtitle flex gap-2 pt-1'>
-						<Icon name='email' size='small' />
+						<Icon name='email' size='sm' />
 						<span>{user?.email}</span>
 					</div>
 				</div>

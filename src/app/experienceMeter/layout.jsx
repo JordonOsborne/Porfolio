@@ -22,6 +22,14 @@ export default function layout({ tech }) {
 		return Math.round((years + Number.EPSILON) * 100) / 100
 	}
 
+	const getLabel = (years) => {
+		if (years == 1) {
+			return '1 year'
+		} else {
+			return years + ' years'
+		}
+	}
+
 	const getTotalYearsDeveloping = () => {
 		const startDate = Date.parse('03/01/2014')
 		let years = (new Date() - startDate) / getTimeUnitDivisor('years')
@@ -29,16 +37,21 @@ export default function layout({ tech }) {
 	}
 
 	return (
-		<MenuItem id={tech.name}>
+		<MenuItem id={tech.name} className='experience-meter'>
 			<Meter
+				className='progress-bar'
 				value={getYearsExperience()}
-				valueLabel={Math.round(getYearsExperience()) + ' years'}
+				valueLabel={getLabel(Math.round(getYearsExperience()))}
 				maxValue={getTotalYearsDeveloping()}
 			>
 				{({ percentage, valueText }) => (
 					<>
 						<Label className='meter-label'>
-							<Icon name={tech.icon} size='small' />
+							<Icon
+								name={tech.icon}
+								size='sm'
+								className='fill-dark dark:fill-light'
+							/>
 							<span className='truncate'>{tech.name}</span>
 						</Label>
 						<div className='bar-group'>

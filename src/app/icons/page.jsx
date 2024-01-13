@@ -4,6 +4,7 @@ import Icon from './icon'
 import Modal from './modal'
 import SearchBar from './searchBar'
 import AuthContext from '../../../context/auth'
+import { AlphaSort } from '../../../utilities/sort'
 import { IconSearch } from '../header/SearchBar'
 import { useSearchParams } from 'next/navigation'
 import { useContext, useState, useRef, useEffect } from 'react'
@@ -39,6 +40,7 @@ export default function Icons() {
 	if (q) {
 		Icons = IconSearch(Icons, q)
 	}
+	Icons = AlphaSort(Icons, 'name')
 
 	const Openmodal = (icon) => {
 		setIcon(icon)
@@ -74,10 +76,10 @@ export default function Icons() {
 						>
 							<Icon
 								name={icon.name}
-								size='large'
+								size='lg'
 								className='fill-dark dark:fill-light'
 							/>
-							<label className='capitalize italic font-thin'>
+							<label className='capitalize italic font-light'>
 								{icon.title}
 							</label>
 						</div>

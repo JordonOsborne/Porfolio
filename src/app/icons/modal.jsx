@@ -12,7 +12,7 @@ export default function modal({ icon, close, isLastItem }) {
 					onClick={() => close()}
 				/>
 			</div>
-			<Icon name={icon?.name} size='x-large' />
+			<Icon name={icon?.name} size='xl' />
 			<div className='p-2 flex gap-2 w-full'>
 				<label className='font-semibold'>Pages:</label>
 				<div className='flex gap-2 flex-wrap'>

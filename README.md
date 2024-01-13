@@ -65,13 +65,13 @@ _#367CFF_
 
 ![#367CFF](https://placehold.co/350x50/367CFF/367CFF.png)
 
-| Shades                                                   | Variable    |   Hex   |        RGB        |
-| -------------------------------------------------------- | ----------- | :-----: | :---------------: |
-| ![#1B3E7F](https://placehold.co/15x15/1B3E7F/1B3E7F.png) | primary-900 | #1B3E7F | rgb(27, 62 ,127)  |
-| ![#2556B2](https://placehold.co/15x15/2556B2/2556B2.png) | primary-800 | #2556B2 | rgb( 37, 86, 178) |
-| ![#86B0FF](https://placehold.co/15x15/86B0FF/86B0FF.png) | primary-700 | #86B0FF |        ---        |
-| ![#AECAFF](https://placehold.co/15x15/AECAFF/AECAFF.png) | primary-600 | #AECAFF |        ---        |
-| ![#D6E4FF](https://placehold.co/15x15/D6E4FF/D6E4FF.png) | primary-500 | #D6E4FF |        ---        |
+| Shades                                                   | Variable    |   Hex   |
+| -------------------------------------------------------- | ----------- | :-----: |
+| ![#1B3E7F](https://placehold.co/15x15/1B3E7F/1B3E7F.png) | primary-900 | #1B3E7F |
+| ![#2556B2](https://placehold.co/15x15/2556B2/2556B2.png) | primary-800 | #2556B2 |
+| ![#86B0FF](https://placehold.co/15x15/86B0FF/86B0FF.png) | primary-700 | #86B0FF |
+| ![#AECAFF](https://placehold.co/15x15/AECAFF/AECAFF.png) | primary-600 | #AECAFF |
+| ![#D6E4FF](https://placehold.co/15x15/D6E4FF/D6E4FF.png) | primary-500 | #D6E4FF |
 
 </td><td>
 
@@ -81,13 +81,13 @@ _#EA394A_
 
 ![#EA394A](https://placehold.co/350x50/EA394A/EA394A.png)
 
-| Shades                                                   | Variable      |   Hex   | RGB |
-| -------------------------------------------------------- | ------------- | :-----: | :-: |
-| ![#A32733](https://placehold.co/15x15/A32733/A32733.png) | secondary-900 | #A32733 | --- |
-| ![#D23342](https://placehold.co/15x15/D23342/D23342.png) | secondary-800 | #D23342 | --- |
-| ![#EC4C5C](https://placehold.co/15x15/EC4C5C/EC4C5C.png) | secondary-700 | #EC4C5C | --- |
-| ![#F07480](https://placehold.co/15x15/F07480/F07480.png) | secondary-600 | #F07480 | --- |
-| ![#F8C3C8](https://placehold.co/15x15/F8C3C8/F8C3C8.png) | secondary-500 | #F8C3C8 | --- |
+| Shades                                                   | Variable      |   Hex   |
+| -------------------------------------------------------- | ------------- | :-----: |
+| ![#A32733](https://placehold.co/15x15/A32733/A32733.png) | secondary-900 | #A32733 |
+| ![#D23342](https://placehold.co/15x15/D23342/D23342.png) | secondary-800 | #D23342 |
+| ![#EC4C5C](https://placehold.co/15x15/EC4C5C/EC4C5C.png) | secondary-700 | #EC4C5C |
+| ![#F07480](https://placehold.co/15x15/F07480/F07480.png) | secondary-600 | #F07480 |
+| ![#F8C3C8](https://placehold.co/15x15/F8C3C8/F8C3C8.png) | secondary-500 | #F8C3C8 |
 
 </td></tr>
 <tr><th>
@@ -101,25 +101,25 @@ _#EA394A_
 </th></tr>
 <tr><td>
 
-|                                                          | Variable    |   Hex   | RGB |
-| -------------------------------------------------------- | ----------- | :-----: | :-: |
-| ![#FCFCFC](https://placehold.co/15x15/FCFCFC/FCFCFC.png) | light       | #FCFCFC | --- |
-| ![#CECECE](https://placehold.co/15x15/CECECE/CECECE.png) | neutral-600 | #CECECE | --- |
-| ![#9D9D9D](https://placehold.co/15x15/9D9D9D/9D9D9D.png) | neutral-700 | #9D9D9D | --- |
-| ![#6D6D6D](https://placehold.co/15x15/6D6D6D/6D6D6D.png) | neutral-800 | #6D6D6D | --- |
-| ![#3D3D3D](https://placehold.co/15x15/D3D3D/D3D3D.png)   | neutral-900 | #3D3D3D | --- |
-| ![#0C0C0C](https://placehold.co/15x15/0C0C0C/0C0C0C.png) | dark        | #0C0C0C | --- |
+|                                                          | Variable    |   Hex   |
+| -------------------------------------------------------- | ----------- | :-----: |
+| ![#FCFCFC](https://placehold.co/15x15/FCFCFC/FCFCFC.png) | light       | #FCFCFC |
+| ![#CECECE](https://placehold.co/15x15/CECECE/CECECE.png) | neutral-600 | #CECECE |
+| ![#9D9D9D](https://placehold.co/15x15/9D9D9D/9D9D9D.png) | neutral-700 | #9D9D9D |
+| ![#6D6D6D](https://placehold.co/15x15/6D6D6D/6D6D6D.png) | neutral-800 | #6D6D6D |
+| ![#3D3D3D](https://placehold.co/15x15/D3D3D/D3D3D.png)   | neutral-900 | #3D3D3D |
+| ![#0C0C0C](https://placehold.co/15x15/0C0C0C/0C0C0C.png) | dark        | #0C0C0C |
 
 </td><td>
 
-|                                                          | Variable    |   Hex   | RGB |
-| -------------------------------------------------------- | ----------- | :-----: | :-: |
-| ![#2556B2](https://placehold.co/15x15/2556B2/2556B2.png) | info        | #2556B2 | --- |
-| ![#2F9524](https://placehold.co/15x15/2F9524/2F9524.png) | success     | #2F9524 | --- |
-| ![#FFCC33](https://placehold.co/15x15/FFCC33/FFCC33.png) | warning     | #FFCC33 | --- |
-| ![#95242F](https://placehold.co/15x15/95242F/95242F.png) | error       | #95242F | --- |
-| ![#D8D8D8](https://placehold.co/15x15/D8D8D8/D8D8D8.png) | disabled    | #D8D8D8 | --- |
-| ![#AECAFF](https://placehold.co/15x15/AECAFF/AECAFF.png) | disabledBtn | #AECAFF | --- |
+|                                                          | Variable    |   Hex   |
+| -------------------------------------------------------- | ----------- | :-----: |
+| ![#2556B2](https://placehold.co/15x15/2556B2/2556B2.png) | info        | #2556B2 |
+| ![#2F9524](https://placehold.co/15x15/2F9524/2F9524.png) | success     | #2F9524 |
+| ![#FFCC33](https://placehold.co/15x15/FFCC33/FFCC33.png) | warning     | #FFCC33 |
+| ![#95242F](https://placehold.co/15x15/95242F/95242F.png) | error       | #95242F |
+| ![#D8D8D8](https://placehold.co/15x15/D8D8D8/D8D8D8.png) | disabled    | #D8D8D8 |
+| ![#AECAFF](https://placehold.co/15x15/AECAFF/AECAFF.png) | disabledBtn | #AECAFF |
 
 </td></tr>
 </table>
@@ -131,23 +131,23 @@ _#EA394A_
 <table>
 <tr><td>
 
-|           | HTML Tag | Font Size | Font Weight |
-| --------- | :------: | :-------: | :---------: |
-| Heading 1 |    h1    |   48px    |   Normal    |
-| Heading 2 |    h2    |   36px    |   Normal    |
-| Heading 3 |    h3    |   30px    |   Normal    |
-| Heading 4 |    h4    |   24px    |    Bold     |
-| Heading 5 |    h5    |   20px    |    Bold     |
+|           | HTML | Size | Weight |
+| --------- | :--: | :--: | :----: |
+| Heading 1 |  h1  | 48px | Normal |
+| Heading 2 |  h2  | 36px | Normal |
+| Heading 3 |  h3  | 30px | Normal |
+| Heading 4 |  h4  | 24px |  Bold  |
+| Heading 5 |  h5  | 20px |  Bold  |
 
 </td><td>
 
-|              | Variable | Font Size | Font Weight |
-| ------------ | :------: | :-------: | :---------: |
-| Body X-Large |    xl    |   24px    |   Normal    |
-| Body Large   |    lg    |   20px    |   Normal    |
-| Body Medium  |   base   |   16px    |   Normal    |
-| Body Small   |    sm    |   14px    |   Normal    |
-| Body X-Small |    xs    |   12px    |   Normal    |
+| Body    | Variable | Size | Weight |
+| ------- | :------: | :--: | :----: |
+| X-Large |    xl    | 24px | Normal |
+| Large   |    lg    | 20px | Normal |
+| Medium  |   base   | 16px | Normal |
+| Small   |    sm    | 14px | Normal |
+| X-Small |    xs    | 12px | Normal |
 
 </td></tr>
 </table>
@@ -235,7 +235,10 @@ The building blocks to this project have been documented below for use in future
 - [x] Create and style the [Header](src/app/header.jsx) component
 - [x] Create Login page
 - [x] Create Icons page
-- [ ] Create _404 - Not Found_ Error page
+- [x] Create _404 - Not Found_ Error page
+- [x] Create _Error Page_
+- [x] Create _Icons Page_
+- [ ] Create _Users Page_
 
 First, run the development server:
 

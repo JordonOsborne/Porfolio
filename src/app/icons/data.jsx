@@ -26,6 +26,18 @@ export default function IconData() {
 			components: UIComponents,
 		},
 		{
+			title: 'Search',
+			name: 'search',
+			type: 'UI',
+			pages: ['Icons'],
+			components: [
+				{
+					name: 'Search Bar',
+					href: 'https://github.com/JordonOsborne/Porfolio/blob/Next-14/src/app/header/SearchBar.jsx',
+				},
+			],
+		},
+		{
 			title: 'Star',
 			name: 'star',
 			type: 'UI',
@@ -137,12 +149,6 @@ export default function IconData() {
 			components: LogoComponents,
 		},
 		{
-			title: 'Resume',
-			name: 'resume',
-			type: 'Navigation',
-			pages: ['About'],
-		},
-		{
 			title: 'PDF',
 			name: 'pdf',
 			type: 'Navigation',
@@ -231,6 +237,61 @@ export default function IconData() {
 			name: 'logout',
 			type: 'Navigation',
 			pages: ['User'],
+		},
+		{
+			title: 'Home',
+			name: 'home',
+			type: 'Navigation',
+			components: [
+				{
+					name: 'Mobile Menu',
+					href: 'https://github.com/JordonOsborne/Porfolio/blob/Next-14/src/app/header/mobileMenu.jsx',
+				},
+			],
+		},
+		{
+			title: 'About',
+			name: 'about',
+			type: 'Navigation',
+			components: [
+				{
+					name: 'Mobile Menu',
+					href: 'https://github.com/JordonOsborne/Porfolio/blob/Next-14/src/app/header/mobileMenu.jsx',
+				},
+			],
+		},
+		{
+			title: 'Projects',
+			name: 'projects',
+			type: 'Navigation',
+			components: [
+				{
+					name: 'Mobile Menu',
+					href: 'https://github.com/JordonOsborne/Porfolio/blob/Next-14/src/app/header/mobileMenu.jsx',
+				},
+			],
+		},
+		{
+			title: 'Contact',
+			name: 'contact',
+			type: 'Navigation',
+			components: [
+				{
+					name: 'Mobile Menu',
+					href: 'https://github.com/JordonOsborne/Porfolio/blob/Next-14/src/app/header/mobileMenu.jsx',
+				},
+			],
+		},
+		{
+			title: 'Expand',
+			name: 'expand',
+			type: 'Navigation',
+			components: [
+				{
+					name: 'Mobile Menu',
+					href: 'https://github.com/JordonOsborne/Porfolio/blob/Next-14/src/app/header/mobileMenu.jsx',
+				},
+			],
 		},
 	]
 }

@@ -17,19 +17,19 @@ export default function details() {
 					<Header className='pl-8 h-auto gap-1 flex-col items-start col-span-3 justify-self-start'>
 						<h4 className='text-base'>{user.name}</h4>
 						<span className='flex gap-2 text-sm italic dark:text-neutral-600 text-neutral-900'>
-							<Icon icon='phone' size='small' />
+							<Icon name='phone' size='sm' />
 							{user.phone}
 						</span>
 						<span className='flex gap-2 text-sm italic dark:text-neutral-600 text-neutral-900'>
-							<Icon icon='email' size='small' />
+							<Icon name='email' size='sm' />
 							{user.email}
 						</span>
 					</Header>
 				</Section>
 				<Separator className='mt-2' />
 				<Section className='links'>
-					<LinkIcon label='Update Info' icon='user info' />
-					<LinkIcon label='Change Password' icon='update password' />
+					<LinkIcon label='Update Info' icon='profile' />
+					<LinkIcon label='Change Password' icon='password' />
 					<LinkIcon
 						action={SwitchTheme}
 						label={`Theme (${user?.theme})`}
@@ -38,7 +38,7 @@ export default function details() {
 				</Section>
 				<Section className='px-6 py-2 text-base'>
 					<Header className='flex gap-2 justify-start' onClick={() => LogOut()}>
-						<Icon icon='log out' />
+						<Icon name='logout' />
 						<span>Log Out</span>
 					</Header>
 				</Section>

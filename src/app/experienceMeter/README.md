@@ -53,7 +53,7 @@ The majority of the properties for this component are inheritted from the React 
 
 To use this component throughout the application follow these simple steps:
 
-- Import the module into the component you wan to use it in
+- Import the module into the component you want to use it in
 - Use the React component format and include the **tech** property as an object with the following keys:
   - **name** - The name of the technology
     - _(Example: SharePoint)_
@@ -64,5 +64,15 @@ To use this component throughout the application follow these simple steps:
 ```jsx
 import ExperienceMeter from '../experienceMeter/layout';
 
-<ExperienceMeter tech={tech} />;
+export default TheComponent() {
+  const tech = {
+    name: 'Example'
+    startDate: Date.Parse('1/1/2016')
+  }
+
+  return (
+    // Other page components and html . . .
+    <ExperienceMeter tech={tech} />
+  )
+}
 ```

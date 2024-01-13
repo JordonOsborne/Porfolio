@@ -23,20 +23,24 @@ export default function linkIcon({
 					onPressStart={() => action()}
 					className={
 						size < 30
-							? 'link-icon flex-row gap-2'
-							: 'link-icon flex-col w-[125px]'
+							? 'group link-icon flex-row gap-2 hover:text-primary-800 dark:hover:text-primary-700'
+							: 'group link-icon flex-col w-[125px]'
 					}
 				>
 					{src ? (
 						<Image src={src} alt={label} width={size} height={size} />
 					) : (
-						<Icon name={icon} size={size} className='fill-current' />
+						<Icon
+							name={icon}
+							size={size}
+							className='fill-current group-hover:fill-primary-800 dark:group-hover:fill-primary-700'
+						/>
 					)}
 					<Label
 						className={
 							size < 30
-								? 'pr-2 max-w-full truncate text-sm italic text-neutral-900 dark:text-neutral-600 flex-1'
-								: 'pt-2 text-center text-xs'
+								? 'pr-2 max-w-full truncate text-sm italic text-neutral-900 dark:text-neutral-600 group-hover:text-primary-800 dark:group-hover:text-primary-700 flex-1'
+								: 'pt-2 text-center text-xs group-hover:text-primary-800 dark:group-hover:text-primary-700'
 						}
 					>
 						{label}
@@ -51,20 +55,24 @@ export default function linkIcon({
 				target={target}
 				className={
 					size < 30
-						? 'link-icon flex-row gap-2'
-						: 'link-icon flex-col w-[125px]'
+						? 'group link-icon flex-row gap-2 hover:text-primary-800 dark:hover:text-primary-700'
+						: 'group link-icon flex-col w-[125px] hover:text-primary-800 dark:hover:text-primary-700'
 				}
 			>
 				{src ? (
 					<Image src={src} alt={label} width={size} height={size} />
 				) : (
-					<Icon name={icon} size={size} className='fill-current' />
+					<Icon
+						name={icon}
+						size={size}
+						className='group-hover:fill-primary-800 dark:group-hover:fill-primary-700'
+					/>
 				)}
 				<Label
 					className={
 						size < 30
-							? 'pr-2 max-w-full truncate text-sm italic text-neutral-900 dark:text-neutral-600'
-							: 'pt-2 text-center text-xs'
+							? 'pr-2 max-w-full truncate text-sm italic text-neutral-900 dark:text-neutral-600 group-hover:text-primary-800 dark:group-hover:text-primary-700'
+							: 'pt-2 text-center text-xs group-hover:text-primary-800 dark:group-hover:text-primary-700'
 					}
 				>
 					{label}

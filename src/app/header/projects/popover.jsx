@@ -7,6 +7,7 @@ import {
 	Header,
 	Separator,
 } from 'react-aria-components'
+import Icon from '../../Icons/icon'
 import LinkIcon from '../linkIcon'
 import Rating from '../../Ratings/avgRating'
 import Image from 'next/image'
@@ -39,7 +40,7 @@ export default function projectPopover({ projects, technology }) {
 							<LinkIcon
 								key={item.id}
 								icon={item.icon}
-								size='small'
+								size='sm'
 								label={item.name}
 							/>
 						)
@@ -47,15 +48,10 @@ export default function projectPopover({ projects, technology }) {
 				</Section>
 				<Separator className='mt-2' />
 				<Section>
-					<MenuItem href='/Projects' className='p-2 gap-4'>
+					<MenuItem href='/Projects' className='group p-2 gap-4'>
 						<div className='flex flex-col items-center gap-2'>
-							<Image
-								src='/img/MockUp.png'
-								alt='Project Icon'
-								width='40'
-								height='40'
-							/>
-							<Label className='text-neutral-900 dark:text-neutral-600'>
+							<Icon name='projects' />
+							<Label className='text-neutral-900 dark:text-neutral-600 group-hover:text-primary-800 dark:group-hover:text-primary-700'>
 								## Projects
 							</Label>
 						</div>
@@ -63,12 +59,7 @@ export default function projectPopover({ projects, technology }) {
 							<Header className='text-base not-italic font-semibold pb-2'>
 								Full Porfolio
 							</Header>
-							<Rating
-								size='small'
-								rating={3}
-								reviewCount={3}
-								commentCount={2}
-							/>
+							<Rating size='sm' rating={3} reviewCount={3} commentCount={2} />
 						</div>
 					</MenuItem>
 				</Section>

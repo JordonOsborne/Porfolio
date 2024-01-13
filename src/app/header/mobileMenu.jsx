@@ -47,17 +47,17 @@ function mobileMenu() {
 				<Menu aria-label='Navigation' className='focus:outline-none'>
 					<MenuItem id='Home' className={isActive('')}>
 						<Link href='/'>
-							<Icon icon='Home' />
+							<Icon name='home' />
 							<span>Home</span>
 						</Link>
 					</MenuItem>
 					<MenuItem id='About' className={isActive('About')}>
 						<Link href='/About'>
-							<Icon icon='About' />
+							<Icon name='about' />
 							<span>About</span>
 						</Link>
 						<Icon
-							icon='ChevronUp'
+							name='expand'
 							className='fill-current'
 							onClick={() => toggleMenu('About')}
 						/>
@@ -65,11 +65,11 @@ function mobileMenu() {
 					{expanded == 'About' && <AboutDetails />}
 					<MenuItem id='Projects' className={isActive('Projects')}>
 						<Link href='/Projects'>
-							<Icon icon='Projects' />
+							<Icon name='projects' />
 							<span>Projects</span>
 						</Link>
 						<Icon
-							icon='ChevronUp'
+							name='expand'
 							className='fill-current'
 							onClick={() => toggleMenu('Projects')}
 						/>
@@ -77,11 +77,11 @@ function mobileMenu() {
 					{expanded == 'Projects' && <ProjectsDetails />}
 					<MenuItem id='Contact' className={isActive('Contact')}>
 						<Link href='/Contact'>
-							<Icon icon='Contact' />
+							<Icon name='contact' />
 							<span>Contact</span>
 						</Link>
 						<Icon
-							icon='ChevronUp'
+							name='expand'
 							className='fill-current'
 							onClick={() => toggleMenu('Contact')}
 						/>
@@ -101,12 +101,12 @@ function mobileMenu() {
 							</Link>
 						) : (
 							<Link href='/Login'>
-								<Icon icon='login' />
+								<Icon name='login' />
 								<span>Login</span>
 							</Link>
 						)}
 						<Icon
-							icon='ChevronUp'
+							name='expand'
 							className='fill-current'
 							onClick={() => toggleMenu('User')}
 						/>

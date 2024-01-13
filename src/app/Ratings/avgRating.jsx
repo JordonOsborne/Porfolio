@@ -30,12 +30,10 @@ export default function layout({
 				<Star className={className} size={size} type={starType(4)} />
 				<Star className={className} size={size} type={starType(5)} />
 				{rating && (
-					<span className='pl-2 text-xs text-neutral-900 dark:text-neutral-600'>
-						{`(${reviewCount} Reviews)`}
-					</span>
+					<span className='pl-2 text-xs text-neutral-900 dark:text-neutral-600 group-hover:text-primary-800 dark:group-hover:text-primary-700'>{`(${reviewCount} Reviews)`}</span>
 				)}
 			</div>
-			<div className='py-1 text-xs text-neutral-900 dark:text-neutral-600'>{`${commentCount} Comments`}</div>
+			<div className='py-1 text-xs text-neutral-900 dark:text-neutral-600 group-hover:text-primary-800 dark:group-hover:text-primary-700'>{`${commentCount} Comments`}</div>
 		</div>
 	)
 }
