@@ -18,7 +18,7 @@ export default function projectPopover() {
 
 	return (
 		<Popover className='menu'>
-			<Link href='/User' className='visual'>
+			<Link href='/Users/Me' className='visual'>
 				<div className='container'>
 					<Image
 						src={user?.imageUrl ? user?.imageUrl : '/img/Avatar.png'}

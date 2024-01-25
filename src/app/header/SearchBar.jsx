@@ -45,3 +45,15 @@ export function IconSearch(icons, q) {
 	const matches = icons.filter((icon) => icon.name.includes(q))
 	return matches
 }
+
+export function UserSearch(users, q) {
+	const matches = users.filter((user) => {
+		q = q.toLowerCase()
+		const isMatch =
+			user?.FirstName.toLowerCase().includes(q) ||
+			user?.LastName.toLowerCase().includes(q) ||
+			user?.Email.toLowerCase().includes(q)
+		return isMatch
+	})
+	return matches
+}

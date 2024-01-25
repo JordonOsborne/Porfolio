@@ -1,37 +1,18 @@
-import Star from './star'
+import Rating from './rating'
 
-export default function layout({
+export default function AvgRating({
 	className,
 	size,
 	rating,
 	reviewCount,
 	commentCount,
 }) {
-	if (!rating) {
-		rating = 0
-	}
-
-	const starType = (star) => {
-		if (rating - star >= 0.5) {
-			return 'full'
-		} else if (rating - star >= 0) {
-			return 'half'
-		} else {
-			return 'empty'
-		}
-	}
 	return (
 		<div className='rating'>
 			<div className='flex items-center'>
 				<label>Rating:</label>
-				<Star className={className} size={size} type={starType(1)} />
-				<Star className={className} size={size} type={starType(2)} />
-				<Star className={className} size={size} type={starType(3)} />
-				<Star className={className} size={size} type={starType(4)} />
-				<Star className={className} size={size} type={starType(5)} />
-				{rating && (
-					<span className='pl-2 text-xs text-neutral-900 dark:text-neutral-600 group-hover:text-primary-800 dark:group-hover:text-primary-700'>{`(${reviewCount} Reviews)`}</span>
-				)}
+				<Rating rating={rating} fillClass={className} size={size} />
+				<span className='pl-2 text-xs text-neutral-900 dark:text-neutral-600 group-hover:text-primary-800 dark:group-hover:text-primary-700'>{`(${reviewCount} Reviews)`}</span>
 			</div>
 			<div className='py-1 text-xs text-neutral-900 dark:text-neutral-600 group-hover:text-primary-800 dark:group-hover:text-primary-700'>{`${commentCount} Comments`}</div>
 		</div>

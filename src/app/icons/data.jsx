@@ -38,6 +38,20 @@ export default function IconData() {
 			],
 		},
 		{
+			title: 'Edit',
+			name: 'edit',
+			type: 'UI',
+			pages: ['Projects', 'Forms'],
+			components: UIComponents,
+		},
+		{
+			title: 'Save',
+			name: 'save',
+			type: 'UI',
+			pages: ['Projects', 'Forms'],
+			components: UIComponents,
+		},
+		{
 			title: 'Star',
 			name: 'star',
 			type: 'UI',

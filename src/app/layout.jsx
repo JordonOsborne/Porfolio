@@ -1,5 +1,6 @@
 import { Roboto_Mono } from 'next/font/google'
 import { AuthProvider } from '../../context/auth'
+import { DataProvider } from '../../context/data'
 import Header from './header/layout'
 import './globals.css'
 
@@ -14,12 +15,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
 	return (
 		<AuthProvider>
-			<html lang='en' data-mode='dark' className={RobotoMono.className}>
-				<body className='px-gutter dark:bg-dark dark:text-light overflow-x-hidden'>
-					<Header />
-					{children}
-				</body>
-			</html>
+			<DataProvider>
+				<html lang='en' data-mode='dark' className={RobotoMono.className}>
+					<body className='px-gutter dark:bg-dark dark:text-light overflow-x-hidden'>
+						<Header />
+						{children}
+					</body>
+				</html>
+			</DataProvider>
 		</AuthProvider>
 	)
 }

@@ -65,6 +65,9 @@ module.exports = {
 				xl: ['1.5rem', { lineHeight: '2rem' }],
 				lg: ['1.25rem', { lineHeight: '1.75rem' }],
 			},
+			maxHeight: {
+				modal: '80vh',
+			},
 			padding: {
 				gutter: '30px',
 			},
