@@ -10,7 +10,7 @@ import LinkIcon from '../linkIcon'
 import Icon from '../../Icons/icon'
 import Image from 'next/image'
 import CompanyInfo from '../companyInfo'
-import AuthContext from '../../../../context/auth'
+import AuthContext from '../../../lib/auth'
 import { useContext } from 'react'
 
 export default function projectPopover() {
@@ -21,22 +21,22 @@ export default function projectPopover() {
 			<Link href='/Users/Me' className='visual'>
 				<div className='container'>
 					<Image
-						src={user?.imageUrl ? user?.imageUrl : '/img/Avatar.png'}
-						alt={user?.name}
-						className='p-1 rounded-full'
+						src={user?.PhotoURL ? user?.PhotoURL : '/img/Avatar.png'}
+						alt={user?.Name}
+						className='p-1 rounded-full w-44 h-44'
 						width='175'
 						height='175'
 					/>
 				</div>
 				<div>
-					<h6>{user.name}</h6>
+					<h6>{user.Name}</h6>
 					<div className='subtitle flex gap-2 pt-1'>
 						<Icon name='phone' size='sm' />
-						<span>{user?.phone}</span>
+						<span>{user?.Phone}</span>
 					</div>
 					<div className='subtitle flex gap-2 pt-1'>
 						<Icon name='email' size='sm' />
-						<span>{user?.email}</span>
+						<span>{user?.Email}</span>
 					</div>
 				</div>
 			</Link>
@@ -47,7 +47,7 @@ export default function projectPopover() {
 					<LinkIcon icon='password' label='Change Password' />
 					<LinkIcon
 						action={SwitchTheme}
-						label={`Theme Preference (${user.theme})`}
+						label={`Theme Preference (${user.Theme})`}
 						icon='theme'
 					/>
 					<LinkIcon action={LogOut} label='Logout' icon='logout' />

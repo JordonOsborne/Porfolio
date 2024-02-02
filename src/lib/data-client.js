@@ -1,5 +1,5 @@
 'use client'
-import { db } from '../firebase.config'
+import { db } from '../../firebase.config'
 import { createContext, useState, useEffect, useContext } from 'react'
 import AuthContext from './auth'
 import {

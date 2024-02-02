@@ -1,6 +1,6 @@
 import { Roboto_Mono } from 'next/font/google'
-import { AuthProvider } from '../../context/auth'
-import { DataProvider } from '../../context/data'
+import { AuthProvider } from '../lib/auth'
+import { DataProvider } from '../lib/data-client'
 import Header from './header/layout'
 import './globals.css'
 

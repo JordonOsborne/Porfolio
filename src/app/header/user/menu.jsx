@@ -1,6 +1,6 @@
 import { MenuTrigger, Link, Button } from 'react-aria-components'
 import { usePathname } from 'next/navigation'
-import AuthContext from '../../../../context/auth'
+import AuthContext from '../../../lib/auth'
 import UserPopover from './popover'
 import Icon from '../../Icons/icon'
 import Image from 'next/image'
@@ -34,9 +34,9 @@ export default function userMenu() {
 					className='focus-visible:outline-none'
 				>
 					<Image
-						src={user?.imageUrl ? user?.imageUrl : '/img/Avatar.png'}
-						alt={user?.name}
-						className='rounded-full'
+						src={user?.PhotoURL ? user?.PhotoURL : '/img/Avatar.png'}
+						alt={user?.Name}
+						className='rounded-full w-8 h-8'
 						width='30'
 						height='30'
 					/>

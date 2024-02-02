@@ -7,7 +7,7 @@ import {
 	FieldError,
 	Button,
 } from 'react-aria-components'
-import AuthContext from '../../../context/auth'
+import AuthContext from '@/lib/auth'
 import { useRouter } from 'next/navigation'
 import { useContext } from 'react'
 

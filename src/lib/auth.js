@@ -1,7 +1,7 @@
 'use client'
 import { createContext, useState } from 'react'
-import { auth, db } from '../firebase.config'
-import { doc, getDoc } from 'firebase/firestore'
+import { auth, db } from '../../firebase.config'
+import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore'
 import {
 	signInWithEmailAndPassword,
 	onIdTokenChanged,
@@ -23,21 +23,24 @@ export const AuthProvider = ({ children }) => {
 				try {
 					const dbUser = await getUserData(auth.currentUser.uid)
 					const data = {
-						uid: auth.currentUser.uid,
-						name: auth.currentUser.displayName,
-						imageURL: auth.currentUser.photoURL,
-						company: dbUser.company,
-						email: auth.currentUser.email,
-						phone: dbUser.Phone,
-						firstName: dbUser.firstName,
-						lastName: dbUser.lastName,
-						theme: dbUser?.theme ? dbUser.theme : 'Dark',
-						created: dbUser.created,
+						id: auth?.currentUser.uid,
+						Name: dbUser.Name,
+						PhotoURL: dbUser.PhotoURL,
+						Client: dbUser.Client,
+						Email: auth?.currentUser.email,
+						Phone: dbUser.Phone,
+						FirstName: dbUser.FirstName,
+						LastName: dbUser.LastName,
+						Theme: dbUser?.Theme ? dbUser.Theme : 'Dark',
+						Created: dbUser.Created,
+						LastLogin: serverTimestamp(),
 						isAdmin: dbUser?.isAdmin,
 					}
+					const docRef = doc(db, 'Users', data.id)
+					await setDoc(docRef, data)
 					setUser(data)
 				} catch (error) {
-					console.log('Error:', error.message)
+					console.error('Error:', error.message)
 				}
 			} else {
 				setUser(null)
@@ -51,19 +54,26 @@ export const AuthProvider = ({ children }) => {
 		const userAuth = await signInWithEmailAndPassword(auth, email, password)
 		const dbUser = await getUserData(userAuth.user.uid)
 		const data = {
-			uid: userAuth.user.uid,
-			name: userAuth.user.displayName,
-			imageURL: userAuth.user.photoURL,
-			company: dbUser.company,
-			email: userAuth.user.email,
-			phone: dbUser.Phone,
-			firstName: dbUser.firstName,
-			lastName: dbUser.lastName,
-			theme: dbUser?.theme ? dbUser.theme : 'Dark',
-			created: dbUser.created,
+			id: userAuth.user.uid,
+			Name: dbUser.Name,
+			PhotoURL: dbUser.PhotoURL,
+			Client: dbUser.Client,
+			Email: userAuth.user.email,
+			Phone: dbUser.Phone,
+			FirstName: dbUser.FirstName,
+			LastName: dbUser.LastName,
+			Theme: dbUser?.Theme ? dbUser.Theme : 'Dark',
+			Created: dbUser.Created,
+			LastLogin: serverTimestamp(),
 			isAdmin: dbUser?.isAdmin,
 		}
-		setUser(data)
+		try {
+			const docRef = doc(db, 'Users', data.id)
+			const userData = await setDoc(docRef, data)
+			setUser(userData)
+		} catch (error) {
+			console.error('User Data Not Saved! - ', error.message)
+		}
 	}
 
 	// SWITCH USER'S THEME

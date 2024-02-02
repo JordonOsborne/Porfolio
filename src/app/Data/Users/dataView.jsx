@@ -1,6 +1,6 @@
 import Grid from './grid'
 import Table from './table'
-import { AlphaSort } from '../../../../utilities/sort'
+import { AlphaSort } from '../../../utilities/sort'
 import { UserSearch } from '../../header/SearchBar'
 import { useSearchParams } from 'next/navigation'
 

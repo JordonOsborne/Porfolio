@@ -2,7 +2,7 @@
 import Background from './background'
 import EmailForm from './emailForm'
 import AuthProviders from './authProviders'
-import AuthContext from '../../../context/auth'
+import AuthContext from '../../lib/auth'
 import { useContext } from 'react'
 
 export default function Login() {

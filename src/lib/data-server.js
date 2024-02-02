@@ -1,5 +1,12 @@
-import { db } from '../firebase.config'
-import { collection, query, where, getDocs, getDoc } from 'firebase/firestore'
+import { db } from '../../firebase.config'
+import {
+	collection,
+	query,
+	where,
+	getDocs,
+	doc,
+	getDoc,
+} from 'firebase/firestore'
 
 // GET ALL DATA IN COLLECTION
 export const GetData = async (table, filter, sort) => {

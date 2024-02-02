@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import NotAuthorized from './not-authorized'
-import AuthContext from '../../context/auth'
+import AuthContext from '../lib/auth'
 import { useEffect, useContext } from 'react'
 
 export default function Error({ error, reset }) {

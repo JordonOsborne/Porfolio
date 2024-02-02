@@ -1,13 +1,13 @@
 import { Section, Header, Separator } from 'react-aria-components'
-import AuthContext from '../../../../context/auth'
+import AuthContext from '../../../lib/auth'
 import LinkIcon from '../linkIcon'
 import Icon from '../../Icons/icon'
 import { useContext } from 'react'
 
 export default function details() {
 	const { user, setUser, SwitchTheme, LogOut } = useContext(AuthContext)
-	if (user && !user?.theme) {
-		setUser({ ...user, theme: 'Dark' })
+	if (user && !user?.Theme) {
+		setUser({ ...user, Theme: 'Dark' })
 	}
 
 	if (user) {
@@ -15,14 +15,14 @@ export default function details() {
 			<>
 				<Section>
 					<Header className='pl-8 h-auto gap-1 flex-col items-start col-span-3 justify-self-start'>
-						<h4 className='text-base'>{user.name}</h4>
+						<h4 className='text-base'>{user.Name}</h4>
 						<span className='flex gap-2 text-sm italic dark:text-neutral-600 text-neutral-900'>
 							<Icon name='phone' size='sm' />
-							{user.phone}
+							{user.Phone}
 						</span>
 						<span className='flex gap-2 text-sm italic dark:text-neutral-600 text-neutral-900'>
 							<Icon name='email' size='sm' />
-							{user.email}
+							{user.Email}
 						</span>
 					</Header>
 				</Section>
@@ -32,7 +32,7 @@ export default function details() {
 					<LinkIcon label='Change Password' icon='password' />
 					<LinkIcon
 						action={SwitchTheme}
-						label={`Theme (${user?.theme})`}
+						label={`Theme (${user?.Theme})`}
 						icon='theme'
 					/>
 				</Section>

@@ -14,7 +14,7 @@ import Image from 'next/image'
 import Icon from '../Icons/icon'
 import { usePathname } from 'next/navigation'
 import { useState, useContext } from 'react'
-import AuthContext from '../../../context/auth'
+import AuthContext from '../../lib/auth'
 
 function mobileMenu() {
 	const pathname = usePathname().replace('/', '')

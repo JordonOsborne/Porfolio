@@ -2,11 +2,11 @@ import Image from 'next/image'
 import Rating from '../../Ratings/rating'
 import Review from '../../Ratings/review'
 import TextInput from '../Forms/textInput'
-import useIsMobile from '../../../../utilities/useIsMobile'
-import Data from '../../../../context/data'
+import useIsMobile from '../../../utilities/useIsMobile'
+import Data from '../../../lib/data-client'
 import { useContext, useEffect, useState } from 'react'
 import { Form } from 'react-aria-components'
-import { formatPhoneNumber } from '../../../../utilities/data'
+import { formatPhoneNumber } from '../../../utilities/data'
 
 export default function UserForm({ user, setMode }) {
 	const isMobile = useIsMobile()
